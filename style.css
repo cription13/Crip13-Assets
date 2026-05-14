@@ -333,6 +333,114 @@
       margin-top: 10px;
     }
 
+    .easter-egg {
+  padding: 120px 0;
+}
+
+.egg-box {
+  position: relative;
+  overflow: hidden;
+  border-radius: 40px;
+  padding: 80px 60px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,152,0,0.18),
+      rgba(255,193,7,0.06)
+    );
+  border: 1px solid rgba(255,255,255,0.08);
+  text-align: center;
+}
+
+.egg-box::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,193,7,0.18), transparent 70%);
+  top: -300px;
+  right: -250px;
+}
+
+.egg-badge {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  letter-spacing: 2px;
+  font-size: 13px;
+  color: #ffcc80;
+  margin-bottom: 30px;
+}
+
+.egg-box h2 {
+  font-size: clamp(42px, 7vw, 78px);
+  line-height: 1.08;
+  max-width: 900px;
+  margin: auto;
+}
+
+.egg-description {
+  max-width: 700px;
+  margin: 30px auto 0;
+  color: rgba(255,255,255,0.7);
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.golden-ticket {
+  margin: 45px auto;
+  width: fit-content;
+  padding: 20px 36px;
+  border-radius: 24px;
+  background: linear-gradient(to right, #ffd54f, #ff9800);
+  color: black;
+  font-weight: 700;
+  font-size: 24px;
+  box-shadow: 0 20px 60px rgba(255,152,0,0.25);
+  transform: rotate(-3deg);
+}
+
+.egg-subtext {
+  max-width: 760px;
+  margin: auto;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.9;
+  font-size: 17px;
+}
+
+.egg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-top: 70px;
+}
+
+.egg-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 30px;
+  padding: 35px;
+  transition: 0.4s ease;
+  text-align: left;
+}
+
+.egg-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(255,193,7,0.25);
+}
+
+.egg-card h3 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.egg-card p {
+  color: rgba(255,255,255,0.6);
+  line-height: 1.8;
+}
+
     .cta {
       padding: 100px 0;
     }
