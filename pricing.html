@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prime Web Pricing</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+
+  <style>
+    body{
+      background:#050505;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x:hidden;
+    }
+
+    .card{
+      background:#111111;
+      border:1px solid rgba(255,255,255,0.08);
+      transition:0.4s ease;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+      box-shadow:0 0 40px rgba(255,255,255,0.08);
+    }
+
+    .popular{
+      background:linear-gradient(to bottom,#171717,#0a0a0a);
+      border:1px solid #a855f7;
+      transform:scale(1.05);
+      box-shadow:0 0 50px rgba(168,85,247,0.25);
+    }
+
+    .popular:hover{
+      box-shadow:0 0 60px rgba(168,85,247,0.35);
+    }
+
+    .glow{
+      position:absolute;
+      width:300px;
+      height:300px;
+      background:rgba(168,85,247,0.08);
+      filter:blur(100px);
+      border-radius:50%;
+      top:-120px;
+      right:-120px;
+      pointer-events:none;
+    }
+
+    .btn{
+      transition:0.3s ease;
+    }
+
+    .btn:hover{
+      transform:scale(1.03);
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="min-h-screen flex items-center justify-center px-6 py-20">
+
+    <div class="max-w-7xl w-full">
+
+      <!-- Heading -->
+      <div class="text-center mb-20">
+        <h1 class="text-white text-6xl font-bold tracking-tight">
+          Prime Web Pricing
+        </h1>
+
+        <p class="text-gray-400 text-lg mt-5">
+          Premium websites crafted for modern brands.
+        </p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="grid md:grid-cols-3 gap-8">
+
+        <!-- Starter -->
+        <div class="card rounded-3xl p-8">
+
+          <div class="glow"></div>
+
+          <h2 class="text-white text-3xl font-bold mb-2">
+            Starter
+          </h2>
+
+          <p class="text-gray-400 mb-8">
+            Perfect for portfolios & small businesses
+          </p>
+
+          <div class="mb-10">
+            <span class="text-white text-6xl font-extrabold">
+              ₹5,000
+            </span>
+
+            <span class="text-gray-500 text-lg">
+              / project
+            </span>
+          </div>
+
+          <ul class="space-y-5 mb-10 text-gray-300">
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              1 Page Website
+            </li>
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              Mobile Responsive
+            </li>
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              Basic SEO
+            </li>
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              WhatsApp Integration
+            </li>
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              Fast Delivery
+            </li>
+
+          </ul>
+
+          <a href="https://wa.link/xptsyy"><button class="btn w-full bg-white/10 hover:bg-white/20 text-white py-4 rounded-2xl font-semibold">
+            Get Started
+          </button></a>
+
+        </div>
+
+        <!-- Professional -->
+        <div class="card popular rounded-3xl p-8">
+
+          <div class="glow"></div>
+
+          <!-- Badge -->
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <div class="bg-purple-600 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg">
+              MOST POPULAR
+            </div>
+          </div>
+
+          <h2 class="text-white text-3xl font-bold mb-2">
+            Professional
+          </h2>
+
+          <p class="text-gray-400 mb-8">
+            Best for growing brands & businesses
+          </p>
+
+          <div class="mb-10">
+            <span class="text-white text-6xl font-extrabold">
+              ₹15,000
+            </span>
+
+            <span class="text-gray-500 text-lg">
+              / project
+            </span>
+          </div>
+
+          <ul class="space-y-5 mb-10 text-gray-300">
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              Multi Page Website
+            </li>
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              Premium UI Design
+            </li>
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              Advanced SEO
+            </li>
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              Premium Animations
+            </li>
+
+            <li class="flex items-center gap-3">
+              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+              Priority Support
+            </li>
+
+          </ul>
+
+          <a href="https://wa.link/j4sghu"><button class="btn w-full bg-purple-600 hover:bg-purple-500 text-white py-4 rounded-2xl font-semibold shadow-[0_0_30px_rgba(168,85,247,0.6)]">
+            Get Started
+          </button></a>
+
+        </div>
+
+        <!-- Business -->
+<div class="card rounded-3xl p-8">
+
+  <div class="glow"></div>
+
+  <h2 class="text-white text-3xl font-bold mb-2">
+    Business
+  </h2>
+
+  <p class="text-gray-400 mb-8">
+    Powerful website solution for growing businesses
+  </p>
+
+  <div class="mb-10">
+    <span class="text-white text-6xl font-extrabold">
+      ₹25,000
+    </span>
+
+    <span class="text-gray-500 text-lg">
+      / project
+    </span>
+  </div>
+
+  <ul class="space-y-5 mb-10 text-gray-300">
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+      Up to 10 Premium Pages
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+      Advanced UI/UX Design
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+      High Speed Optimization
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+      SEO Optimization
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+      Smooth Premium Animations
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+      Paid Website Updates After Delivery
+    </li>
+
+  </ul>
+
+  <a href="https://wa.link/3vvh1f"><button class="btn w-full bg-white/10 hover:bg-white/20 text-white py-4 rounded-2xl font-semibold">
+    Get Started
+  </button></a>
+
+</div>
+
+<!-- Enterprise -->
+<div class="card rounded-3xl p-8 border border-cyan-500/40">
+
+  <div class="glow"></div>
+
+  <h2 class="text-white text-3xl font-bold mb-2">
+    Enterprise
+  </h2>
+
+  <p class="text-gray-400 mb-8">
+    Premium custom experience for serious brands
+  </p>
+
+  <div class="mb-10">
+    <span class="text-white text-6xl font-extrabold">
+      ₹45,000
+    </span>
+
+    <span class="text-gray-500 text-lg">
+      / project
+    </span>
+  </div>
+
+  <ul class="space-y-5 mb-10 text-gray-300">
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+      Unlimited Premium Pages
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+      Fully Custom Premium Design
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+      Ultra Smooth Animations
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+      Advanced SEO Optimization
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+      Priority Client Support
+    </li>
+
+    <li class="flex items-center gap-3">
+      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
+      Paid Website Updates Anytime
+    </li>
+
+  </ul>
+
+  <a href="https://wa.link/cnbyl0"><button class="btn w-full bg-cyan-500 hover:bg-cyan-400 text-black py-4 rounded-2xl font-semibold shadow-[0_0_30px_rgba(34,211,238,0.5)]">
+    Contact Us
+  </button></a>
+
+</div>
+
+  </section>
+
+</body>
+</html>
