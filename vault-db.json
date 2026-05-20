@@ -11,6 +11,18 @@
       "used": true,
       "createdAt": "2026-05-18T16:45:30.283Z",
       "claimedAt": "2026-05-18T16:46:26.246Z"
+    },
+    {
+      "orderId": "ADMIN-1779286531308",
+      "clientName": "Admin Generated",
+      "clientEmail": "",
+      "token": "VG8IOHTZ",
+      "code": "VG-9729",
+      "reward": "5%",
+      "rewardCode": "VG-5-8067",
+      "used": true,
+      "createdAt": "2026-05-20T14:15:31.308Z",
+      "claimedAt": "2026-05-20T14:16:40.519Z"
     }
   ]
 }
