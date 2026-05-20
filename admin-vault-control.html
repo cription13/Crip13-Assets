@@ -501,13 +501,16 @@
     let generatedTokens = [];
 
     // Base API URL (deployed Render backend)
+    // CRITICAL: Must match the actual backend URL
     const BASE_API_URL = "https://prime-web-project.onrender.com";
 
     function buildApiUrl(endpoint) {
       if (!endpoint) return BASE_API_URL;
+      // If already a full URL, return as-is
       if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) return endpoint;
-      if (endpoint.startsWith("/api/vault")) return BASE_API_URL + endpoint.replace("/api/vault", "");
+      // If path starts with /, append directly to base URL
       if (endpoint.startsWith("/")) return BASE_API_URL + endpoint;
+      // Otherwise treat as relative path
       return BASE_API_URL + "/" + endpoint;
     }
 
@@ -587,19 +590,46 @@
       generateBtn.textContent = "Generating...";
 
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
         const response = await fetch(buildApiUrl('/api/vault/generate'), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "X-Admin-Key": adminKey
           },
-          body: JSON.stringify({})
+          body: JSON.stringify({}),
+          signal: controller.signal
         });
 
-        const data = await response.json();
+        clearTimeout(timeoutId);
+
+        // Parse JSON with error guard
+        let data;
+        try {
+          data = await response.json();
+        } catch (parseError) {
+          console.error("JSON Parse Error:", parseError, "Response status:", response.status);
+          showStatus("Server error: invalid response. Check backend logs.", true);
+          generateBtn.disabled = false;
+          generateBtn.textContent = "Generate New Vault Token";
+          return;
+        }
 
         if (!response.ok || !data.success) {
-          showStatus(data.message || "Failed to generate token", true);
+          const message = data.message || `Server error (HTTP ${response.status})`;
+          showStatus(message, true);
+          console.warn("Generation failed:", { status: response.status, data });
+          generateBtn.disabled = false;
+          generateBtn.textContent = "Generate New Vault Token";
+          return;
+        }
+
+        // Validate response contains required fields
+        if (!data.token || !data.code || !data.vaultUrl) {
+          showStatus("Server returned incomplete token data", true);
+          console.error("Incomplete token response:", data);
           generateBtn.disabled = false;
           generateBtn.textContent = "Generate New Vault Token";
           return;
@@ -607,6 +637,7 @@
 
         displayToken(data.token, data.code, data.vaultUrl);
         showStatus("✓ Token generated successfully", false);
+        console.log("Token generated:", data.token);
 
         // Add to history
         generatedTokens.unshift({
@@ -625,7 +656,13 @@
         updateHistory();
 
       } catch (error) {
-        showStatus("Error: " + error.message, true);
+        if (error.name === 'AbortError') {
+          showStatus("Request timed out after 10 seconds. Server may be unresponsive.", true);
+          console.error("Request timeout");
+        } else {
+          showStatus("Network error: " + error.message, true);
+          console.error("Fetch error:", error);
+        }
       } finally {
         generateBtn.disabled = false;
         generateBtn.textContent = "Generate New Vault Token";

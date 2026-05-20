@@ -7,6 +7,10 @@ const PORT = Number(process.env.PORT || 3000);
 const ROOT_DIR = __dirname;
 const DB_PATH = path.join(ROOT_DIR, "vault-db.json");
 const ADMIN_KEY = process.env.VAULT_ADMIN_KEY || "prime";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+
+// Locks for preventing race conditions
+const pendingGenerations = new Map();
 
 const MIME_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -37,12 +41,23 @@ function loadDb() {
       vaults: db.vaults || []
     };
   } catch (error) {
+    console.error("DB Load Error:", error);
     return defaultDb();
   }
 }
 
 function saveDb(db) {
-  fs.writeFileSync(DB_PATH, `${JSON.stringify(db, null, 2)}\n`, "utf8");
+  try {
+    fs.writeFileSync(DB_PATH, `${JSON.stringify(db, null, 2)}\n`, "utf8");
+    // Verify write succeeded
+    const verification = fs.readFileSync(DB_PATH, "utf8");
+    JSON.parse(verification); // Validate JSON
+    console.log(`[DB] Saved ${db.vaults.length} vaults`);
+    return true;
+  } catch (error) {
+    console.error("DB Save Error:", error);
+    throw new Error("Failed to save database");
+  }
 }
 
 function sendJson(res, statusCode, payload) {
@@ -86,7 +101,11 @@ function cleanText(value) {
 
 function isAdminAuthorized(req) {
   const adminKey = req.headers["x-admin-key"] || "";
-  return adminKey === ADMIN_KEY;
+  const isAuthorized = adminKey === ADMIN_KEY;
+  if (!isAuthorized && adminKey) {
+    console.warn(`[AUTH] Invalid admin key attempt: ${adminKey.substring(0, 1)}***`);
+  }
+  return isAuthorized;
 }
 
 function generateToken() {
@@ -135,13 +154,23 @@ function generateVault(orderId = "", clientName = "", clientEmail = "") {
   const db = loadDb();
   
   let token;
+  let attempts = 0;
   do {
     token = generateToken();
+    attempts++;
+    if (attempts > 1000) {
+      throw new Error("Could not generate unique token");
+    }
   } while (db.vaults.some((v) => v.token === token));
 
   let code;
+  attempts = 0;
   do {
     code = generateAccessCode();
+    attempts++;
+    if (attempts > 1000) {
+      throw new Error("Could not generate unique code");
+    }
   } while (db.vaults.some((v) => v.code === code));
 
   const vault = {
@@ -160,10 +189,20 @@ function generateVault(orderId = "", clientName = "", clientEmail = "") {
   db.vaults.push(vault);
   saveDb(db);
 
+  // Verify token was actually saved
+  const verifyDb = loadDb();
+  const savedVault = findVaultByToken(verifyDb, token);
+  if (!savedVault) {
+    console.error(`[TOKEN] Failed to verify token ${token} was saved`);
+    throw new Error("Token was not properly saved to database");
+  }
+
+  console.log(`[TOKEN] Generated: ${token} (Code: ${code})`);
+
   return {
     token,
     code,
-    vaultUrl: `/vault?token=${encodeURIComponent(token)}`
+    vaultUrl: `${FRONTEND_URL}/vault?token=${encodeURIComponent(token)}`
   };
 }
 
@@ -189,10 +228,12 @@ function revealVaultReward(db, token) {
   const vault = findVaultByToken(db, token);
 
   if (!vault) {
+    console.warn(`[REVEAL] Token not found: ${token}`);
     return { success: false, message: "Invalid token" };
   }
 
   if (vault.used) {
+    console.warn(`[REVEAL] Token already used: ${token}`);
     return {
       success: false,
       message: "Reward already claimed",
@@ -208,7 +249,14 @@ function revealVaultReward(db, token) {
   vault.rewardCode = rewardCode;
   vault.used = true;
   vault.claimedAt = new Date().toISOString();
-  saveDb(db);
+  
+  try {
+    saveDb(db);
+    console.log(`[REVEAL] Reward revealed: ${token} → ${reward} (Code: ${rewardCode})`);
+  } catch (error) {
+    console.error(`[REVEAL] Failed to save reward for token ${token}:`, error);
+    return { success: false, message: "Failed to save reward" };
+  }
 
   return {
     success: true,
@@ -263,6 +311,7 @@ async function handleApi(req, res, url) {
 
       // If admin, allow generation without fields
       if (isAdmin) {
+        console.log(`[API] Admin token generation requested`);
         const result = generateVault(orderId, clientName, clientEmail);
         sendJson(res, 200, { success: true, ...result });
         return true;
@@ -270,6 +319,7 @@ async function handleApi(req, res, url) {
 
       // If not admin, require all fields for client usage
       if (!orderId || !clientName || !clientEmail) {
+        console.warn(`[API] Non-admin generation attempted without required fields`);
         sendJson(res, 401, {
           success: false,
           message: "Unauthorized: admin key required or all fields must be provided"
@@ -285,6 +335,7 @@ async function handleApi(req, res, url) {
     // GET /api/vault/list (admin only)
     if (req.method === "GET" && url.pathname === "/api/vault/list") {
       if (!isAdminAuthorized(req)) {
+        console.warn(`[API] Unauthorized list attempt`);
         sendJson(res, 401, { success: false, message: "Unauthorized" });
         return true;
       }
@@ -302,6 +353,7 @@ async function handleApi(req, res, url) {
         }))
         .slice(0, 50);
 
+      console.log(`[API] List retrieved: ${vaults.length} vaults`);
       sendJson(res, 200, { success: true, vaults });
       return true;
     }
@@ -312,6 +364,7 @@ async function handleApi(req, res, url) {
       const { token, code } = body;
 
       if (!token || !code) {
+        console.warn(`[VERIFY] Missing required fields`);
         sendJson(res, 400, {
           success: false,
           message: "Missing required fields: token, code"
@@ -323,10 +376,12 @@ async function handleApi(req, res, url) {
       const result = verifyCode(db, token, code);
 
       if (!result.valid) {
+        console.warn(`[VERIFY] Invalid code for token: ${token}`);
         sendJson(res, 400, { success: false, message: result.message });
         return true;
       }
 
+      console.log(`[VERIFY] Code verified for token: ${token}`);
       sendJson(res, 200, { success: true, vaultAccess: true });
       return true;
     }
@@ -337,6 +392,7 @@ async function handleApi(req, res, url) {
       const { token } = body;
 
       if (!token) {
+        console.warn(`[REVEAL] Missing token parameter`);
         sendJson(res, 400, {
           success: false,
           message: "Missing required field: token"
@@ -348,7 +404,8 @@ async function handleApi(req, res, url) {
       const result = revealVaultReward(db, token);
 
       if (!result.success) {
-        sendJson(res, result.message === "Reward already claimed" ? 400 : 400, result);
+        const statusCode = result.message === "Reward already claimed" ? 200 : 400;
+        sendJson(res, statusCode, result);
         return true;
       }
 
@@ -361,12 +418,16 @@ async function handleApi(req, res, url) {
       const token = url.pathname.replace("/api/vault/result/", "");
 
       if (!token) {
+        console.warn(`[RESULT] Missing token parameter`);
         sendJson(res, 400, { success: false, message: "Missing token" });
         return true;
       }
 
       const result = getVaultResult(token);
       const statusCode = result.success ? 200 : 404;
+      if (!result.success) {
+        console.log(`[RESULT] Token not found or not yet opened: ${token}`);
+      }
       sendJson(res, statusCode, result);
       return true;
     }
@@ -377,11 +438,13 @@ async function handleApi(req, res, url) {
       const { rewardCode } = body;
 
       if (!rewardCode) {
+        console.warn(`[REWARD-VERIFY] Missing rewardCode parameter`);
         sendJson(res, 400, { valid: false, message: "Missing rewardCode" });
         return true;
       }
 
       const result = verifyRewardCode(rewardCode);
+      console.log(`[REWARD-VERIFY] Reward code check: ${rewardCode} → ${result.valid ? "Valid" : "Invalid"}`);
       sendJson(res, result.valid ? 200 : 404, result);
       return true;
     }
