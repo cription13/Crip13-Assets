@@ -1,336 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Prime Web Pricing</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prime Web website development pricing packages for business websites, e-commerce stores, add-ons, and monthly care plans.">
+  <title>Pricing | PRIME WEB</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="css/style.css">
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-
-  <style>
-    body{
-      background:#050505;
-      font-family: Arial, Helvetica, sans-serif;
-      overflow-x:hidden;
-    }
-
-    .card{
-      background:#111111;
-      border:1px solid rgba(255,255,255,0.08);
-      transition:0.4s ease;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .card:hover{
-      transform:translateY(-10px);
-      box-shadow:0 0 40px rgba(255,255,255,0.08);
-    }
-
-    .popular{
-      background:linear-gradient(to bottom,#171717,#0a0a0a);
-      border:1px solid #a855f7;
-      transform:scale(1.05);
-      box-shadow:0 0 50px rgba(168,85,247,0.25);
-    }
-
-    .popular:hover{
-      box-shadow:0 0 60px rgba(168,85,247,0.35);
-    }
-
-    .glow{
-      position:absolute;
-      width:300px;
-      height:300px;
-      background:rgba(168,85,247,0.08);
-      filter:blur(100px);
-      border-radius:50%;
-      top:-120px;
-      right:-120px;
-      pointer-events:none;
-    }
-
-    .btn{
-      transition:0.3s ease;
-    }
-
-    .btn:hover{
-      transform:scale(1.03);
-    }
-  </style>
 </head>
-
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <section class="min-h-screen flex items-center justify-center px-6 py-20">
+  <header class="site-header" id="siteHeader">
+    <nav class="navbar container" aria-label="Primary navigation">
+      <a class="wordmark" href="index.html" aria-label="Prime Web home"><strong>PRIME</strong><span>WEB</span></a>
 
-    <div class="max-w-7xl w-full">
+      <ul class="nav-links" aria-label="Main links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#work">Work</a></li>
+        <li><a href="index.html#process">Process</a></li>
+        <li><a href="index.html#reviews">Reviews</a></li>
+        <li><a class="active" href="#pricing-contact">Contact</a></li>
+      </ul>
 
-      <!-- Heading -->
-      <div class="text-center mb-20">
-        <h1 class="text-white text-6xl font-bold tracking-tight">
-          Prime Web Pricing
-        </h1>
+      <a class="btn btn-small btn-primary nav-cta" href="#pricing-contact">Get a Quote <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
 
-        <p class="text-gray-400 text-lg mt-5">
-          Premium websites crafted for modern brands.
-        </p>
-      </div>
+      <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
 
-      <!-- Pricing Cards -->
-      <div class="grid md:grid-cols-3 gap-8">
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+      <nav aria-label="Mobile navigation">
+        <a href="index.html#services">Services</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#reviews">Reviews</a>
+        <a href="#pricing-contact">Contact</a>
+        <a class="btn btn-primary" href="#pricing-contact">Get a Quote <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      </nav>
+    </aside>
+  </header>
 
-        <!-- Starter -->
-        <div class="card rounded-3xl p-8">
+  <main id="main">
+    <section class="pricing-hero section-anchor" id="pricing" aria-labelledby="pricing-title">
+      <section class="container pricing-hero-inner">
+        <article class="pricing-hero-copy animate-hidden">
+          <p class="badge"><span aria-hidden="true">&#10022;</span> PrimeWeb Pricing</p>
+          <h1 id="pricing-title">Website Development Packages for Growing Brands.</h1>
+          <p>Transparent starting ranges for modern websites, online stores, add-ons, and monthly care. Pick a package, then we shape the final scope around your business.</p>
+          <nav class="hero-actions" aria-label="Pricing calls to action">
+            <a class="btn btn-primary" href="#packages">View Packages <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+            <a class="btn btn-secondary" href="#pricing-contact">Request Custom Quote <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+          </nav>
+        </article>
 
-          <div class="glow"></div>
-
-          <h2 class="text-white text-3xl font-bold mb-2">
-            Starter
-          </h2>
-
-          <p class="text-gray-400 mb-8">
-            Perfect for portfolios & small businesses
-          </p>
-
-          <div class="mb-10">
-            <span class="text-white text-6xl font-extrabold">
-              ₹5,000
-            </span>
-
-            <span class="text-gray-500 text-lg">
-              / project
-            </span>
-          </div>
-
-          <ul class="space-y-5 mb-10 text-gray-300">
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              1 Page Website
-            </li>
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              Mobile Responsive
-            </li>
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              Basic SEO
-            </li>
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              WhatsApp Integration
-            </li>
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              Fast Delivery
-            </li>
-
+        <aside class="pricing-summary-card animate-hidden" data-delay="140" aria-label="Pricing summary">
+          <p class="eyebrow">STARTING FROM</p>
+          <strong>&#8377;4,999</strong>
+          <span>Launch-ready business websites with responsive design, contact integration, basic SEO, and fast loading setup.</span>
+          <ul>
+            <li><i class="ph ph-check" aria-hidden="true"></i> 50% advance to begin</li>
+            <li><i class="ph ph-check" aria-hidden="true"></i> Custom quotations available</li>
+            <li><i class="ph ph-check" aria-hidden="true"></i> Scope-based delivery timeline</li>
           </ul>
+        </aside>
+      </section>
+    </section>
 
-          <a href="https://wa.link/xptsyy"><button class="btn w-full bg-white/10 hover:bg-white/20 text-white py-4 rounded-2xl font-semibold">
-            Get Started
-          </button></a>
+    <section class="section section-anchor" id="packages" aria-labelledby="packages-title">
+      <section class="section-heading container animate-hidden">
+        <p class="eyebrow">WEBSITE PACKAGES</p>
+        <h2 id="packages-title">Choose the Right Starting Point.</h2>
+      </section>
 
-        </div>
-
-        <!-- Professional -->
-        <div class="card popular rounded-3xl p-8">
-
-          <div class="glow"></div>
-
-          <!-- Badge -->
-          <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-            <div class="bg-purple-600 text-white px-5 py-2 rounded-full text-sm font-semibold shadow-lg">
-              MOST POPULAR
-            </div>
-          </div>
-
-          <h2 class="text-white text-3xl font-bold mb-2">
-            Professional
-          </h2>
-
-          <p class="text-gray-400 mb-8">
-            Best for growing brands & businesses
-          </p>
-
-          <div class="mb-10">
-            <span class="text-white text-6xl font-extrabold">
-              ₹15,000
-            </span>
-
-            <span class="text-gray-500 text-lg">
-              / project
-            </span>
-          </div>
-
-          <ul class="space-y-5 mb-10 text-gray-300">
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              Multi Page Website
-            </li>
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              Premium UI Design
-            </li>
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              Advanced SEO
-            </li>
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              Premium Animations
-            </li>
-
-            <li class="flex items-center gap-3">
-              <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-              Priority Support
-            </li>
-
+      <section class="pricing-grid container">
+        <article class="pricing-card animate-hidden">
+          <header>
+            <p class="package-label">Starter Launch Package</p>
+            <h3>Small Businesses &amp; Startups</h3>
+            <strong>&#8377;4,999 &ndash; &#8377;8,999</strong>
+          </header>
+          <p>Best for small businesses, personal brands, and startups that need a clean online presence fast.</p>
+          <ul>
+            <li>1&ndash;3 page website</li>
+            <li>Mobile responsive design</li>
+            <li>Modern UI/UX layout</li>
+            <li>WhatsApp &amp; contact integration</li>
+            <li>Basic SEO setup</li>
+            <li>Fast loading optimization</li>
+            <li>Social media links</li>
           </ul>
+          <a class="btn btn-secondary" href="#pricing-contact">Start Here <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </article>
 
-          <a href="https://wa.link/j4sghu"><button class="btn w-full bg-purple-600 hover:bg-purple-500 text-white py-4 rounded-2xl font-semibold shadow-[0_0_30px_rgba(168,85,247,0.6)]">
-            Get Started
-          </button></a>
+        <article class="pricing-card featured animate-hidden" data-delay="120">
+          <span class="popular-badge">Most Popular</span>
+          <header>
+            <p class="package-label">Business Growth Package</p>
+            <h3>Local Businesses &amp; Service Providers</h3>
+            <strong>&#8377;12,999 &ndash; &#8377;24,999</strong>
+          </header>
+          <p>Best for local businesses, agencies, and service providers that need stronger conversion tools.</p>
+          <ul>
+            <li>4&ndash;8 pages</li>
+            <li>Premium custom design</li>
+            <li>Contact forms</li>
+            <li>Google Maps integration</li>
+            <li>Advanced mobile optimization</li>
+            <li>Speed optimization</li>
+            <li>SEO-ready structure</li>
+            <li>Custom animations</li>
+            <li>Basic admin panel</li>
+          </ul>
+          <a class="btn btn-primary" href="#pricing-contact">Choose Growth <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </article>
 
-        </div>
+        <article class="pricing-card animate-hidden" data-delay="240">
+          <header>
+            <p class="package-label">Premium Brand Website</p>
+            <h3>Established Brands &amp; Companies</h3>
+            <strong>&#8377;29,999 &ndash; &#8377;69,999+</strong>
+          </header>
+          <p>Best for established brands and professional companies that need a premium custom platform.</p>
+          <ul>
+            <li>Fully custom website</li>
+            <li>Premium UI/UX design</li>
+            <li>Advanced animations</li>
+            <li>Booking or inquiry system</li>
+            <li>CMS/Admin dashboard</li>
+            <li>Blog setup</li>
+            <li>Advanced SEO optimization</li>
+            <li>Performance optimization</li>
+            <li>Security setup</li>
+            <li>Brand-focused design strategy</li>
+          </ul>
+          <a class="btn btn-secondary" href="#pricing-contact">Build Premium <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        </article>
+      </section>
+    </section>
 
-        <!-- Business -->
-<div class="card rounded-3xl p-8">
+    <section class="section ecommerce-section section-anchor" id="ecommerce" aria-labelledby="ecommerce-title">
+      <section class="section-heading container animate-hidden">
+        <p class="eyebrow">E-COMMERCE WEBSITES</p>
+        <h2 id="ecommerce-title">Storefronts Built to Sell.</h2>
+      </section>
 
-  <div class="glow"></div>
+      <section class="store-grid container">
+        <article class="pricing-card store-card animate-hidden">
+          <header>
+            <p class="package-label">Basic Store</p>
+            <h3>Launch Your Online Shop</h3>
+            <strong>&#8377;19,999 &ndash; &#8377;34,999</strong>
+          </header>
+          <ul>
+            <li>Up to 25 products</li>
+            <li>Payment gateway integration</li>
+            <li>Cart &amp; checkout system</li>
+            <li>Mobile optimized</li>
+            <li>Product categories</li>
+            <li>WhatsApp order support</li>
+          </ul>
+        </article>
 
-  <h2 class="text-white text-3xl font-bold mb-2">
-    Business
-  </h2>
+        <article class="pricing-card store-card animate-hidden" data-delay="140">
+          <header>
+            <p class="package-label">Advanced Store</p>
+            <h3>Scale Your Product Business</h3>
+            <strong>&#8377;49,999 &ndash; &#8377;1,20,000+</strong>
+          </header>
+          <ul>
+            <li>Unlimited products</li>
+            <li>Premium storefront design</li>
+            <li>Inventory management</li>
+            <li>Coupon system</li>
+            <li>Analytics integration</li>
+            <li>Order management dashboard</li>
+            <li>SEO optimization</li>
+            <li>Speed optimization</li>
+          </ul>
+        </article>
+      </section>
+    </section>
 
-  <p class="text-gray-400 mb-8">
-    Powerful website solution for growing businesses
-  </p>
+    <section class="section section-anchor" id="addons" aria-labelledby="addons-title">
+      <section class="section-heading container animate-hidden">
+        <p class="eyebrow">ADD-ON SERVICES</p>
+        <h2 id="addons-title">Extra Firepower When You Need It.</h2>
+      </section>
 
-  <div class="mb-10">
-    <span class="text-white text-6xl font-extrabold">
-      ₹25,000
-    </span>
+      <section class="addons-panel container animate-hidden">
+        <table>
+          <caption class="sr-only">Prime Web add-on service prices</caption>
+          <thead>
+            <tr>
+              <th scope="col">Service</th>
+              <th scope="col">Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Logo Design</td><td>&#8377;1,500 &ndash; &#8377;5,000</td></tr>
+            <tr><td>Landing Page</td><td>&#8377;3,000 &ndash; &#8377;8,000</td></tr>
+            <tr><td>SEO Setup</td><td>&#8377;2,500 &ndash; &#8377;10,000</td></tr>
+            <tr><td>Website Redesign</td><td>Starts at &#8377;7,999</td></tr>
+            <tr><td>Website Maintenance</td><td>&#8377;1,999/month</td></tr>
+            <tr><td>Speed Optimization</td><td>&#8377;2,500 &ndash; &#8377;6,000</td></tr>
+            <tr><td>Hosting Setup</td><td>&#8377;1,500</td></tr>
+            <tr><td>Domain Setup</td><td>&#8377;500</td></tr>
+            <tr><td>Social Media Integration</td><td>&#8377;999</td></tr>
+            <tr><td>Blog Setup</td><td>&#8377;1,999</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
 
-    <span class="text-gray-500 text-lg">
-      / project
-    </span>
-  </div>
+    <section class="section care-section section-anchor" id="care-plans" aria-labelledby="care-title">
+      <section class="section-heading container animate-hidden">
+        <p class="eyebrow">MONTHLY MANAGEMENT</p>
+        <h2 id="care-title">Keep Your Website Healthy After Launch.</h2>
+      </section>
 
-  <ul class="space-y-5 mb-10 text-gray-300">
+      <section class="store-grid container">
+        <article class="pricing-card care-card animate-hidden">
+          <header>
+            <p class="package-label">Basic Care Plan</p>
+            <h3>Essential Monthly Support</h3>
+            <strong>&#8377;1,999/month</strong>
+          </header>
+          <ul>
+            <li>Monthly updates</li>
+            <li>Security monitoring</li>
+            <li>Backup management</li>
+            <li>Minor edits</li>
+          </ul>
+        </article>
 
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-      Up to 10 Premium Pages
-    </li>
+        <article class="pricing-card care-card featured animate-hidden" data-delay="140">
+          <header>
+            <p class="package-label">Premium Care Plan</p>
+            <h3>Priority Growth Support</h3>
+            <strong>&#8377;4,999/month</strong>
+          </header>
+          <ul>
+            <li>Priority support</li>
+            <li>Unlimited minor edits</li>
+            <li>Monthly optimization</li>
+            <li>SEO monitoring</li>
+            <li>Analytics reports</li>
+            <li>Backup &amp; security management</li>
+          </ul>
+        </article>
+      </section>
+    </section>
 
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-      Advanced UI/UX Design
-    </li>
+    <section class="positioning-band" aria-labelledby="positioning-title">
+      <section class="container animate-hidden">
+        <p class="eyebrow" id="positioning-title">PRIMEWEB POSITIONING</p>
+        <ul>
+          <li>Modern Websites for Modern Brands</li>
+          <li>Building Digital Presence That Converts</li>
+          <li>Creative Web Solutions for Growing Businesses</li>
+          <li>Premium Websites. Real Results.</li>
+          <li>Web Design &bull; Development &bull; Branding</li>
+        </ul>
+      </section>
+    </section>
 
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-      High Speed Optimization
-    </li>
+    <section class="section pricing-notes section-anchor" id="notes" aria-labelledby="notes-title">
+      <section class="container notes-grid">
+        <article class="animate-hidden">
+          <p class="eyebrow">NOTES</p>
+          <h2 id="notes-title">Clear Scope. Clean Delivery.</h2>
+        </article>
+        <ul class="note-list animate-hidden" data-delay="120">
+          <li>Prices may vary based on features and complexity.</li>
+          <li>50% advance payment required to begin the project.</li>
+          <li>Delivery time depends on project scope.</li>
+          <li>Custom quotations available for large-scale projects.</li>
+        </ul>
+      </section>
+    </section>
 
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-      SEO Optimization
-    </li>
+    <section class="cta-banner section-anchor" id="pricing-contact" aria-labelledby="pricing-contact-title">
+      <section class="container animate-hidden">
+        <h2 id="pricing-contact-title">Ready to Price Your Website Properly?</h2>
+        <p>Tell us what you need and we will recommend the best package for your goals.</p>
+        <a class="btn btn-light" href="https://wa.me/919999999999">Get Your Free Quote Today <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+        <small>&#10003; Fast Response &bull; &#10003; No Obligation &bull; &#10003; Delivered On Time</small>
+      </section>
+    </section>
+  </main>
 
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-      Smooth Premium Animations
-    </li>
+  <footer class="site-footer">
+    <section class="footer-grid container">
+      <article>
+        <a class="wordmark footer-wordmark" href="index.html"><strong>PRIME</strong><span>WEB</span></a>
+        <p>Premium Websites. Real Results.</p>
+        <nav class="social-links" aria-label="Social links">
+          <a href="https://instagram.com/primeweb" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
+          <a href="https://linkedin.com/company/primeweb" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
+          <a href="https://wa.me/919999999999" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+          <a href="https://behance.net/primeweb" aria-label="Behance"><i class="ph ph-behance-logo"></i></a>
+        </nav>
+      </article>
+      <nav aria-label="Footer services">
+        <h3>Services</h3>
+        <a href="index.html#services">Web Design</a>
+        <a href="index.html#services">Web Development</a>
+        <a href="index.html#services">UI/UX Design</a>
+        <a href="index.html#services">SEO</a>
+        <a href="index.html#services">Brand Identity</a>
+        <a href="index.html#services">Mobile Development</a>
+      </nav>
+      <nav aria-label="Footer company">
+        <h3>Company</h3>
+        <a href="index.html#why-prime-web">About</a>
+        <a href="index.html#work">Work</a>
+        <a href="index.html#process">Process</a>
+        <a href="index.html#reviews">Reviews</a>
+        <a href="#pricing-contact">Contact</a>
+        <a href="#packages">Pricing</a>
+      </nav>
+      <address>
+        <h3>Contact</h3>
+        <a href="mailto:hello@primeweb.co"><i class="ph ph-envelope" aria-hidden="true"></i> hello@primeweb.co</a>
+        <a href="https://wa.me/919999999999"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> WhatsApp</a>
+        <p><i class="ph ph-map-pin" aria-hidden="true"></i> Kochi, Kerala</p>
+        <a class="btn btn-small btn-primary" href="#pricing-contact">Start a Project <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+      </address>
+    </section>
+    <section class="footer-bottom container">
+      <p>&copy; 2025 Prime Web. All Rights Reserved.</p>
+      <p>Designed &amp; Built by Prime Web</p>
+    </section>
+  </footer>
 
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
-      Paid Website Updates After Delivery
-    </li>
-
-  </ul>
-
-  <a href="https://wa.link/3vvh1f"><button class="btn w-full bg-white/10 hover:bg-white/20 text-white py-4 rounded-2xl font-semibold">
-    Get Started
-  </button></a>
-
-</div>
-
-<!-- Enterprise -->
-<div class="card rounded-3xl p-8 border border-cyan-500/40">
-
-  <div class="glow"></div>
-
-  <h2 class="text-white text-3xl font-bold mb-2">
-    Enterprise
-  </h2>
-
-  <p class="text-gray-400 mb-8">
-    Premium custom experience for serious brands
-  </p>
-
-  <div class="mb-10">
-    <span class="text-white text-6xl font-extrabold">
-      ₹45,000
-    </span>
-
-    <span class="text-gray-500 text-lg">
-      / project
-    </span>
-  </div>
-
-  <ul class="space-y-5 mb-10 text-gray-300">
-
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
-      Unlimited Premium Pages
-    </li>
-
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
-      Fully Custom Premium Design
-    </li>
-
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
-      Ultra Smooth Animations
-    </li>
-
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
-      Advanced SEO Optimization
-    </li>
-
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
-      Priority Client Support
-    </li>
-
-    <li class="flex items-center gap-3">
-      <div class="w-2 h-2 bg-cyan-400 rounded-full"></div>
-      Paid Website Updates Anytime
-    </li>
-
-  </ul>
-
-  <a href="https://wa.link/cnbyl0"><button class="btn w-full bg-cyan-500 hover:bg-cyan-400 text-black py-4 rounded-2xl font-semibold shadow-[0_0_30px_rgba(34,211,238,0.5)]">
-    Contact Us
-  </button></a>
-
-</div>
-
-  </section>
-
+  <a class="whatsapp-float" href="https://wa.me/919999999999" aria-label="Chat with Prime Web on WhatsApp"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i></a>
+  <script src="js/main.js"></script>
 </body>
 </html>
