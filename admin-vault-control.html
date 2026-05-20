@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vault Control Center | Velvet Grid Admin</title>
+  <title>Vault Control Center | Prime Web Admin</title>
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
   <style>
     :root {
@@ -406,8 +406,8 @@
     <div class="admin-container">
       <section class="admin-header">
         <div class="admin-logo">
-          <img src="assets/logo.jpg" alt="Velvet Grid">
-          <span>Velvet Grid</span>
+          <img src="assets/logo.jpg" alt="Prime Web">
+          <span>Prime Web</span>
         </div>
         <h1 class="admin-title">Vault Token Generator</h1>
         <p class="admin-subtitle">Admin Control Center — Generate and manage exclusive vault access tokens</p>
@@ -501,17 +501,11 @@
     let generatedTokens = [];
 
     // Base API URL (deployed Render backend)
-    // CRITICAL: Must match the actual backend URL
-    const BASE_API_URL = "https://prime-web-project.onrender.com";
+    // CRITICAL: Backend runs on SAME service as frontend
+    const BASE_API_URL = "https://velvet-grid-landing-page.onrender.com/api/vault";
 
     function buildApiUrl(endpoint) {
-      if (!endpoint) return BASE_API_URL;
-      // If already a full URL, return as-is
-      if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) return endpoint;
-      // If path starts with /, append directly to base URL
-      if (endpoint.startsWith("/")) return BASE_API_URL + endpoint;
-      // Otherwise treat as relative path
-      return BASE_API_URL + "/" + endpoint;
+        return `${BASE_API_URL}${endpoint.replace('/api/vault', '')}`;
     }
 
     function showStatus(message, isError = false) {
@@ -593,15 +587,18 @@
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
-        const response = await fetch(buildApiUrl('/api/vault/generate'), {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Admin-Key": adminKey
-          },
-          body: JSON.stringify({}),
-          signal: controller.signal
-        });
+        const response = await fetch(
+            `${BASE_API_URL}/generate`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Admin-Key": adminKey
+                },
+                body: JSON.stringify({}),
+                signal: controller.signal
+            }
+        );
 
         clearTimeout(timeoutId);
 
