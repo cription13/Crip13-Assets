@@ -7,7 +7,7 @@ const PORT = Number(process.env.PORT || 3000);
 const ROOT_DIR = __dirname;
 const DB_PATH = path.join(ROOT_DIR, "vault-db.json");
 const ADMIN_KEY = process.env.VAULT_ADMIN_KEY || "prime";
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://primewebhub.netlify.app";
 
 // Locks for preventing race conditions
 const pendingGenerations = new Map();
