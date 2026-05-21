@@ -736,6 +736,34 @@
       font-weight: 900;
     }
 
+    .customer-code {
+      display: block;
+      width: 100%;
+      min-height: 64px;
+      padding: 1rem 1.25rem;
+      border: 1px solid rgba(139,92,246,0.25);
+      border-radius: var(--radius-lg);
+      background: rgba(22, 13, 48, 0.8);
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 12px 30px rgba(4, 5, 21, 0.2);
+      transition: border-color 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+    }
+
+    .customer-code:focus {
+      outline: none;
+      border-color: rgba(139,92,246,0.75);
+      box-shadow: 0 0 0 4px rgba(139,92,246,0.16);
+      transform: translateY(-1px);
+    }
+
+    .customer-code::placeholder {
+      color: rgba(255,255,255,0.6);
+    }
+
     .vault-title {
       max-width: 620px;
       color: var(--text-primary);
@@ -909,7 +937,7 @@
           <div class="vault-action">
             <div class="form-group">
               <label class="form-label">Enter Secret Code</label>
-              <input type="text" id="customerCodeInput" class="form-input" placeholder="Enter your code (e.g. VG-20-4821)">
+              <input id="customerCodeInput" name="customerCode" required maxlength="100" class="customer-code" placeholder="Enter your code (e.g. VG-ORD-XXXX)" />
             </div>
             <button class="vault-button" type="button" data-vault-button>
               <span data-button-text>UNLOCK</span>
@@ -997,7 +1025,6 @@
     };
 
     const STORAGE_KEY = 'prime-vault-used-codes';
-    const usedCodes = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
 
     const rewardCardMap = {
       '5% OFF': '5',
@@ -1006,12 +1033,48 @@
       'FREE Speed Optimization': '50'
     };
 
+    function normalizeCode(code) {
+      return (code || '').trim().toUpperCase();
+    }
+
+    function getSavedUsedCodes() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        if (!Array.isArray(saved)) return new Set();
+        return new Set(saved.map(normalizeCode));
+      } catch (error) {
+        return new Set();
+      }
+    }
+
+    const usedCodes = getSavedUsedCodes();
+
     function saveUsedCodes() {
       localStorage.setItem(STORAGE_KEY, JSON.stringify([...usedCodes]));
     }
 
-    function normalizeCode(code) {
-      return (code || '').trim().toUpperCase();
+    function syncBuiltInUsedCodes() {
+      Object.entries(VAULT_CODES).forEach(([rawCode, entry]) => {
+        const code = normalizeCode(rawCode);
+        // If the VAULT_CODES entry explicitly sets `used` (true/false),
+        // treat that as authoritative and sync localStorage to match.
+        if (Object.prototype.hasOwnProperty.call(entry, 'used')) {
+          if (entry.used === true) {
+            usedCodes.add(code);
+            entry.used = true;
+          } else if (entry.used === false) {
+            usedCodes.delete(code);
+            entry.used = false;
+          }
+        } else {
+          // If no explicit flag, honor existing localStorage state.
+          if (usedCodes.has(code)) {
+            entry.used = true;
+          }
+        }
+      });
+      // Persist any changes back to localStorage.
+      saveUsedCodes();
     }
 
     function showStatus(message, isError = false) {
@@ -1065,7 +1128,7 @@
       if (!entry) {
         return showStatus('Invalid secret code', true);
       }
-      if (entry.used || usedCodes.has(code)) {
+      if (entry.used) {
         return showStatus('This code has already been redeemed', true);
       }
 
@@ -1080,12 +1143,8 @@
       if (event.key === 'Enter') redeemCode();
     });
 
-    // Initialize used state from local storage for the current browser session
-    Object.keys(VAULT_CODES).forEach(code => {
-      if (usedCodes.has(code)) {
-        VAULT_CODES[code].used = true;
-      }
-    });
+    // Initialize used state from local storage and built-in flags
+    syncBuiltInUsedCodes();
   </script>
 </body>
 </html>
