@@ -6,7 +6,7 @@ const crypto = require("crypto");
 const PORT = Number(process.env.PORT || 3000);
 const ROOT_DIR = __dirname;
 const DB_PATH = path.join(ROOT_DIR, "vault-db.json");
-const ADMIN_KEY = process.env.VAULT_ADMIN_KEY || "prime";
+const ADMIN_KEY = process.env.ADMIN_KEY || process.env.VAULT_ADMIN_KEY || "prime";
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://primewebhub.netlify.app";
 
 // Locks for preventing race conditions
@@ -305,9 +305,20 @@ async function handleApi(req, res, url) {
   try {
     // POST /api/vault/generate
     if (req.method === "POST" && url.pathname === "/api/vault/generate") {
+      const adminKey = req.headers["x-admin-key"];
+      console.log("Received admin key:", adminKey);
       const isAdmin = isAdminAuthorized(req);
       const body = await readRequestBody(req);
       const { orderId, clientName, clientEmail } = body;
+
+      if (adminKey && adminKey !== ADMIN_KEY) {
+        console.warn(`[API] Invalid admin key received: ${adminKey}`);
+        sendJson(res, 401, {
+          success: false,
+          message: "Unauthorized"
+        });
+        return true;
+      }
 
       // If admin, allow generation without fields
       if (isAdmin) {

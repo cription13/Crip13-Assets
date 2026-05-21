@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Velvet Grid Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="vg-admin.css">
+</head>
+<body class="admin-shell">
+  <header class="admin-header">
+    <div class="brand-bar">
+      <button class="admin-logo" type="button" aria-label="Velvet Grid logo"></button>
+      <div>
+        <p class="eyebrow">Velvet Grid</p>
+        <h1>Admin access</h1>
+      </div>
+    </div>
+    <p class="access-note">Use <strong>CTRL + SHIFT + V</strong> or tap the logo 7 times to reveal the admin panel.</p>
+  </header>
+
+  <section class="login-wrapper">
+    <article class="login-card">
+      <div class="login-copy">
+        <span class="tag">Hidden control system</span>
+        <h2>Private admin access</h2>
+        <p>Enter the Velvet Grid password to open the management workspace below. The panel expands smoothly after successful login.</p>
+      </div>
+      <form id="loginForm" class="login-form" autocomplete="off" novalidate>
+        <label class="field-group">
+          <span>Password</span>
+          <input id="passwordInput" type="password" autocomplete="new-password" placeholder="VG2026" aria-label="Admin password">
+        </label>
+        <div class="login-actions">
+          <button class="button" type="submit">Unlock</button>
+          <p class="status-msg hidden" id="loginStatus">Incorrect password. Try again.</p>
+        </div>
+      </form>
+    </article>
+  </section>
+
+  <main class="admin-content hidden" id="adminContent">
+    <section class="panel-card panel-intro">
+      <div>
+        <p class="tag">Control center</p>
+        <h2>Velvet Grid management</h2>
+        <p>All controls are saved in <strong>localStorage</strong> and update the admin state instantly. The workspace is responsive, premium, and designed to match the Velvet Grid brand.</p>
+      </div>
+      <div class="stats-overview" aria-live="polite">
+        <div>
+          <span>Tasks</span>
+          <strong id="statsTaskCount">0</strong>
+        </div>
+        <div>
+          <span>Announcements</span>
+          <strong id="statsAnnouncementCount">0</strong>
+        </div>
+        <div>
+          <span>Event</span>
+          <strong id="statsEventStatus">Disabled</strong>
+        </div>
+        <div>
+          <span>Last saved</span>
+          <strong id="statsLastUpdated">—</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-grid">
+      <article class="panel-card">
+        <div class="panel-head">
+          <p class="tag">Hero content</p>
+          <h3>Homepage text control</h3>
+        </div>
+        <form id="heroForm" class="control-form" autocomplete="off">
+          <label class="field-group">
+            <span>Homepage title</span>
+            <input id="heroTitle" type="text" placeholder="Enter homepage title">
+          </label>
+          <label class="field-group">
+            <span>Subtitle</span>
+            <input id="heroSubtitle" type="text" placeholder="Enter homepage subtitle">
+          </label>
+          <label class="field-group">
+            <span>CTA text</span>
+            <input id="heroCta" type="text" placeholder="Enter CTA button text">
+          </label>
+          <p class="field-note">Changes are saved automatically.</p>
+        </form>
+      </article>
+
+      <article class="panel-card">
+        <div class="panel-head">
+          <p class="tag">Announcements</p>
+          <h3>Live banner control</h3>
+        </div>
+        <form id="announcementForm" class="control-form" autocomplete="off">
+          <label class="field-group">
+            <span>Announcement text</span>
+            <input id="announcementText" type="text" placeholder="Add live announcement">
+          </label>
+          <div class="form-actions">
+            <button class="button secondary" type="button" id="clearAnnouncement">Clear</button>
+            <span class="field-note">Announcement updates are saved instantly.</span>
+          </div>
+        </form>
+      </article>
+    </section>
+
+    <section class="section-grid">
+      <article class="panel-card">
+        <div class="panel-head">
+          <p class="tag">Tasks</p>
+          <h3>Daily task manager</h3>
+        </div>
+        <form id="taskForm" class="control-form" autocomplete="off">
+          <label class="field-group">
+            <span>Task title</span>
+            <input id="taskTitle" type="text" placeholder="New task title">
+          </label>
+          <label class="field-group">
+            <span>Task details</span>
+            <textarea id="taskDetails" rows="3" placeholder="Describe the task"></textarea>
+          </label>
+          <button class="button" type="submit">Add task</button>
+        </form>
+        <div class="task-list" id="taskList" aria-live="polite"></div>
+      </article>
+
+      <article class="panel-card">
+        <div class="panel-head">
+          <p class="tag">Event control</p>
+          <h3>Easter Egg & reward settings</h3>
+        </div>
+        <form id="eventForm" class="control-form" autocomplete="off">
+          <label class="toggle-group">
+            <span>Easter egg event</span>
+            <input id="eventEnabled" type="checkbox">
+          </label>
+          <label class="field-group">
+            <span>Golden ticket chance</span>
+            <input id="goldenChance" type="range" min="0" max="100" step="1">
+          </label>
+          <div class="range-value"><span id="goldenChanceLabel">18%</span></div>
+          <label class="toggle-group">
+            <span>Rewards enabled</span>
+            <input id="rewardsEnabled" type="checkbox">
+          </label>
+          <p class="field-note">Event settings update immediately.</p>
+        </form>
+      </article>
+    </section>
+
+    <section class="section-grid">
+      <article class="panel-card">
+        <div class="panel-head">
+          <p class="tag">Website</p>
+          <h3>Site behavior controls</h3>
+        </div>
+        <form id="websiteForm" class="control-form" autocomplete="off">
+          <label class="toggle-group">
+            <span>Maintenance mode</span>
+            <input id="maintenanceMode" type="checkbox">
+          </label>
+          <label class="toggle-group">
+            <span>Show secret sections</span>
+            <input id="showSections" type="checkbox">
+          </label>
+          <label class="toggle-group">
+            <span>Popup rewards</span>
+            <input id="popupsActive" type="checkbox">
+          </label>
+          <label class="field-group">
+            <span>Banner text</span>
+            <input id="bannerText" type="text" placeholder="Enter banner text">
+          </label>
+          <p class="field-note">This saves the site control state for the admin system.</p>
+        </form>
+      </article>
+
+      <article class="panel-card">
+        <div class="panel-head">
+          <p class="tag">Notes</p>
+          <h3>Internal team notes</h3>
+        </div>
+        <form id="notesForm" class="control-form" autocomplete="off">
+          <label class="field-group">
+            <span>Notes</span>
+            <textarea id="notesText" rows="6" placeholder="Save private notes for the team."></textarea>
+          </label>
+          <button class="button" type="button" id="saveNotes">Save notes</button>
+        </form>
+      </article>
+    </section>
+  </main>
+
+  <script src="vg-admin.js"></script>
+</body>
+</html>

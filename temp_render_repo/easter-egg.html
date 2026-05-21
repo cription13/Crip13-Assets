@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prime Vault | PRIME WEB</title>
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f7f8fb;
+      --white: #ffffff;
+      --ink: #0d1b2f;
+      --navy: #173c75;
+      --blue: #2f6fd6;
+      --blue-soft: #eaf2ff;
+      --grid: rgba(31, 79, 143, 0.09);
+      --line: rgba(23, 60, 117, 0.14);
+      --muted: #68758a;
+      --gold: #c99a37;
+      --gold-soft: #fff6df;
+      --danger: #9f3636;
+      --shadow: 0 26px 80px rgba(18, 45, 88, 0.14);
+      --soft-shadow: 0 16px 40px rgba(18, 45, 88, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        radial-gradient(circle at 14% 18%, rgba(47, 111, 214, 0.08), transparent 27%),
+        radial-gradient(circle at 88% 8%, rgba(201, 154, 55, 0.08), transparent 24%),
+        var(--paper);
+      background-size: 42px 42px, 42px 42px, auto, auto, auto;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .vault-page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 56px 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vault-page::before,
+    .vault-page::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .vault-page::before {
+      width: 520px;
+      height: 520px;
+      right: -210px;
+      top: -180px;
+      border: 1px solid rgba(23, 60, 117, 0.08);
+      border-radius: 50%;
+      background:
+        linear-gradient(90deg, rgba(23, 60, 117, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(23, 60, 117, 0.05) 1px, transparent 1px);
+      background-size: 28px 28px;
+      transform: rotate(10deg);
+    }
+
+    .vault-page::after {
+      width: 260px;
+      height: 260px;
+      left: -90px;
+      bottom: 10%;
+      border: 1px solid rgba(201, 154, 55, 0.16);
+      border-radius: 8px;
+      transform: rotate(-12deg);
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .vault-section {
+      width: min(1120px, 100%);
+      position: relative;
+      z-index: 1;
+      padding: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.68);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(22px);
+    }
+
+    .vault-section::before {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      pointer-events: none;
+    }
+
+    .vault-layout {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+      gap: 42px;
+      align-items: center;
+      min-height: 610px;
+      padding: 38px;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(247, 250, 255, 0.72)),
+        linear-gradient(90deg, rgba(23, 60, 117, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(23, 60, 117, 0.05) 1px, transparent 1px);
+      background-size: auto, 34px 34px, 34px 34px;
+      overflow: hidden;
+    }
+
+    .vault-layout::before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: 10%;
+      top: 9%;
+      border: 1px solid rgba(23, 60, 117, 0.08);
+      border-radius: 8px;
+      transform: rotate(18deg);
+      pointer-events: none;
+    }
+
+    .vault-copy {
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 42px;
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      display: grid;
+      grid-template-columns: repeat(3, 8px);
+      grid-template-rows: repeat(3, 8px);
+      gap: 3px;
+      width: 34px;
+      height: 34px;
+      padding: 3px;
+      border: 1px solid rgba(23, 60, 117, 0.18);
+      border-radius: 8px;
+      background: var(--white);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .brand-mark span {
+      display: block;
+      border-radius: 3px;
+      background: var(--blue);
+    }
+
+    .brand-mark span:nth-child(2),
+    .brand-mark span:nth-child(6) {
+      background: #5bc0c7;
+    }
+
+    .brand-mark span:nth-child(5) {
+      background: var(--gold);
+    }
+
+    .vault-label {
+      margin: 0 0 14px;
+      color: var(--blue);
+      font-size: 0.78rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .vault-title {
+      max-width: 560px;
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(3.1rem, 7vw, 6.1rem);
+      line-height: 0.92;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .vault-description {
+      max-width: 470px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.75;
+    }
+
+    .vault-action {
+      display: grid;
+      gap: 16px;
+      width: min(380px, 100%);
+      margin-top: 42px;
+    }
+
+    .vault-button {
+      position: relative;
+      min-height: 62px;
+      border: 1px solid rgba(23, 60, 117, 0.2);
+      border-radius: 999px;
+      color: var(--white);
+      background: linear-gradient(135deg, #0d1b2f, #173c75);
+      box-shadow: 0 18px 42px rgba(23, 60, 117, 0.26);
+      font-size: 0.96rem;
+      font-weight: 850;
+      text-transform: uppercase;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 220ms ease, box-shadow 220ms ease, opacity 220ms ease;
+    }
+
+    .vault-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 0 28%, rgba(255, 255, 255, 0.2) 44%, transparent 62% 100%);
+      transform: translateX(-120%);
+      transition: transform 700ms ease;
+    }
+
+    .vault-button:hover,
+    .vault-button:focus-visible {
+      outline: none;
+      transform: translateY(-2px);
+      box-shadow: 0 22px 54px rgba(23, 60, 117, 0.3);
+    }
+
+    .vault-button:hover::before,
+    .vault-button:focus-visible::before {
+      transform: translateX(120%);
+    }
+
+    .vault-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.52;
+      transform: none;
+      box-shadow: 0 12px 28px rgba(23, 60, 117, 0.13);
+    }
+
+    .vault-status {
+      min-height: 24px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+    }
+
+    .reward-code-card {
+      display: grid;
+      gap: 7px;
+      padding: 16px 18px;
+      border: 1px solid rgba(23, 60, 117, 0.12);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--soft-shadow);
+    }
+
+    .reward-code-card[hidden] {
+      display: none;
+    }
+
+    .reward-code-label {
+      color: var(--blue);
+      font-size: 0.72rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .reward-code-value {
+      color: var(--ink);
+      font-size: 1.45rem;
+      line-height: 1;
+      font-weight: 900;
+    }
+
+    .reward-code-note {
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.45;
+    }
+
+    .final-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      width: fit-content;
+      padding: 0 12px;
+      border: 1px solid rgba(201, 154, 55, 0.22);
+      border-radius: 999px;
+      color: var(--gold);
+      background: var(--gold-soft);
+      font-size: 0.74rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .final-badge[hidden] {
+      display: none;
+    }
+
+    .reward-stage {
+      position: relative;
+      min-height: 520px;
+      z-index: 2;
+    }
+
+    .reward-card {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: min(260px, 46%);
+      min-height: 188px;
+      padding: 22px;
+      border: 1px solid rgba(23, 60, 117, 0.13);
+      border-radius: 18px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(248, 251, 255, 0.82)),
+        var(--white);
+      box-shadow: var(--soft-shadow);
+      overflow: hidden;
+      transition: transform 520ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 320ms ease, border-color 320ms ease, opacity 320ms ease, filter 320ms ease;
+    }
+
+    .reward-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(23, 60, 117, 0.045) 1px, transparent 1px),
+        linear-gradient(rgba(23, 60, 117, 0.045) 1px, transparent 1px);
+      background-size: 18px 18px;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .reward-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid transparent;
+      border-radius: inherit;
+      pointer-events: none;
+      transition: border-color 320ms ease, box-shadow 320ms ease;
+    }
+
+    .reward-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .reward-card[data-reward="5"] {
+      left: 4%;
+      top: 20px;
+      transform: rotate(-4deg);
+    }
+
+    .reward-card[data-reward="10"] {
+      right: 4%;
+      top: 82px;
+      transform: rotate(3deg);
+    }
+
+    .reward-card[data-reward="20"] {
+      left: 10%;
+      bottom: 44px;
+      transform: rotate(3deg);
+      border-color: rgba(201, 154, 55, 0.28);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 246, 223, 0.8)),
+        var(--white);
+    }
+
+    .reward-card[data-reward="50"] {
+      right: 2%;
+      bottom: 10px;
+      transform: rotate(-3deg);
+      border-color: rgba(201, 154, 55, 0.2);
+      background:
+        linear-gradient(135deg, rgba(255, 246, 223, 0.82), rgba(255, 255, 255, 0.68)),
+        var(--white);
+      filter: saturate(0.68);
+    }
+
+    .reward-type {
+      margin: 0;
+      color: var(--blue);
+      font-size: 0.78rem;
+      font-weight: 850;
+      text-transform: uppercase;
+    }
+
+    .reward-value {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2.1rem, 4vw, 3.4rem);
+      line-height: 0.96;
+      font-weight: 900;
+    }
+
+    .reward-line {
+      display: block;
+      width: 54px;
+      height: 2px;
+      margin-top: 18px;
+      background: linear-gradient(90deg, var(--blue), rgba(47, 111, 214, 0));
+    }
+
+    .reward-card[data-reward="20"] .reward-type,
+    .reward-card[data-reward="50"] .reward-type {
+      color: var(--gold);
+    }
+
+    .reward-card[data-reward="20"] .reward-line,
+    .reward-card[data-reward="50"] .reward-line {
+      background: linear-gradient(90deg, var(--gold), rgba(201, 154, 55, 0));
+    }
+
+    .reward-card.is-preview {
+      transform: translateY(-8px) rotate(0deg);
+      box-shadow: 0 18px 48px rgba(23, 60, 117, 0.16);
+    }
+
+    .reward-card.is-active {
+      z-index: 5;
+      transform: translateY(-18px) scale(1.035) rotate(0deg);
+      border-color: rgba(47, 111, 214, 0.5);
+      box-shadow: 0 24px 70px rgba(47, 111, 214, 0.2), 0 0 0 8px rgba(47, 111, 214, 0.06);
+    }
+
+    .reward-card.is-active::after {
+      border-color: rgba(47, 111, 214, 0.46);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.78);
+    }
+
+    .reward-card[data-reward="20"].is-active {
+      border-color: rgba(201, 154, 55, 0.58);
+      box-shadow: 0 24px 72px rgba(201, 154, 55, 0.2), 0 0 0 8px rgba(201, 154, 55, 0.08);
+    }
+
+    .reward-card[data-reward="20"].is-active::after {
+      border-color: rgba(201, 154, 55, 0.52);
+    }
+
+    .reward-card.is-unreachable {
+      pointer-events: none;
+    }
+
+    .confetti-stage {
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: 7px;
+      height: 11px;
+      border-radius: 2px;
+      background: var(--c);
+      opacity: 0;
+      transform: translate3d(0, 0, 0) rotate(var(--r));
+      animation: confettiFall 980ms ease-out forwards;
+      animation-delay: var(--d);
+    }
+
+    @keyframes confettiFall {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 0, 0) rotate(var(--r)) scale(0.7);
+      }
+      18% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(var(--dx), var(--dy), 0) rotate(calc(var(--r) + 220deg)) scale(1);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width: 940px) {
+      .vault-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        min-height: auto;
+        padding: 30px;
+      }
+
+      .brand-row {
+        margin-bottom: 30px;
+      }
+
+      .reward-stage {
+        min-height: 560px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .vault-page {
+        padding: 18px 12px;
+      }
+
+      .vault-section {
+        padding: 12px;
+        border-radius: 20px;
+      }
+
+      .vault-section::before {
+        inset: 10px;
+        border-radius: 16px;
+      }
+
+      .vault-layout {
+        padding: 24px 18px;
+        border-radius: 16px;
+      }
+
+      .vault-title {
+        font-size: 3.25rem;
+      }
+
+      .reward-stage {
+        min-height: auto;
+        display: grid;
+        gap: 14px;
+      }
+
+      .reward-card,
+      .reward-card[data-reward="5"],
+      .reward-card[data-reward="10"],
+      .reward-card[data-reward="20"],
+      .reward-card[data-reward="50"] {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        min-height: 150px;
+        transform: none;
+      }
+
+      .reward-card.is-preview,
+      .reward-card.is-active {
+        transform: translateY(-6px) scale(1.01);
+      }
+
+      .vault-action {
+        width: 100%;
+      }
+    }
+    /* Prime Web visual refresh */
+    :root {
+      --bg-base: #05050f;
+      --bg-surface: #0c0c1e;
+      --bg-elevated: #13132b;
+      --purple: #6d28d9;
+      --violet: #8b5cf6;
+      --indigo: #4f46e5;
+      --glow: rgba(109,40,217,0.25);
+      --text-primary: #f8f7ff;
+      --text-muted: #94a3b8;
+      --text-faint: #475569;
+      --gold: #f59e0b;
+      --border: rgba(109,40,217,0.18);
+      --border-hover: rgba(139,92,246,0.4);
+      --font-display: 'Satoshi', 'General Sans', sans-serif;
+      --font-heading: 'Space Grotesk', sans-serif;
+      --font-body: 'Poppins', sans-serif;
+      --shadow-glow: 0 0 40px rgba(109,40,217,0.3);
+      --shadow-card: 0 4px 32px rgba(0,0,0,0.5);
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+      --transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    html {
+      background: var(--bg-base);
+    }
+
+    body {
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at 12% 12%, var(--glow), transparent 30%),
+        radial-gradient(circle at 82% 78%, rgba(139,92,246,0.18), transparent 32%),
+        repeating-linear-gradient(0deg, rgba(109,40,217,0.1) 0 1px, transparent 1px 64px),
+        repeating-linear-gradient(90deg, rgba(109,40,217,0.1) 0 1px, transparent 1px 64px),
+        var(--bg-base);
+    }
+
+    .vault-page {
+      padding: clamp(1rem, 4vw, 3.5rem);
+    }
+
+    .vault-page::before {
+      width: 620px;
+      height: 620px;
+      right: -260px;
+      top: -220px;
+      border-color: var(--border);
+      background: radial-gradient(circle, rgba(139,92,246,0.14), transparent 58%);
+      filter: blur(2px);
+    }
+
+    .vault-page::after {
+      width: 360px;
+      height: 360px;
+      left: -170px;
+      bottom: 5%;
+      border-color: var(--border);
+      border-radius: var(--radius-lg);
+      background: rgba(109,40,217,0.08);
+    }
+
+    .vault-section {
+      width: min(1160px, 100%);
+      padding: 1px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(135deg, rgba(139,92,246,0.28), transparent 32%),
+        var(--bg-surface);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.55);
+      backdrop-filter: blur(20px);
+    }
+
+    .vault-section::before {
+      inset: auto;
+      display: none;
+    }
+
+    .vault-layout {
+      min-height: min(720px, calc(100vh - 3rem));
+      padding: clamp(1.25rem, 5vw, 3rem);
+      border-radius: calc(var(--radius-lg) - 1px);
+      background:
+        radial-gradient(circle at 80% 20%, rgba(139,92,246,0.16), transparent 30%),
+        linear-gradient(135deg, rgba(19,19,43,0.95), rgba(5,5,15,0.92)),
+        var(--bg-surface);
+      overflow: hidden;
+    }
+
+    .vault-copy,
+    .reward-stage {
+      min-width: 0;
+    }
+
+    .vault-layout::before {
+      width: 260px;
+      height: 260px;
+      right: 7%;
+      top: 8%;
+      border-color: var(--border);
+      border-radius: var(--radius-lg);
+      background:
+        repeating-linear-gradient(0deg, rgba(139,92,246,0.08) 0 1px, transparent 1px 28px),
+        repeating-linear-gradient(90deg, rgba(139,92,246,0.08) 0 1px, transparent 1px 28px);
+    }
+
+    .brand-row {
+      margin-bottom: clamp(2rem, 5vw, 3.5rem);
+      color: var(--text-primary);
+    }
+
+    .vault-wordmark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-display);
+      font-size: clamp(1.1rem, 3vw, 1.45rem);
+      font-weight: 900;
+      letter-spacing: 0;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .vault-wordmark strong {
+      color: var(--violet);
+    }
+
+    .vault-wordmark span {
+      color: var(--text-primary);
+    }
+
+    .vault-label,
+    .reward-code-label,
+    .reward-type {
+      color: var(--violet);
+      font-family: var(--font-display);
+      letter-spacing: 0;
+      font-weight: 900;
+    }
+
+    .vault-title {
+      max-width: 620px;
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    .vault-title span {
+      display: block;
+      background: linear-gradient(135deg, var(--purple), var(--violet));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .vault-description,
+    .vault-status,
+    .reward-code-note {
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      max-width: 100%;
+      overflow-wrap: anywhere;
+    }
+
+    .vault-button {
+      width: 100%;
+      min-height: 60px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-pill);
+      color: var(--text-primary);
+      background: linear-gradient(135deg, var(--purple), var(--violet));
+      box-shadow: 0 0 0 transparent;
+      font-family: var(--font-display);
+      font-weight: 900;
+      letter-spacing: 0;
+      transition: var(--transition);
+    }
+
+    .vault-button:hover,
+    .vault-button:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .vault-button:disabled {
+      opacity: 0.62;
+      box-shadow: var(--shadow-card);
+    }
+
+    .reward-code-card {
+      border: 1px solid var(--border-hover);
+      border-radius: var(--radius-md);
+      background: var(--bg-elevated);
+      box-shadow: var(--shadow-card);
+    }
+
+    .reward-code-value {
+      color: var(--text-primary);
+      font-family: var(--font-display);
+    }
+
+    .final-badge {
+      border-color: rgba(245,158,11,0.32);
+      border-radius: var(--radius-pill);
+      color: var(--gold);
+      background: rgba(245,158,11,0.12);
+      letter-spacing: 0;
+    }
+
+    .reward-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at top right, rgba(139,92,246,0.16), transparent 45%),
+        var(--bg-surface);
+      box-shadow: var(--shadow-card);
+    }
+
+    .reward-card::before {
+      background:
+        repeating-linear-gradient(0deg, rgba(139,92,246,0.08) 0 1px, transparent 1px 22px),
+        repeating-linear-gradient(90deg, rgba(139,92,246,0.08) 0 1px, transparent 1px 22px);
+      opacity: 0.7;
+    }
+
+    .reward-card[data-reward="20"],
+    .reward-card[data-reward="50"] {
+      border-color: rgba(245,158,11,0.28);
+      background:
+        radial-gradient(circle at top right, rgba(245,158,11,0.14), transparent 45%),
+        var(--bg-surface);
+    }
+
+    .reward-value {
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      letter-spacing: 0;
+    }
+
+    .reward-line {
+      background: linear-gradient(90deg, var(--violet), transparent);
+    }
+
+    .reward-card[data-reward="20"] .reward-line,
+    .reward-card[data-reward="50"] .reward-line {
+      background: linear-gradient(90deg, var(--gold), transparent);
+    }
+
+    .reward-card.is-preview {
+      box-shadow: var(--shadow-glow);
+      border-color: var(--border-hover);
+    }
+
+    .reward-card.is-active {
+      border-color: var(--violet);
+      box-shadow: var(--shadow-glow), 0 0 0 8px rgba(109,40,217,0.08);
+    }
+
+    .reward-card[data-reward="20"].is-active {
+      border-color: rgba(245,158,11,0.58);
+      box-shadow: 0 24px 72px rgba(245,158,11,0.18), 0 0 0 8px rgba(245,158,11,0.08);
+    }
+
+    .confetti-piece {
+      box-shadow: 0 0 16px rgba(255,255,255,0.2);
+    }
+
+    @media (max-width: 640px) {
+      .vault-page {
+        padding: 1rem;
+      }
+
+      .vault-section {
+        border-radius: var(--radius-lg);
+      }
+
+      .vault-layout {
+        width: 100%;
+        grid-template-columns: minmax(0, 1fr);
+        min-height: auto;
+        padding: 1.25rem;
+        border-radius: var(--radius-lg);
+      }
+
+      .vault-title {
+        font-size: clamp(2.7rem, 15vw, 4rem);
+        max-width: 100%;
+      }
+
+      .vault-action {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="vault-page">
+    <section class="vault-section" aria-labelledby="vault-title">
+      <div class="vault-layout">
+        <div class="vault-copy">
+          <div class="brand-row" aria-label="Prime Web">
+            <a class="vault-wordmark" href="index.html"><strong>PRIME</strong><span>WEB</span></a>
+          </div>
+
+          <p class="vault-label">HIDDEN CLIENT EXPERIENCE</p>
+          <h1 class="vault-title" id="vault-title">Prime <span>Vault</span></h1>
+          <p class="vault-description">Every project unlocks one final chance to reveal an exclusive Prime Web reward.</p>
+
+          <div class="vault-action">
+            <button class="vault-button" type="button" data-vault-button>
+              <span data-button-text>TRY YOUR LUCK</span>
+            </button>
+            <p class="vault-status" aria-live="polite" data-vault-status>
+              One attempt per client. Once opened, the vault closes permanently.
+            </p>
+            <div class="reward-code-card" data-code-card hidden>
+              <span class="reward-code-label">Final reward</span>
+              <strong class="reward-code-value" data-reward-summary></strong>
+              <strong class="reward-code-value" data-reward-code></strong>
+              <span class="reward-code-note">This one-time attempt is final and closed. Share this code with Prime Web staff to verify your reward.</span>
+            </div>
+            <span class="final-badge" data-final-badge hidden>Attempt final and closed</span>
+          </div>
+        </div>
+
+        <div class="reward-stage" aria-label="Prime Vault reward cards" data-reward-stage>
+          <article class="reward-card" data-reward="5">
+            <p class="reward-type">COMMON DROP</p>
+            <div>
+              <p class="reward-value">5% OFF</p>
+              <span class="reward-line" aria-hidden="true"></span>
+            </div>
+          </article>
+
+          <article class="reward-card" data-reward="10">
+            <p class="reward-type">COMMON DROP</p>
+            <div>
+              <p class="reward-value">10% OFF</p>
+              <span class="reward-line" aria-hidden="true"></span>
+            </div>
+          </article>
+
+          <article class="reward-card" data-reward="20">
+            <p class="reward-type">RARE VAULT</p>
+            <div>
+              <p class="reward-value">20% OFF</p>
+              <span class="reward-line" aria-hidden="true"></span>
+            </div>
+          </article>
+
+          <article class="reward-card is-unreachable" data-reward="50" aria-disabled="true">
+            <p class="reward-type">LEGENDARY GOLDEN TICKET</p>
+            <div>
+              <p class="reward-value">50% OFF</p>
+              <span class="reward-line" aria-hidden="true"></span>
+            </div>
+          </article>
+
+          <div class="confetti-stage" aria-hidden="true" data-confetti-stage></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const vaultButton = document.querySelector("[data-vault-button]");
+    const buttonText = document.querySelector("[data-button-text]");
+    const statusText = document.querySelector("[data-vault-status]");
+    const codeCard = document.querySelector("[data-code-card]");
+    const rewardSummary = document.querySelector("[data-reward-summary]");
+    const rewardCodeText = document.querySelector("[data-reward-code]");
+    const finalBadge = document.querySelector("[data-final-badge]");
+    const rewardStage = document.querySelector("[data-reward-stage]");
+    const confettiStage = document.querySelector("[data-confetti-stage]");
+    const eligibleCards = Array.from(document.querySelectorAll(".reward-card:not(.is-unreachable)"));
+
+    const STORAGE_KEY = "velvetGridVaultToken";
+    let currentVaultState = {
+      token: null,
+      code: null,
+      reward: null,
+      rewardCode: null,
+      used: false
+    };
+
+    function getTokenFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("token");
+    }
+
+    function saveState() {
+      try {
+        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(currentVaultState));
+      } catch (e) {
+        console.warn("Could not save state to localStorage");
+      }
+    }
+
+    function loadState(token) {
+      try {
+        const stored = window.localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const state = JSON.parse(stored);
+          if (state.token === token) {
+            currentVaultState = state;
+            return true;
+          }
+        }
+      } catch (e) {
+        console.warn("Could not load state from localStorage");
+      }
+      return false;
+    }
+
+    // Base API URL (deployed Render backend)
+    // CRITICAL: Backend runs on SAME service as frontend - same origin
+    const BASE_API_URL = "https://velvet-grid-landing-page.onrender.com/api/vault";
+
+    function buildApiUrl(endpoint) {
+        return `${BASE_API_URL}${endpoint.replace('/api/vault', '')}`;
+    }
+
+    async function fetchApi(endpoint, method = "GET", body = null) {
+      try {
+        const options = { method };
+        if (body) {
+          options.headers = { "Content-Type": "application/json" };
+          options.body = JSON.stringify(body);
+        }
+        
+        // Add timeout using AbortController
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+        options.signal = controller.signal;
+        
+        const url = buildApiUrl(endpoint);
+        console.log(`[API] ${method} ${url}`);
+        
+        const response = await fetch(url, options);
+        clearTimeout(timeoutId);
+        
+        // Parse JSON with error guard
+        let data;
+        try {
+          data = await response.json();
+        } catch (parseError) {
+          console.error(`[API ERROR] JSON parse failed for ${endpoint}:`, parseError);
+          return { 
+            ok: false, 
+            status: response.status, 
+            data: { success: false, message: "Server returned invalid JSON" } 
+          };
+        }
+        
+        console.log(`[API RESPONSE] Status: ${response.status}, OK: ${response.ok}`, data);
+        return { ok: response.ok, status: response.status, data };
+      } catch (error) {
+        if (error.name === 'AbortError') {
+          console.error(`[API ERROR] Timeout for ${endpoint}`);
+          return { 
+            ok: false, 
+            status: 0, 
+            data: { success: false, message: "Request timed out (10s)" } 
+          };
+        }
+        console.error(`[API ERROR] ${endpoint}:`, error);
+        return { 
+          ok: false, 
+          status: 0, 
+          data: { success: false, message: error.message } 
+        };
+      }
+    }
+
+    function clearCardState() {
+      document.querySelectorAll(".reward-card").forEach((card) => {
+        card.classList.remove("is-active", "is-preview");
+      });
+      confettiStage.innerHTML = "";
+    }
+
+    function launchConfetti() {
+      const colors = ["#6d28d9", "#8b5cf6", "#4f46e5", "#f59e0b", "#f8f7ff"];
+      confettiStage.innerHTML = "";
+
+      for (let index = 0; index < 34; index += 1) {
+        const piece = document.createElement("span");
+        const x = 42 + Math.random() * 18;
+        const y = 42 + Math.random() * 10;
+        const dx = (Math.random() - 0.5) * 360;
+        const dy = 120 + Math.random() * 180;
+        const rotation = Math.random() * 180;
+        const delay = Math.random() * 120;
+
+        piece.className = "confetti-piece";
+        piece.style.setProperty("--x", `${x}%`);
+        piece.style.setProperty("--y", `${y}%`);
+        piece.style.setProperty("--dx", `${dx}px`);
+        piece.style.setProperty("--dy", `${dy}px`);
+        piece.style.setProperty("--r", `${rotation}deg`);
+        piece.style.setProperty("--d", `${delay}ms`);
+        piece.style.setProperty("--c", colors[index % colors.length]);
+        confettiStage.appendChild(piece);
+      }
+
+      window.setTimeout(() => {
+        confettiStage.innerHTML = "";
+      }, 1500);
+    }
+
+    function renderFinalState(reward, rewardCode, restored = false) {
+      clearCardState();
+      const rewardNum = reward.replace("%", "");
+      const selectedCard = document.querySelector(`.reward-card[data-reward="${rewardNum}"]`);
+
+      if (selectedCard) {
+        selectedCard.classList.add("is-active");
+      }
+
+      rewardSummary.textContent = `${reward} OFF`;
+      rewardCodeText.textContent = rewardCode;
+      codeCard.hidden = false;
+      finalBadge.hidden = false;
+      vaultButton.disabled = true;
+      buttonText.textContent = "VAULT CLOSED";
+      statusText.textContent = restored
+        ? "Your one-time Prime Vault attempt has already been used. This final reward is locked to this token."
+        : "Reward revealed. This one-time Prime Vault attempt is now final and closed.";
+
+      if (rewardNum === "20") {
+        launchConfetti();
+      }
+    }
+
+    function showError(message) {
+      vaultButton.disabled = true;
+      buttonText.textContent = "ERROR";
+      statusText.textContent = message;
+      finalBadge.hidden = true;
+      console.error("[ERROR]", message);
+    }
+
+    async function openVault() {
+      if (currentVaultState.used) {
+        renderFinalState(currentVaultState.reward, currentVaultState.rewardCode, true);
+        return;
+      }
+
+      vaultButton.disabled = true;
+      clearCardState();
+      codeCard.hidden = true;
+      finalBadge.hidden = true;
+      statusText.textContent = "Opening your one-time Prime Vault attempt...";
+
+      // Animate preview cards
+      eligibleCards.forEach((card, index) => {
+        window.setTimeout(() => {
+          card.classList.add("is-preview");
+        }, index * 90);
+      });
+
+      // Call reveal endpoint
+      await new Promise((resolve) => window.setTimeout(resolve, 820));
+
+      const response = await fetch(
+            `${BASE_API_URL}/reveal`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    token: currentVaultState.token
+                })
+            }
+        );
+
+        let result;
+        try {
+            result = await response.json();
+        } catch (parseError) {
+            console.error("[VAULT] JSON Parse Error:", parseError, "Response status:", response.status);
+            showError("Server error: invalid response. Check backend logs.");
+            return;
+        }
+
+        if (!response.ok || !result.success) {
+            const errorMsg = result.message || `Server error (HTTP ${response.status})`;
+            console.error("[VAULT] Reveal failed:", { status: response.status, result });
+            showError(errorMsg);
+            return;
+        }
+
+      // Validate reward structure
+      if (!result.reward || !result.rewardCode) {
+        console.error("[VAULT] Invalid reward structure:", result);
+        showError("Server returned incomplete reward data");
+        return;
+      }
+
+      currentVaultState.reward = result.reward;
+      currentVaultState.rewardCode = result.rewardCode;
+      currentVaultState.used = true;
+      saveState();
+
+      console.log("[VAULT] Reward revealed:", currentVaultState.reward);
+      renderFinalState(result.reward, result.rewardCode, false);
+    }
+
+    async function initializeVault() {
+      const token = getTokenFromUrl();
+
+      if (!token) {
+        showError("Invalid vault link. Missing token parameter.");
+        console.error("[INIT] No token in URL");
+        return;
+      }
+
+      console.log(`[INIT] Initializing vault with token: ${token}`);
+      currentVaultState.token = token;
+
+      // Check if we have a cached result
+      if (loadState(token) && currentVaultState.used) {
+        console.log("[INIT] Using cached vault state (already used)");
+        renderFinalState(currentVaultState.reward, currentVaultState.rewardCode, true);
+        return;
+      }
+
+      // Check vault result from server
+      console.log("[INIT] Fetching vault result from server");
+      const resultResponse = await fetchApi(`/api/vault/result/${encodeURIComponent(token)}`);
+      
+      if (resultResponse.ok && resultResponse.data.success) {
+        console.log("[INIT] Token already has reward:", resultResponse.data.reward);
+        currentVaultState.reward = resultResponse.data.reward;
+        currentVaultState.rewardCode = resultResponse.data.rewardCode;
+        currentVaultState.used = true;
+        saveState();
+        renderFinalState(resultResponse.data.reward, resultResponse.data.rewardCode, true);
+        return;
+      }
+
+      // Check if token exists and is valid
+      if (resultResponse.status === 404) {
+        showError("This vault token is not valid or has expired. Please check your link and try again.");
+        console.error("[INIT] Token not found on server:", token);
+        return;
+      }
+
+      // Vault is available for opening
+      console.log("[INIT] Vault is ready to open");
+      vaultButton.disabled = false;
+    }
+
+    vaultButton.addEventListener("click", openVault);
+
+    rewardStage.addEventListener("animationend", (event) => {
+      if (event.target.classList.contains("confetti-piece")) {
+        event.target.remove();
+      }
+    });
+
+    initializeVault();
+  </script>
+</body>
+</html>

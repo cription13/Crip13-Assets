@@ -573,7 +573,10 @@
     }
 
     async function generateToken() {
-      const adminKey = adminKeyInput.value.trim();
+      const adminKey = document.getElementById("adminKeyInput").value.trim();
+
+      console.log("Admin key:", adminKey);
+      console.log("Request URL:", `${BASE_API_URL}/generate`);
 
       if (!adminKey) {
         showStatus("Please enter admin key", true);
@@ -595,7 +598,9 @@
                     "Content-Type": "application/json",
                     "X-Admin-Key": adminKey
                 },
-                body: JSON.stringify({}),
+                body: JSON.stringify({
+                    source: "admin-panel"
+                }),
                 signal: controller.signal
             }
         );
@@ -613,6 +618,8 @@
           generateBtn.textContent = "Generate New Vault Token";
           return;
         }
+
+        console.log("Generate response:", data);
 
         if (!response.ok || !data.success) {
           const message = data.message || `Server error (HTTP ${response.status})`;
