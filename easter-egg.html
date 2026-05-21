@@ -968,7 +968,6 @@
 
   <script>
     const vaultButton = document.querySelector("[data-vault-button]");
-    const buttonText = document.querySelector("[data-button-text]");
     const statusText = document.querySelector("[data-vault-status]");
     const codeCard = document.querySelector("[data-code-card]");
     const rewardSummary = document.querySelector("[data-reward-summary]");
@@ -976,62 +975,117 @@
     const finalBadge = document.querySelector("[data-final-badge]");
     const confettiStage = document.querySelector("[data-confetti-stage]");
     const customerCodeInput = document.getElementById("customerCodeInput");
+    const rewardCards = document.querySelectorAll('.reward-card');
 
-    const BASE_API_URL = "/api/vault";
+    const VAULT_CODES = {
+      "VG-ORD-1555": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1556": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1557": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+      "VG-ORD-1558": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+      "VG-ORD-1559": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+      "VG-ORD-1560": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+      "VG-ORD-1561": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+      "VG-ORD-1562": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+      "VG-ORD-1563": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1564": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1565": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1566": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1567": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1568": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1569": { reward: "5% OFF", client: "Admin", used: false },
+      "VG-ORD-1570": { reward: "5% OFF", client: "Admin", used: false }
+    };
 
-    function showStatus(msg, isError=false) {
-      statusText.textContent = msg;
-      if (isError) statusText.style.color = 'var(--danger)';
-      else statusText.style.color = '';
+    const STORAGE_KEY = 'prime-vault-used-codes';
+    const usedCodes = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
+
+    const rewardCardMap = {
+      '5% OFF': '5',
+      '10% OFF': '10',
+      '20% OFF': '20',
+      'FREE Speed Optimization': '50'
+    };
+
+    function saveUsedCodes() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify([...usedCodes]));
     }
 
-    async function redeemCode() {
-      const code = (customerCodeInput.value || '').trim();
-      if (!code) return showStatus('Please enter a code', true);
+    function normalizeCode(code) {
+      return (code || '').trim().toUpperCase();
+    }
+
+    function showStatus(message, isError = false) {
+      statusText.textContent = message;
+      statusText.style.color = isError ? 'var(--danger)' : '';
+    }
+
+    function setActiveReward(reward) {
+      const target = rewardCardMap[reward] || '50';
+      rewardCards.forEach(card => {
+        card.classList.toggle('is-active', card.dataset.reward === target);
+      });
+    }
+
+    function createConfetti() {
+      confettiStage.innerHTML = '';
+      const colors = ['#8b5cf6', '#a78bfa', '#f59e0b', '#38bdf8', '#c026d3'];
+      for (let i = 0; i < 18; i += 1) {
+        const piece = document.createElement('span');
+        piece.className = 'confetti-piece';
+        piece.style.setProperty('--x', `${Math.random() * 100}%`);
+        piece.style.setProperty('--y', `${Math.random() * 20}%`);
+        piece.style.setProperty('--dx', `${Math.random() * 160 - 80}px`);
+        piece.style.setProperty('--dy', `${200 + Math.random() * 120}px`);
+        piece.style.setProperty('--r', `${Math.random() * 360}deg`);
+        piece.style.setProperty('--c', colors[i % colors.length]);
+        piece.style.setProperty('--d', `${Math.random() * 400}ms`);
+        confettiStage.appendChild(piece);
+      }
+    }
+
+    function revealVaultReward(code, reward, client) {
+      rewardSummary.textContent = `${reward} — ${client}`;
+      rewardCodeText.textContent = code;
+      codeCard.hidden = false;
+      finalBadge.hidden = false;
+      showStatus('Code accepted — reward revealed');
       vaultButton.disabled = true;
-      showStatus('Checking code...');
-
-      try {
-        const res = await fetch(`${BASE_API_URL}/redeem-code`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code })
-        });
-        const data = await res.json();
-        if (!res.ok || !data.success) {
-          showStatus(data.message || 'Invalid or used code', true);
-          vaultButton.disabled = false;
-          return;
-        }
-
-        // success
-        rewardSummary.textContent = data.reward;
-        rewardCodeText.textContent = code;
-        codeCard.hidden = false;
-        finalBadge.hidden = false;
-        showStatus('Code accepted — reward revealed');
-        vaultButton.disabled = true;
-        customerCodeInput.disabled = true;
-      } catch (err) {
-        console.error(err);
-        showStatus('Server error', true);
-        vaultButton.disabled = false;
-      }
+      customerCodeInput.disabled = true;
+      setActiveReward(reward);
+      createConfetti();
     }
 
-    async function checkCodeStatus(code) {
-      try {
-        const res = await fetch(`${BASE_API_URL}/code-status/${encodeURIComponent(code)}`);
-        if (!res.ok) return null;
-        const data = await res.json();
-        return data;
-      } catch (err) {
-        return null;
+    function redeemCode() {
+      const code = normalizeCode(customerCodeInput.value);
+      if (!code) {
+        return showStatus('Please enter a code', true);
       }
+
+      const entry = VAULT_CODES[code];
+      if (!entry) {
+        return showStatus('Invalid secret code', true);
+      }
+      if (entry.used || usedCodes.has(code)) {
+        return showStatus('This code has already been redeemed', true);
+      }
+
+      entry.used = true;
+      usedCodes.add(code);
+      saveUsedCodes();
+      revealVaultReward(code, entry.reward, entry.client);
     }
 
     vaultButton.addEventListener('click', redeemCode);
-    customerCodeInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') redeemCode(); });
+    customerCodeInput.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') redeemCode();
+    });
+
+    // Initialize used state from local storage for the current browser session
+    Object.keys(VAULT_CODES).forEach(code => {
+      if (usedCodes.has(code)) {
+        VAULT_CODES[code].used = true;
+      }
+    });
   </script>
 </body>
 </html>
