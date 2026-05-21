@@ -11,54 +11,6 @@
       "used": true,
       "createdAt": "2026-05-18T16:45:30.283Z",
       "claimedAt": "2026-05-18T16:46:26.246Z"
-    },
-    {
-      "orderId": "ADMIN-1779286531308",
-      "clientName": "Admin Generated",
-      "clientEmail": "",
-      "token": "VG8IOHTZ",
-      "code": "VG-9729",
-      "reward": "5%",
-      "rewardCode": "VG-5-8067",
-      "used": true,
-      "createdAt": "2026-05-20T14:15:31.308Z",
-      "claimedAt": "2026-05-20T14:16:40.519Z"
-    },
-    {
-      "orderId": "ADMIN-1779350332334",
-      "clientName": "Admin Generated",
-      "clientEmail": "",
-      "token": "VG9X5K2M",
-      "code": "VG-1731",
-      "reward": "5%",
-      "rewardCode": "VG-5-8407",
-      "used": false,
-      "createdAt": "2026-05-22T11:45:32.334Z",
-      "claimedAt": "2026-05-22T11:46:54.792Z"
-    },
-    {
-      "orderId": "ADMIN-1779296781649",
-      "clientName": "Admin Generated",
-      "clientEmail": "",
-      "token": "VG5FLFVU",
-      "code": "VG-2488",
-      "reward": "5%",
-      "rewardCode": "VG-5-6920",
-      "used": true,
-      "createdAt": "2026-05-20T17:06:21.650Z",
-      "claimedAt": "2026-05-20T17:07:01.825Z"
-    },
-    {
-      "orderId": "ADMIN-1779339493601",
-      "clientName": "Admin Generated",
-      "clientEmail": "",
-      "token": "VG3O4B9Z",
-      "code": "VG-5147",
-      "reward": null,
-      "rewardCode": null,
-      "used": false,
-      "createdAt": "2026-05-21T04:58:13.601Z",
-      "claimedAt": null
     }
   ]
 }
