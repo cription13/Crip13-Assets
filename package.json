@@ -1,12 +1,8 @@
 {
-  "name": "velvet-vault",
+  "name": "primeweb",
   "version": "1.0.0",
-  "description": "Vault token system for Velvet Grid",
-  "main": "vault-server.js",
   "scripts": {
-    "start": "node vault-server.js"
+    "start": "node server.js"
   },
-  "engines": {
-    "node": ">=18"
-  }
+  "dependencies": {}
 }

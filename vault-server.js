@@ -5,7 +5,7 @@ const crypto = require("crypto");
 
 const PORT = Number(process.env.PORT || 3000);
 const ROOT_DIR = __dirname;
-const DB_PATH = path.join(ROOT_DIR, "vault-db.json");
+const DB_FILE = path.join(__dirname, "vault-data.json");
 const ADMIN_KEY = process.env.ADMIN_KEY || process.env.VAULT_ADMIN_KEY || "prime";
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://primewebhub.netlify.app";
 
@@ -22,42 +22,113 @@ const MIME_TYPES = {
   ".ico": "image/x-icon"
 };
 
-function defaultDb() {
+function ensureDbFile() {
+  if (!fs.existsSync(DB_FILE)) {
+    fs.writeFileSync(DB_FILE, JSON.stringify({ tokens: {} }, null, 2), "utf8");
+    console.log("DB file created:", DB_FILE);
+  }
+}
+
+function readDb() {
+  ensureDbFile();
+  const raw = fs.readFileSync(DB_FILE, "utf8");
+  try {
+    const parsed = JSON.parse(raw);
+    if (!parsed.tokens || typeof parsed.tokens !== "object") parsed.tokens = {};
+    return parsed;
+  } catch (err) {
+    console.error("Failed to parse DB file, resetting:", err);
+    const empty = { tokens: {} };
+    fs.writeFileSync(DB_FILE, JSON.stringify(empty, null, 2), "utf8");
+    return empty;
+  }
+}
+
+function writeDb(db) {
+  fs.writeFileSync(DB_FILE, JSON.stringify(db, null, 2), "utf8");
+}
+
+function insertVault(vault) {
+  console.log("Saving token:", vault.token);
+  console.log("DB file:", DB_FILE);
+  const db = readDb();
+  db.tokens[vault.token] = {
+    token: vault.token,
+    reward: vault.reward,
+    code: vault.rewardCode,
+    opened: !!vault.used,
+    createdAt: vault.createdAt,
+    claimedAt: vault.claimedAt || null,
+    clientName: vault.clientName || "",
+    clientEmail: vault.clientEmail || "",
+    orderId: vault.orderId || ""
+  };
+  writeDb(db);
+  const verify = readDb();
+  if (!verify.tokens || !verify.tokens[vault.token]) {
+    throw new Error(`Token failed to persist: ${vault.token}`);
+  }
+}
+
+function updateVault(vault) {
+  const db = readDb();
+  if (!db.tokens[vault.token]) {
+    throw new Error(`Token not found for update: ${vault.token}`);
+  }
+  db.tokens[vault.token] = {
+    token: vault.token,
+    reward: vault.reward,
+    code: vault.rewardCode,
+    opened: !!vault.used,
+    createdAt: vault.createdAt,
+    claimedAt: vault.claimedAt || null,
+    clientName: vault.clientName || "",
+    clientEmail: vault.clientEmail || "",
+    orderId: vault.orderId || ""
+  };
+  writeDb(db);
+  const verify = readDb();
+  if (!verify.tokens[vault.token]) {
+    throw new Error(`Token failed to persist on update: ${vault.token}`);
+  }
+}
+
+function findVaultByToken(token) {
+  const db = readDb();
+  const t = db.tokens[token];
+  if (!t) return null;
   return {
-    vaults: []
+    token: t.token,
+    reward: t.reward,
+    rewardCode: t.code,
+    used: !!t.opened,
+    createdAt: t.createdAt,
+    claimedAt: t.claimedAt || null,
+    clientName: t.clientName || "",
+    clientEmail: t.clientEmail || "",
+    orderId: t.orderId || ""
   };
 }
 
-function loadDb() {
-  if (!fs.existsSync(DB_PATH)) {
-    const db = defaultDb();
-    saveDb(db);
-    return db;
+function findVaultByCode(code) {
+  const db = readDb();
+  for (const k of Object.keys(db.tokens)) {
+    const t = db.tokens[k];
+    if (t.code === code) {
+      return {
+        token: t.token,
+        reward: t.reward,
+        rewardCode: t.code,
+        used: !!t.opened,
+        createdAt: t.createdAt,
+        claimedAt: t.claimedAt || null,
+        clientName: t.clientName || "",
+        clientEmail: t.clientEmail || "",
+        orderId: t.orderId || ""
+      };
+    }
   }
-
-  try {
-    const db = JSON.parse(fs.readFileSync(DB_PATH, "utf8"));
-    return {
-      vaults: db.vaults || []
-    };
-  } catch (error) {
-    console.error("DB Load Error:", error);
-    return defaultDb();
-  }
-}
-
-function saveDb(db) {
-  try {
-    fs.writeFileSync(DB_PATH, `${JSON.stringify(db, null, 2)}\n`, "utf8");
-    // Verify write succeeded
-    const verification = fs.readFileSync(DB_PATH, "utf8");
-    JSON.parse(verification); // Validate JSON
-    console.log(`[DB] Saved ${db.vaults.length} vaults`);
-    return true;
-  } catch (error) {
-    console.error("DB Save Error:", error);
-    throw new Error("Failed to save database");
-  }
+  return null;
 }
 
 function sendJson(res, statusCode, payload) {
@@ -142,17 +213,23 @@ function pickReward() {
   return "20%";
 }
 
-function findVaultByToken(db, token) {
-  return db.vaults.find((v) => v.token === token);
+function findVaultByToken(token) {
+  const row = DB.prepare("SELECT * FROM vaults WHERE token = ?").get(token);
+  if (!row) {
+    return null;
+  }
+  return { ...row, used: row.used === 1 };
 }
 
-function findVaultByCode(db, code) {
-  return db.vaults.find((v) => v.code === code);
+function findVaultByCode(code) {
+  const row = DB.prepare("SELECT * FROM vaults WHERE code = ?").get(code);
+  if (!row) {
+    return null;
+  }
+  return { ...row, used: row.used === 1 };
 }
 
 function generateVault(orderId = "", clientName = "", clientEmail = "") {
-  const db = loadDb();
-  
   let token;
   let attempts = 0;
   do {
@@ -161,7 +238,7 @@ function generateVault(orderId = "", clientName = "", clientEmail = "") {
     if (attempts > 1000) {
       throw new Error("Could not generate unique token");
     }
-  } while (db.vaults.some((v) => v.token === token));
+  } while (findVaultByToken(token));
 
   let code;
   attempts = 0;
@@ -171,7 +248,7 @@ function generateVault(orderId = "", clientName = "", clientEmail = "") {
     if (attempts > 1000) {
       throw new Error("Could not generate unique code");
     }
-  } while (db.vaults.some((v) => v.code === code));
+  } while (findVaultByCode(code));
 
   const vault = {
     orderId: cleanText(orderId) || `ADMIN-${new Date().getTime()}`,
@@ -186,12 +263,10 @@ function generateVault(orderId = "", clientName = "", clientEmail = "") {
     claimedAt: null
   };
 
-  db.vaults.push(vault);
-  saveDb(db);
+  console.log("Saving token:", token);
+  insertVault(vault);
 
-  // Verify token was actually saved
-  const verifyDb = loadDb();
-  const savedVault = findVaultByToken(verifyDb, token);
+  const savedVault = findVaultByToken(token);
   if (!savedVault) {
     console.error(`[TOKEN] Failed to verify token ${token} was saved`);
     throw new Error("Token was not properly saved to database");
@@ -206,8 +281,8 @@ function generateVault(orderId = "", clientName = "", clientEmail = "") {
   };
 }
 
-function verifyCode(db, token, code) {
-  const vault = findVaultByToken(db, token);
+function verifyCode(token, code) {
+  const vault = findVaultByToken(token);
 
   if (!vault) {
     return { valid: false, message: "Invalid token" };
@@ -224,8 +299,8 @@ function verifyCode(db, token, code) {
   return { valid: true, vault };
 }
 
-function revealVaultReward(db, token) {
-  const vault = findVaultByToken(db, token);
+function revealVaultReward(token) {
+  const vault = findVaultByToken(token);
 
   if (!vault) {
     console.warn(`[REVEAL] Token not found: ${token}`);
@@ -251,8 +326,10 @@ function revealVaultReward(db, token) {
   vault.claimedAt = new Date().toISOString();
   
   try {
-    saveDb(db);
+    updateVault(vault);
     console.log(`[REVEAL] Reward revealed: ${token} → ${reward} (Code: ${rewardCode})`);
+    const saved = findVaultByToken(token);
+    console.log("Saved vault after reveal:", saved ? { token: saved.token, used: saved.used, reward: saved.reward, rewardCode: saved.rewardCode } : null);
   } catch (error) {
     console.error(`[REVEAL] Failed to save reward for token ${token}:`, error);
     return { success: false, message: "Failed to save reward" };
@@ -266,8 +343,7 @@ function revealVaultReward(db, token) {
 }
 
 function getVaultResult(token) {
-  const db = loadDb();
-  const vault = findVaultByToken(db, token);
+  const vault = findVaultByToken(token);
 
   if (!vault) {
     return { success: false, message: "Invalid token" };
@@ -286,8 +362,7 @@ function getVaultResult(token) {
 }
 
 function verifyRewardCode(rewardCode) {
-  const db = loadDb();
-  const vault = db.vaults.find((v) => v.rewardCode === rewardCode);
+  const vault = findVaultByCode(rewardCode);
 
   if (!vault) {
     return { valid: false };
@@ -351,13 +426,13 @@ async function handleApi(req, res, url) {
         return true;
       }
 
-      const db = loadDb();
-      const vaults = db.vaults
+      const db = readDb();
+      const vaults = Object.values(db.tokens)
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .map((v) => ({
           token: v.token,
           code: v.code,
-          used: v.used,
+          used: !!v.opened,
           reward: v.reward,
           createdAt: v.createdAt,
           clientName: v.clientName
@@ -383,8 +458,7 @@ async function handleApi(req, res, url) {
         return true;
       }
 
-      const db = loadDb();
-      const result = verifyCode(db, token, code);
+      const result = verifyCode(token, code);
 
       if (!result.valid) {
         console.warn(`[VERIFY] Invalid code for token: ${token}`);
@@ -411,8 +485,7 @@ async function handleApi(req, res, url) {
         return true;
       }
 
-      const db = loadDb();
-      const result = revealVaultReward(db, token);
+      const result = revealVaultReward(token);
 
       if (!result.success) {
         const statusCode = result.message === "Reward already claimed" ? 200 : 400;
