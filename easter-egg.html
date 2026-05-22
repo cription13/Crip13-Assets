@@ -995,156 +995,196 @@
   </main>
 
   <script>
-    const vaultButton = document.querySelector("[data-vault-button]");
-    const statusText = document.querySelector("[data-vault-status]");
-    const codeCard = document.querySelector("[data-code-card]");
-    const rewardSummary = document.querySelector("[data-reward-summary]");
-    const rewardCodeText = document.querySelector("[data-reward-code]");
-    const finalBadge = document.querySelector("[data-final-badge]");
-    const confettiStage = document.querySelector("[data-confetti-stage]");
-    const customerCodeInput = document.getElementById("customerCodeInput");
-    const rewardCards = document.querySelectorAll('.reward-card');
+  const vaultButton = document.querySelector("[data-vault-button]");
+  const statusText = document.querySelector("[data-vault-status]");
+  const codeCard = document.querySelector("[data-code-card]");
+  const rewardSummary = document.querySelector("[data-reward-summary]");
+  const rewardCodeText = document.querySelector("[data-reward-code]");
+  const finalBadge = document.querySelector("[data-final-badge]");
+  const confettiStage = document.querySelector("[data-confetti-stage]");
+  const customerCodeInput = document.getElementById("customerCodeInput");
+  const rewardCards = document.querySelectorAll(".reward-card");
 
-    const VAULT_CODES = {
-      "VG-ORD-1555": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1556": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1557": { reward: "FREE Speed Optimization", client: "Admin", used: false },
-      "VG-ORD-1558": { reward: "FREE Speed Optimization", client: "Admin", used: false },
-      "VG-ORD-1559": { reward: "FREE Speed Optimization", client: "Admin", used: false },
-      "VG-ORD-1560": { reward: "FREE Speed Optimization", client: "Admin", used: false },
-      "VG-ORD-1561": { reward: "FREE Speed Optimization", client: "Admin", used: false },
-      "VG-ORD-1562": { reward: "FREE Speed Optimization", client: "Admin", used: false },
-      "VG-ORD-1563": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1564": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1565": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1566": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1567": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1568": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1569": { reward: "5% OFF", client: "Admin", used: false },
-      "VG-ORD-1570": { reward: "5% OFF", client: "Admin", used: false }
-    };
+  const VAULT_CODES = {
+    "VG-ORD-1555": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1556": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1557": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1558": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1559": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1560": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1561": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1562": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1563": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1564": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1565": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1566": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1567": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1568": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1569": { reward: "FREE Speed Optimization", client: "Admin", used: false },
+    "VG-ORD-1570": { reward: "FREE Speed Optimization", client: "Admin", used: false }
+  };
 
-    const STORAGE_KEY = 'prime-vault-used-codes';
+  const rewardCardMap = {
+    "5% OFF": "5",
+    "10% OFF": "10",
+    "20% OFF": "20",
+    "FREE Speed Optimization": "50"
+  };
 
-    const rewardCardMap = {
-      '5% OFF': '5',
-      '10% OFF': '10',
-      '20% OFF': '20',
-      'FREE Speed Optimization': '50'
-    };
+  function normalizeCode(code) {
+    return (code || "").trim().toUpperCase();
+  }
 
-    function normalizeCode(code) {
-      return (code || '').trim().toUpperCase();
-    }
+  function showStatus(message, isError = false) {
+    statusText.textContent = message;
+    statusText.style.color = isError ? "#ff4d4d" : "";
+  }
 
-    function getSavedUsedCodes() {
-      try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-        if (!Array.isArray(saved)) return new Set();
-        return new Set(saved.map(normalizeCode));
-      } catch (error) {
-        return new Set();
+  function setActiveReward(reward) {
+    const target = rewardCardMap[reward] || "50";
+
+    rewardCards.forEach(card => {
+      card.classList.remove("is-active");
+
+      if (card.dataset.reward === target) {
+        card.classList.add("is-active");
       }
-    }
-
-    const usedCodes = getSavedUsedCodes();
-
-    function saveUsedCodes() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([...usedCodes]));
-    }
-
-    function syncBuiltInUsedCodes() {
-      Object.entries(VAULT_CODES).forEach(([rawCode, entry]) => {
-        const code = normalizeCode(rawCode);
-        // If the VAULT_CODES entry explicitly sets `used` (true/false),
-        // treat that as authoritative and sync localStorage to match.
-        if (Object.prototype.hasOwnProperty.call(entry, 'used')) {
-          if (entry.used === true) {
-            usedCodes.add(code);
-            entry.used = true;
-          } else if (entry.used === false) {
-            usedCodes.delete(code);
-            entry.used = false;
-          }
-        } else {
-          // If no explicit flag, honor existing localStorage state.
-          if (usedCodes.has(code)) {
-            entry.used = true;
-          }
-        }
-      });
-      // Persist any changes back to localStorage.
-      saveUsedCodes();
-    }
-
-    function showStatus(message, isError = false) {
-      statusText.textContent = message;
-      statusText.style.color = isError ? 'var(--danger)' : '';
-    }
-
-    function setActiveReward(reward) {
-      const target = rewardCardMap[reward] || '50';
-      rewardCards.forEach(card => {
-        card.classList.toggle('is-active', card.dataset.reward === target);
-      });
-    }
-
-    function createConfetti() {
-      confettiStage.innerHTML = '';
-      const colors = ['#8b5cf6', '#a78bfa', '#f59e0b', '#38bdf8', '#c026d3'];
-      for (let i = 0; i < 18; i += 1) {
-        const piece = document.createElement('span');
-        piece.className = 'confetti-piece';
-        piece.style.setProperty('--x', `${Math.random() * 100}%`);
-        piece.style.setProperty('--y', `${Math.random() * 20}%`);
-        piece.style.setProperty('--dx', `${Math.random() * 160 - 80}px`);
-        piece.style.setProperty('--dy', `${200 + Math.random() * 120}px`);
-        piece.style.setProperty('--r', `${Math.random() * 360}deg`);
-        piece.style.setProperty('--c', colors[i % colors.length]);
-        piece.style.setProperty('--d', `${Math.random() * 400}ms`);
-        confettiStage.appendChild(piece);
-      }
-    }
-
-    function revealVaultReward(code, reward, client) {
-      rewardSummary.textContent = `${reward} — ${client}`;
-      rewardCodeText.textContent = code;
-      codeCard.hidden = false;
-      finalBadge.hidden = false;
-      showStatus('Code accepted — reward revealed');
-      vaultButton.disabled = true;
-      customerCodeInput.disabled = true;
-      setActiveReward(reward);
-      createConfetti();
-    }
-
-    function redeemCode() {
-      const code = normalizeCode(customerCodeInput.value);
-      if (!code) {
-        return showStatus('Please enter a code', true);
-      }
-
-      const entry = VAULT_CODES[code];
-      if (!entry) {
-        return showStatus('Invalid secret code', true);
-      }
-      if (entry.used) {
-        return showStatus('This code has already been redeemed', true);
-      }
-
-      entry.used = true;
-      usedCodes.add(code);
-      saveUsedCodes();
-      revealVaultReward(code, entry.reward, entry.client);
-    }
-
-    vaultButton.addEventListener('click', redeemCode);
-    customerCodeInput.addEventListener('keypress', (event) => {
-      if (event.key === 'Enter') redeemCode();
     });
+  }
 
-    // Initialize used state from local storage and built-in flags
-    syncBuiltInUsedCodes();
-  </script>
+  function createConfetti() {
+    confettiStage.innerHTML = "";
+
+    const colors = [
+      "#8b5cf6",
+      "#a78bfa",
+      "#f59e0b",
+      "#38bdf8",
+      "#c026d3"
+    ];
+
+    for (let i = 0; i < 18; i++) {
+      const piece = document.createElement("span");
+
+      piece.className = "confetti-piece";
+
+      piece.style.setProperty("--x", `${Math.random() * 100}%`);
+      piece.style.setProperty("--y", `${Math.random() * 20}%`);
+      piece.style.setProperty("--dx", `${Math.random() * 160 - 80}px`);
+      piece.style.setProperty("--dy", `${200 + Math.random() * 120}px`);
+      piece.style.setProperty("--r", `${Math.random() * 360}deg`);
+      piece.style.setProperty("--c", colors[i % colors.length]);
+      piece.style.setProperty("--d", `${Math.random() * 400}ms`);
+
+      confettiStage.appendChild(piece);
+    }
+  }
+
+  function revealVaultReward(code, reward, client) {
+
+  // Create ONE permanent verification code from the vault code
+  const verificationCode =
+    "PW-" +
+    code.replace("VG-ORD-", "");
+
+  // Save permanent verification data
+  const rewardData = {
+    code: verificationCode,
+    originalCode: code,
+    reward: reward,
+    client: client,
+    status: "unclaimed",
+    createdAt: new Date().toISOString()
+  };
+
+  // Load old records
+  let records = JSON.parse(localStorage.getItem("primeweb_rewards") || "[]");
+
+  // Prevent duplicate creation
+  const exists = records.find(r => r.originalCode === code);
+
+  if (!exists) {
+    records.push(rewardData);
+    localStorage.setItem("primeweb_rewards", JSON.stringify(records));
+  }
+
+  rewardSummary.textContent = `${reward} — ${client}`;
+  rewardCodeText.textContent = verificationCode;
+
+  codeCard.hidden = false;
+  finalBadge.hidden = false;
+
+  showStatus('Code accepted — reward revealed');
+
+  vaultButton.disabled = true;
+  customerCodeInput.disabled = true;
+
+  setActiveReward(reward);
+  createConfetti();
+}
+
+function redeemCode() {
+  const code = normalizeCode(customerCodeInput.value);
+
+  if (!code) {
+    return showStatus("Please enter a code", true);
+  }
+
+  const entry = VAULT_CODES[code];
+
+  if (!entry) {
+    return showStatus("Invalid secret code", true);
+  }
+
+  // Load saved used codes
+  const savedUsedCodes = JSON.parse(
+    localStorage.getItem("prime-used-codes") || "[]"
+  );
+
+  // If manually set false in code file,
+  // remove it from localStorage automatically
+  if (entry.used === false) {
+    const filtered = savedUsedCodes.filter(c => c !== code);
+    localStorage.setItem(
+      "prime-used-codes",
+      JSON.stringify(filtered)
+    );
+  }
+
+  // Reload updated list
+  const updatedUsedCodes = JSON.parse(
+    localStorage.getItem("prime-used-codes") || "[]"
+  );
+
+  // Block if already redeemed
+  if (updatedUsedCodes.includes(code)) {
+    return showStatus(
+      "This code has already been redeemed",
+      true
+    );
+  }
+
+  // Save as redeemed permanently
+  updatedUsedCodes.push(code);
+
+  localStorage.setItem(
+    "prime-used-codes",
+    JSON.stringify(updatedUsedCodes)
+  );
+
+  // Change runtime state
+  entry.used = true;
+
+  revealVaultReward(code, entry.reward, entry.client);
+}
+
+  vaultButton.addEventListener("click", redeemCode);
+
+  customerCodeInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      redeemCode();
+    }
+  });
+</script>
 </body>
 </html>
