@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Romantic Cinematic Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#070506;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
+
+      background:
+      radial-gradient(circle at top,#2f2f2f33,transparent 40%),
+      radial-gradient(circle at bottom,#7a5b2a22,transparent 45%);
+
+      z-index:-3;
+    }
+
+    body::after{
+      content:'';
+      position:fixed;
+      inset:0;
+
+      background:
+      radial-gradient(circle at top left,#ff5c8a12,transparent 35%),
+      radial-gradient(circle at bottom right,#ff94b61a,transparent 40%),
+      radial-gradient(circle at center,#d4af6a10,transparent 45%);
+
+      z-index:-2;
+    }
+
+    .smoke{
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .smoke span{
+      position:absolute;
+      width:420px;
+      height:420px;
+
+      background:
+      radial-gradient(circle,rgba(255,255,255,0.05),transparent 70%);
+
+      border-radius:50%;
+
+      filter:blur(40px);
+
+      animation:moveSmoke 18s linear infinite;
+    }
+
+    @keyframes moveSmoke{
+
+      0%{
+        transform:translateY(100vh) translateX(-120px);
+      }
+
+      100%{
+        transform:translateY(-120vh) translateX(220px);
+      }
+
+    }
+
+    .hero{
+
+      min-height:100vh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      position:relative;
+
+      padding:40px 20px;
+
+      background:
+      linear-gradient(rgba(0,0,0,0.78),rgba(0,0,0,0.88)),
+      url('https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?q=80&w=2070&auto=format&fit=crop')
+      center/cover fixed;
+    }
+
+    .hero-card{
+
+      max-width:1100px;
+      width:100%;
+
+      padding:100px 70px;
+
+      border-radius:45px;
+
+      background:rgba(255,255,255,0.045);
+
+      backdrop-filter:blur(14px);
+
+      border:1px solid rgba(255,182,193,0.12);
+
+      box-shadow:
+      0 20px 60px rgba(0,0,0,0.6),
+      0 0 80px rgba(255,105,140,0.08),
+      inset 0 0 0 1px rgba(255,255,255,0.03);
+
+      text-align:center;
+
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero-card::before{
+
+      content:'';
+
+      position:absolute;
+
+      inset:0;
+
+      border-radius:45px;
+
+      padding:1px;
+
+      background:
+      linear-gradient(
+      135deg,
+      rgba(255,182,193,0.45),
+      transparent,
+      rgba(255,182,193,0.35)
+      );
+
+      mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+
+      -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+
+      -webkit-mask-composite:xor;
+      mask-composite:exclude;
+    }
+
+    .hero-card::after{
+
+      content:'';
+
+      position:absolute;
+
+      width:500px;
+      height:500px;
+
+      background:
+      radial-gradient(circle,#ff7da21f,transparent 70%);
+
+      top:-250px;
+      right:-120px;
+
+      filter:blur(30px);
+    }
+
+    .small-text{
+
+      letter-spacing:7px;
+
+      text-transform:uppercase;
+
+      font-size:12px;
+
+      color:#ffb3c7;
+
+      margin-bottom:30px;
+
+      font-weight:600;
+    }
+
+    .main-title{
+
+      font-family:'Cinzel',serif;
+
+      font-size:100px;
+
+      line-height:1.05;
+
+      margin-bottom:25px;
+
+      color:#fff7f8;
+
+      text-shadow:
+      0 0 20px rgba(255,182,193,0.15),
+      0 0 40px rgba(255,105,140,0.08);
+    }
+
+    .main-title span{
+      color:#ff9fba;
+    }
+
+    .description{
+
+      max-width:760px;
+
+      margin:auto;
+
+      font-size:19px;
+
+      line-height:2;
+
+      color:#e5d7dc;
+
+      margin-bottom:50px;
+    }
+
+    .buttons{
+
+      display:flex;
+
+      justify-content:center;
+
+      gap:20px;
+
+      flex-wrap:wrap;
+    }
+
+    .btn{
+
+      text-decoration:none;
+
+      padding:17px 40px;
+
+      border-radius:999px;
+
+      transition:0.4s ease;
+
+      font-weight:500;
+    }
+
+    .primary-btn{
+
+      background:
+      linear-gradient(135deg,#ff8cab,#ffb3c7);
+
+      color:#1b0f13;
+    }
+
+    .primary-btn:hover{
+
+      transform:translateY(-5px);
+
+      box-shadow:
+      0 10px 30px rgba(255,140,171,0.35),
+      0 0 40px rgba(255,179,199,0.15);
+    }
+
+    .secondary-btn{
+
+      border:1px solid rgba(255,255,255,0.12);
+
+      color:white;
+
+      background:rgba(255,255,255,0.05);
+    }
+
+    .secondary-btn:hover{
+      background:rgba(255,255,255,0.12);
+    }
+
+    section{
+      padding:130px 20px;
+      position:relative;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+
+      text-align:center;
+
+      font-family:'Cinzel',serif;
+
+      font-size:68px;
+
+      margin-bottom:18px;
+
+      color:#fff4f6;
+
+      text-shadow:
+      0 0 25px rgba(255,182,193,0.08);
+    }
+
+    .section-subtitle{
+
+      text-align:center;
+
+      color:#d4c6cb;
+
+      line-height:1.9;
+
+      margin-bottom:80px;
+    }
+
+    .timeline{
+      display:grid;
+      gap:35px;
+    }
+
+    .timeline-card{
+
+      display:flex;
+
+      align-items:center;
+
+      gap:35px;
+
+      background:
+      linear-gradient(145deg,#0f0a0c,#120b0f);
+
+      border:1px solid rgba(255,182,193,0.08);
+
+      border-radius:35px;
+
+      padding:40px;
+
+      transition:0.4s ease;
+    }
+
+    .timeline-card:hover{
+
+      transform:translateY(-8px);
+
+      border-color:#ff9fba55;
+
+      box-shadow:
+      0 15px 35px rgba(0,0,0,0.45),
+      0 0 40px rgba(255,105,140,0.08);
+    }
+
+    .timeline-number{
+
+      min-width:100px;
+
+      height:100px;
+
+      border-radius:50%;
+
+      background:
+      linear-gradient(135deg,#ff8cab,#ffc2d1);
+
+      color:#220f16;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-size:32px;
+      font-weight:700;
+
+      box-shadow:
+      0 10px 25px rgba(255,140,171,0.25);
+    }
+
+    .timeline-content h2{
+      font-size:34px;
+      margin-bottom:15px;
+    }
+
+    .timeline-content p{
+
+      color:#d3c5ca;
+
+      line-height:1.9;
+    }
+
+    .gallery{
+
+      display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(280px,1fr));
+
+      gap:28px;
+    }
+
+    .gallery img{
+
+      width:100%;
+
+      height:420px;
+
+      object-fit:cover;
+
+      border-radius:32px;
+
+      transition:0.5s ease;
+
+      filter:brightness(0.82) saturate(1.05);
+    }
+
+    .gallery img:hover{
+
+      transform:scale(1.05);
+
+      filter:brightness(1) saturate(1.15);
+
+      box-shadow:
+      0 15px 35px rgba(255,105,140,0.15);
+    }
+
+    .countdown{
+
+      margin-top:90px;
+
+      display:flex;
+
+      justify-content:center;
+
+      gap:28px;
+
+      flex-wrap:wrap;
+    }
+
+    .count-box{
+
+      width:190px;
+      height:190px;
+
+      border-radius:50%;
+
+      background:
+      linear-gradient(145deg,#120b0f,#0c090b);
+
+      border:1px solid rgba(255,182,193,0.08);
+
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+
+      box-shadow:
+      0 10px 25px rgba(0,0,0,0.35),
+      0 0 40px rgba(255,105,140,0.05);
+    }
+
+    .count-box h1{
+
+      font-size:62px;
+
+      color:#ffb3c7;
+
+      margin-bottom:10px;
+    }
+
+    .count-box span{
+
+      letter-spacing:3px;
+
+      font-size:12px;
+
+      color:#e3d7db;
+    }
+
+    .venue-card{
+
+      background:
+      linear-gradient(145deg,#100a0d,#0b090a);
+
+      border:1px solid rgba(255,182,193,0.08);
+
+      border-radius:45px;
+
+      padding:90px 80px;
+
+      text-align:center;
+
+      box-shadow:
+      0 15px 45px rgba(0,0,0,0.45),
+      0 0 60px rgba(255,105,140,0.05);
+    }
+
+    .venue-card h2{
+
+      font-family:'Cinzel',serif;
+
+      font-size:54px;
+
+      margin-bottom:20px;
+
+      color:#fff3f5;
+    }
+
+    .venue-card p{
+
+      max-width:700px;
+
+      margin:auto;
+
+      line-height:1.9;
+
+      color:#d4c6cb;
+    }
+
+    .footer{
+
+      padding:90px 20px;
+
+      text-align:center;
+
+      background:
+      linear-gradient(to top,#050505,#090708);
+
+      border-top:1px solid rgba(255,255,255,0.05);
+    }
+
+    .footer h2{
+
+      font-family:'Cinzel',serif;
+
+      font-size:48px;
+
+      margin-bottom:15px;
+
+      color:#fff5f7;
+    }
+
+    .footer p{
+
+      color:#c7b7bd;
+
+      line-height:1.9;
+    }
+
+    @media(max-width:768px){
+
+      .hero-card{
+        padding:70px 25px;
+      }
+
+      .main-title{
+        font-size:58px;
+      }
+
+      .section-title{
+        font-size:44px;
+      }
+
+      .timeline-card{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .venue-card{
+        padding:50px 25px;
+      }
+
+      .count-box{
+        width:140px;
+        height:140px;
+      }
+
+      .count-box h1{
+        font-size:42px;
+      }
+
+    }
+
+  </style>
+
+</head>
+<body>
+
+  <div class="smoke">
+
+    <span style="left:10%;animation-delay:0s;"></span>
+
+    <span style="left:35%;animation-delay:5s;"></span>
+
+    <span style="left:60%;animation-delay:10s;"></span>
+
+    <span style="left:80%;animation-delay:2s;"></span>
+
+  </div>
+
+  <section class="hero">
+
+    <div class="hero-card">
+
+      <p class="small-text">
+        A Romantic Celebration Of Forever
+      </p>
+
+      <h1 class="main-title">
+        Isabella <span>&</span> Noah
+      </h1>
+
+      <p class="description">
+        Under the glow of the stars and surrounded by love,
+        we invite you to celebrate the beginning of our forever.
+        Join us for an unforgettable evening filled with romance,
+        elegance, laughter, and beautiful memories.
+      </p>
+
+      <div class="buttons">
+
+        <a href="#gallery" class="btn primary-btn">
+          Explore Story
+        </a>
+
+        <a href="#rsvp" class="btn secondary-btn">
+          RSVP Now
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="container">
+
+      <h1 class="section-title">
+        Our Love Story
+      </h1>
+
+      <p class="section-subtitle">
+        Every chapter of our journey became a beautiful memory.
+      </p>
+
+      <div class="timeline">
+
+        <div class="timeline-card">
+
+          <div class="timeline-number">
+            01
+          </div>
+
+          <div class="timeline-content">
+
+            <h2>First Meeting</h2>
+
+            <p>
+              A magical moment where two hearts unexpectedly
+              found each other and everything changed forever.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="timeline-card">
+
+          <div class="timeline-number">
+            02
+          </div>
+
+          <div class="timeline-content">
+
+            <h2>Falling In Love</h2>
+
+            <p>
+              Through laughter, adventures, and unforgettable
+              moments, our bond grew stronger every day.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="timeline-card">
+
+          <div class="timeline-number">
+            03
+          </div>
+
+          <div class="timeline-content">
+
+            <h2>Forever Begins</h2>
+
+            <p>
+              Now we begin a new chapter together surrounded
+              by the people who mean the most to us.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="gallery">
+
+    <div class="container">
+
+      <h1 class="section-title">
+        Beautiful Moments
+      </h1>
+
+      <p class="section-subtitle">
+        A collection of memories that shaped our forever.
+      </p>
+
+      <div class="gallery">
+
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1974&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop">
+
+      </div>
+
+      <div class="countdown">
+
+        <div class="count-box">
+          <h1>87</h1>
+          <span>DAYS</span>
+        </div>
+
+        <div class="count-box">
+          <h1>10</h1>
+          <span>HOURS</span>
+        </div>
+
+        <div class="count-box">
+          <h1>52</h1>
+          <span>MINUTES</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="rsvp">
+
+    <div class="container">
+
+      <div class="venue-card">
+
+        <h2>
+          Imperial Rose Palace
+        </h2>
+
+        <p>
+          245 Royal Avenue, California
+          <br><br>
+          We would be honored by your presence as we celebrate
+          this romantic evening filled with love, elegance,
+          joy, and unforgettable memories.
+        </p>
+
+        <div class="buttons"
+        style="justify-content:center; margin-top:45px;">
+
+          <a href="#" class="btn primary-btn">
+            Confirm Attendance
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer class="footer">
+
+    <h2>
+      See You Under The Stars
+    </h2>
+
+    <p>
+      Designed By PRIME WEB <br>
+      Romantic Cinematic Invitation Experience
+    </p>
+
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Floral Romantic Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#fff7f6;
+      color:#2d2d2d;
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
+      background:
+      radial-gradient(circle at top left,#ffd9df,transparent 40%),
+      radial-gradient(circle at bottom right,#ffe8d6,transparent 40%);
+      z-index:-2;
+    }
+
+    .flowers{
+      position:fixed;
+      inset:0;
+      overflow:hidden;
+      pointer-events:none;
+      z-index:-1;
+    }
+
+    .flowers span{
+      position:absolute;
+      width:18px;
+      height:18px;
+      background:#ffb6c1;
+      border-radius:50% 50% 0 50%;
+      opacity:0.35;
+      animation:fall 14s linear infinite;
+    }
+
+    @keyframes fall{
+
+      0%{
+        transform:translateY(-100px) rotate(0deg);
+      }
+
+      100%{
+        transform:translateY(110vh) rotate(360deg);
+      }
+
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:40px 20px;
+      position:relative;
+    }
+
+    .hero-card{
+      max-width:1100px;
+      width:100%;
+      background:rgba(255,255,255,0.7);
+      backdrop-filter:blur(12px);
+      border-radius:40px;
+      overflow:hidden;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      border:1px solid rgba(255,255,255,0.5);
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.08),
+      inset 0 0 0 1px rgba(255,255,255,0.4);
+    }
+
+    .hero-image{
+      min-height:750px;
+      background:
+      linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.25)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')
+      center/cover;
+      position:relative;
+    }
+
+    .hero-image::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,0.4),transparent);
+    }
+
+    .hero-content{
+      padding:90px 70px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      position:relative;
+    }
+
+    .small-text{
+      letter-spacing:4px;
+      text-transform:uppercase;
+      font-size:12px;
+      color:#d48b98;
+      margin-bottom:25px;
+      font-weight:600;
+    }
+
+    .main-title{
+      font-family:'Great Vibes',cursive;
+      font-size:95px;
+      line-height:1;
+      color:#c86f7f;
+      margin-bottom:20px;
+    }
+
+    .sub-title{
+      font-size:28px;
+      color:#6a6a6a;
+      margin-bottom:30px;
+      font-weight:300;
+    }
+
+    .description{
+      font-size:17px;
+      line-height:1.9;
+      color:#666666;
+      margin-bottom:40px;
+    }
+
+    .divider{
+      width:120px;
+      height:1px;
+      background:#e4a5b0;
+      margin-bottom:40px;
+      position:relative;
+    }
+
+    .divider::after{
+      content:'❀';
+      position:absolute;
+      top:-14px;
+      left:50%;
+      transform:translateX(-50%);
+      color:#d48b98;
+      font-size:22px;
+      background:#fff7f6;
+      padding:0 10px;
+    }
+
+    .details{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-bottom:40px;
+    }
+
+    .detail-card{
+      background:rgba(255,255,255,0.75);
+      padding:25px;
+      border-radius:24px;
+      border:1px solid rgba(0,0,0,0.05);
+      transition:0.4s ease;
+    }
+
+    .detail-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    .detail-card h3{
+      font-size:12px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:#d48b98;
+      margin-bottom:10px;
+    }
+
+    .detail-card p{
+      color:#333333;
+      line-height:1.7;
+    }
+
+    .buttons{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      text-decoration:none;
+      padding:16px 36px;
+      border-radius:999px;
+      transition:0.4s ease;
+      font-weight:500;
+    }
+
+    .primary-btn{
+      background:#d48b98;
+      color:white;
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-5px);
+      box-shadow:0 10px 25px rgba(212,139,152,0.3);
+    }
+
+    .secondary-btn{
+      background:white;
+      border:1px solid rgba(0,0,0,0.08);
+      color:#444444;
+    }
+
+    .secondary-btn:hover{
+      background:#f8f8f8;
+    }
+
+    section{
+      padding:120px 20px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      font-family:'Great Vibes',cursive;
+      font-size:80px;
+      color:#c86f7f;
+      margin-bottom:20px;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      color:#777777;
+      margin-bottom:70px;
+      line-height:1.9;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+    }
+
+    .gallery-card{
+      background:white;
+      border-radius:30px;
+      overflow:hidden;
+      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+      transition:0.5s ease;
+    }
+
+    .gallery-card:hover{
+      transform:translateY(-8px);
+    }
+
+    .gallery-card img{
+      width:100%;
+      height:380px;
+      object-fit:cover;
+    }
+
+    .gallery-content{
+      padding:28px;
+    }
+
+    .gallery-content h2{
+      margin-bottom:12px;
+      color:#c86f7f;
+      font-size:30px;
+      font-family:'Great Vibes',cursive;
+    }
+
+    .gallery-content p{
+      color:#666666;
+      line-height:1.8;
+    }
+
+    .countdown{
+      margin-top:80px;
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      flex-wrap:wrap;
+    }
+
+    .count-box{
+      width:170px;
+      height:170px;
+      background:white;
+      border-radius:50%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      box-shadow:0 10px 25px rgba(0,0,0,0.06);
+      border:1px solid rgba(0,0,0,0.04);
+    }
+
+    .count-box h1{
+      font-size:54px;
+      color:#d48b98;
+      margin-bottom:8px;
+    }
+
+    .count-box span{
+      letter-spacing:3px;
+      font-size:12px;
+      color:#777777;
+    }
+
+    .venue-card{
+      background:white;
+      border-radius:40px;
+      padding:70px;
+      text-align:center;
+      box-shadow:0 15px 30px rgba(0,0,0,0.05);
+    }
+
+    .venue-card h2{
+      font-family:'Great Vibes',cursive;
+      font-size:72px;
+      color:#c86f7f;
+      margin-bottom:20px;
+    }
+
+    .venue-card p{
+      max-width:700px;
+      margin:auto;
+      line-height:1.9;
+      color:#666666;
+    }
+
+    .footer{
+      padding:70px 20px;
+      text-align:center;
+      background:white;
+      border-top:1px solid rgba(0,0,0,0.05);
+    }
+
+    .footer h2{
+      font-family:'Great Vibes',cursive;
+      font-size:62px;
+      color:#c86f7f;
+      margin-bottom:15px;
+    }
+
+    .footer p{
+      color:#777777;
+      line-height:1.8;
+    }
+
+    @media(max-width:980px){
+
+      .hero-card{
+        grid-template-columns:1fr;
+      }
+
+      .hero-image{
+        min-height:450px;
+      }
+
+      .hero-content{
+        padding:60px 30px;
+      }
+
+      .main-title{
+        font-size:70px;
+      }
+
+    }
+
+    @media(max-width:768px){
+
+      .section-title{
+        font-size:60px;
+      }
+
+      .details{
+        grid-template-columns:1fr;
+      }
+
+      .venue-card{
+        padding:45px 25px;
+      }
+
+      .count-box{
+        width:135px;
+        height:135px;
+      }
+
+      .count-box h1{
+        font-size:40px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="flowers">
+
+    <span style="left:10%;animation-delay:0s;"></span>
+    <span style="left:20%;animation-delay:3s;"></span>
+    <span style="left:30%;animation-delay:6s;"></span>
+    <span style="left:40%;animation-delay:1s;"></span>
+    <span style="left:50%;animation-delay:5s;"></span>
+    <span style="left:60%;animation-delay:2s;"></span>
+    <span style="left:70%;animation-delay:4s;"></span>
+    <span style="left:80%;animation-delay:7s;"></span>
+    <span style="left:90%;animation-delay:3s;"></span>
+
+  </div>
+
+  <section class="hero">
+
+    <div class="hero-card">
+
+      <div class="hero-image"></div>
+
+      <div class="hero-content">
+
+        <p class="small-text">
+          With Great Joy
+        </p>
+
+        <h1 class="main-title">
+          Sophia & Liam
+        </h1>
+
+        <p class="sub-title">
+          Invite You To Celebrate Their Love
+        </p>
+
+        <p class="description">
+          Join us for a romantic evening filled with
+          love, happiness, laughter, and unforgettable
+          memories as we begin our forever together.
+        </p>
+
+        <div class="divider"></div>
+
+        <div class="details">
+
+          <div class="detail-card">
+            <h3>Date</h3>
+            <p>15 March 2027</p>
+          </div>
+
+          <div class="detail-card">
+            <h3>Time</h3>
+            <p>6:00 PM onwards</p>
+          </div>
+
+          <div class="detail-card">
+            <h3>Venue</h3>
+            <p>Rose Garden Palace</p>
+          </div>
+
+          <div class="detail-card">
+            <h3>Theme</h3>
+            <p>Romantic Floral Evening</p>
+          </div>
+
+        </div>
+
+        <div class="buttons">
+
+          <a href="#gallery" class="btn primary-btn">
+            View Moments
+          </a>
+
+          <a href="#rsvp" class="btn secondary-btn">
+            RSVP Now
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="gallery">
+
+    <div class="container">
+
+      <h1 class="section-title">
+        Our Love Story
+      </h1>
+
+      <p class="section-subtitle">
+        Every moment together became a beautiful memory.
+      </p>
+
+      <div class="gallery">
+
+        <div class="gallery-card">
+
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop">
+
+          <div class="gallery-content">
+
+            <h2>First Smile</h2>
+
+            <p>
+              The moment our hearts quietly found each other.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="gallery-card">
+
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1974&auto=format&fit=crop">
+
+          <div class="gallery-content">
+
+            <h2>Beautiful Journey</h2>
+
+            <p>
+              A journey filled with love, dreams, and happiness.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="gallery-card">
+
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop">
+
+          <div class="gallery-content">
+
+            <h2>Forever Begins</h2>
+
+            <p>
+              Now we celebrate the beginning of forever together.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="countdown">
+
+        <div class="count-box">
+          <h1>95</h1>
+          <span>DAYS</span>
+        </div>
+
+        <div class="count-box">
+          <h1>16</h1>
+          <span>HOURS</span>
+        </div>
+
+        <div class="count-box">
+          <h1>24</h1>
+          <span>MINUTES</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="rsvp">
+
+    <div class="container">
+
+      <div class="venue-card">
+
+        <h2>
+          Rose Garden Palace
+        </h2>
+
+        <p>
+          245 Floral Avenue, California
+          <br><br>
+          We would be delighted to celebrate this
+          beautiful evening of love and happiness with you.
+        </p>
+
+        <div class="buttons" style="justify-content:center; margin-top:40px;">
+
+          <a href="#" class="btn primary-btn">
+            Confirm Attendance
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer class="footer">
+
+    <h2>
+      See You At The Celebration
+    </h2>
+
+    <p>
+      Designed By PRIME WEB <br>
+      Romantic Floral Invitation Experience
+    </p>
+
+  </footer>
+
+</body>
+</html>

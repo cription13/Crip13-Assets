@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Luxury Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:#f7f3ed;
+      color:#1a1a1a;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
+      background:
+      radial-gradient(circle at top right,#efe5d8,transparent 40%),
+      radial-gradient(circle at bottom left,#f2e8db,transparent 40%);
+      z-index:-1;
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:40px 20px;
+      position:relative;
+    }
+
+    .hero-card{
+      width:100%;
+      max-width:1150px;
+      background:rgba(255,255,255,0.7);
+      backdrop-filter:blur(12px);
+      border:1px solid rgba(0,0,0,0.06);
+      border-radius:40px;
+      overflow:hidden;
+      box-shadow:
+      0 10px 40px rgba(0,0,0,0.08),
+      inset 0 0 0 1px rgba(255,255,255,0.5);
+
+      display:grid;
+      grid-template-columns:1fr 1fr;
+    }
+
+    .hero-image{
+      min-height:700px;
+      background:
+      linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.25)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')
+      center/cover;
+      position:relative;
+    }
+
+    .hero-image::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top,rgba(0,0,0,0.4),transparent);
+    }
+
+    .hero-content{
+      padding:90px 70px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .small-text{
+      letter-spacing:4px;
+      text-transform:uppercase;
+      font-size:12px;
+      color:#9b7d55;
+      margin-bottom:25px;
+      font-weight:600;
+    }
+
+    .main-title{
+      font-family:'Playfair Display',serif;
+      font-size:76px;
+      line-height:1.05;
+      margin-bottom:25px;
+      color:#111111;
+    }
+
+    .main-title span{
+      color:#b08a5b;
+    }
+
+    .description{
+      font-size:17px;
+      line-height:1.9;
+      color:#555555;
+      margin-bottom:40px;
+    }
+
+    .info-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      margin-bottom:40px;
+    }
+
+    .info-card{
+      padding:24px;
+      background:rgba(255,255,255,0.75);
+      border-radius:24px;
+      border:1px solid rgba(0,0,0,0.05);
+      transition:0.4s ease;
+    }
+
+    .info-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .info-card h3{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:3px;
+      color:#a28357;
+      margin-bottom:10px;
+    }
+
+    .info-card p{
+      font-size:16px;
+      color:#222222;
+      line-height:1.7;
+    }
+
+    .buttons{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      text-decoration:none;
+      padding:16px 34px;
+      border-radius:999px;
+      transition:0.4s ease;
+      font-weight:500;
+    }
+
+    .primary-btn{
+      background:#111111;
+      color:white;
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-4px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .secondary-btn{
+      border:1px solid rgba(0,0,0,0.1);
+      color:#111111;
+      background:white;
+    }
+
+    .secondary-btn:hover{
+      background:#f4f4f4;
+    }
+
+    section{
+      padding:120px 20px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      font-family:'Playfair Display',serif;
+      font-size:58px;
+      margin-bottom:18px;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      color:#666666;
+      margin-bottom:70px;
+      line-height:1.8;
+    }
+
+    .story-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .story-card{
+      background:white;
+      border-radius:30px;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,0.05);
+      transition:0.4s ease;
+    }
+
+    .story-card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 15px 30px rgba(0,0,0,0.08);
+    }
+
+    .story-card img{
+      width:100%;
+      height:280px;
+      object-fit:cover;
+    }
+
+    .story-content{
+      padding:30px;
+    }
+
+    .story-content h2{
+      margin-bottom:15px;
+      font-size:28px;
+      font-family:'Playfair Display',serif;
+    }
+
+    .story-content p{
+      color:#666666;
+      line-height:1.8;
+    }
+
+    .countdown{
+      margin-top:70px;
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      flex-wrap:wrap;
+    }
+
+    .count-box{
+      width:170px;
+      height:170px;
+      background:white;
+      border-radius:30px;
+      border:1px solid rgba(0,0,0,0.05);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      box-shadow:0 8px 20px rgba(0,0,0,0.05);
+    }
+
+    .count-box h1{
+      font-size:58px;
+      margin-bottom:10px;
+      color:#b08a5b;
+    }
+
+    .count-box span{
+      font-size:12px;
+      letter-spacing:3px;
+      color:#777777;
+    }
+
+    .venue-card{
+      background:white;
+      border-radius:35px;
+      padding:70px;
+      text-align:center;
+      border:1px solid rgba(0,0,0,0.05);
+      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .venue-card h2{
+      font-size:50px;
+      font-family:'Playfair Display',serif;
+      margin-bottom:20px;
+    }
+
+    .venue-card p{
+      max-width:700px;
+      margin:auto;
+      line-height:1.9;
+      color:#666666;
+    }
+
+    .footer{
+      padding:70px 20px;
+      text-align:center;
+      background:white;
+      border-top:1px solid rgba(0,0,0,0.06);
+    }
+
+    .footer h2{
+      font-family:'Playfair Display',serif;
+      font-size:42px;
+      margin-bottom:15px;
+    }
+
+    .footer p{
+      color:#777777;
+      line-height:1.8;
+    }
+
+    @media(max-width:980px){
+
+      .hero-card{
+        grid-template-columns:1fr;
+      }
+
+      .hero-image{
+        min-height:450px;
+      }
+
+      .hero-content{
+        padding:60px 30px;
+      }
+
+      .main-title{
+        font-size:52px;
+      }
+
+    }
+
+    @media(max-width:768px){
+
+      .section-title{
+        font-size:42px;
+      }
+
+      .venue-card{
+        padding:45px 25px;
+      }
+
+      .count-box{
+        width:135px;
+        height:135px;
+      }
+
+      .count-box h1{
+        font-size:42px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+
+    <div class="hero-card">
+
+      <div class="hero-image"></div>
+
+      <div class="hero-content">
+
+        <p class="small-text">
+          You Are Invited
+        </p>
+
+        <h1 class="main-title">
+          Olivia <span>&</span><br>
+          James
+        </h1>
+
+        <p class="description">
+          Together with our families, we invite you to
+          celebrate a beautiful chapter of love, joy,
+          and forever memories in an elegant evening
+          crafted with timeless beauty.
+        </p>
+
+        <div class="info-grid">
+
+          <div class="info-card">
+            <h3>Date</h3>
+            <p>18 February 2027</p>
+          </div>
+
+          <div class="info-card">
+            <h3>Time</h3>
+            <p>7:00 PM onwards</p>
+          </div>
+
+          <div class="info-card">
+            <h3>Venue</h3>
+            <p>White Palace Hall</p>
+          </div>
+
+          <div class="info-card">
+            <h3>Dress Code</h3>
+            <p>Elegant Formal</p>
+          </div>
+
+        </div>
+
+        <div class="buttons">
+
+          <a href="#gallery" class="btn primary-btn">
+            Explore Moments
+          </a>
+
+          <a href="#rsvp" class="btn secondary-btn">
+            RSVP Now
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="gallery">
+
+    <div class="container">
+
+      <h1 class="section-title">
+        Our Story
+      </h1>
+
+      <p class="section-subtitle">
+        Every love story is beautiful, but ours is our favorite.
+      </p>
+
+      <div class="story-grid">
+
+        <div class="story-card">
+
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop">
+
+          <div class="story-content">
+
+            <h2>First Meet</h2>
+
+            <p>
+              A magical moment that marked the beginning
+              of an unforgettable journey together.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="story-card">
+
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1974&auto=format&fit=crop">
+
+          <div class="story-content">
+
+            <h2>Falling In Love</h2>
+
+            <p>
+              Through laughter, adventures, and dreams,
+              our bond grew stronger every day.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="story-card">
+
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop">
+
+          <div class="story-content">
+
+            <h2>Forever Begins</h2>
+
+            <p>
+              Now we begin our forever surrounded
+              by the people we love most.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="countdown">
+
+        <div class="count-box">
+          <h1>102</h1>
+          <span>DAYS</span>
+        </div>
+
+        <div class="count-box">
+          <h1>18</h1>
+          <span>HOURS</span>
+        </div>
+
+        <div class="count-box">
+          <h1>42</h1>
+          <span>MINUTES</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="rsvp">
+
+    <div class="container">
+
+      <div class="venue-card">
+
+        <h2>
+          White Palace Hall
+        </h2>
+
+        <p>
+          245 Luxury Avenue, California
+          <br><br>
+          We would be honored by your presence as we
+          celebrate this unforgettable evening of love,
+          happiness, and beautiful memories.
+        </p>
+
+        <div class="buttons" style="justify-content:center; margin-top:40px;">
+
+          <a href="#" class="btn primary-btn">
+            Confirm Attendance
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer class="footer">
+
+    <h2>
+      We Can't Wait To Celebrate With You
+    </h2>
+
+    <p>
+      Designed By PRIME WEB <br>
+      Modern Luxury Invitation Experience
+    </p>
+
+  </footer>
+
+</body>
+</html>

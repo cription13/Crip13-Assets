@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Royal Palace Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#080808;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      width:100%;
+      height:100%;
+      background:
+      radial-gradient(circle at top,#6e55231c,transparent 45%),
+      radial-gradient(circle at bottom,#a17b2a18,transparent 45%);
+      z-index:-2;
+    }
+
+    .particles{
+      position:fixed;
+      width:100%;
+      height:100%;
+      overflow:hidden;
+      z-index:-1;
+    }
+
+    .particles span{
+      position:absolute;
+      display:block;
+      width:4px;
+      height:4px;
+      background:#d4af6a;
+      border-radius:50%;
+      animation:float 10s linear infinite;
+      opacity:0.5;
+    }
+
+    @keyframes float{
+      0%{
+        transform:translateY(100vh) scale(0);
+      }
+
+      100%{
+        transform:translateY(-10vh) scale(1);
+      }
+    }
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:40px 20px;
+      position:relative;
+
+      background:
+      linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.85)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')
+      center/cover;
+    }
+
+    .hero-content{
+      max-width:950px;
+      width:100%;
+      padding:80px 50px;
+      border-radius:35px;
+
+      background:rgba(255,255,255,0.05);
+
+      backdrop-filter:blur(12px);
+
+      border:1px solid rgba(212,175,106,0.18);
+
+      box-shadow:
+      0 10px 50px rgba(0,0,0,0.5),
+      inset 0 0 0 1px rgba(255,255,255,0.03);
+
+      position:relative;
+    }
+
+    .hero-content::before,
+    .hero-content::after{
+      content:'';
+      position:absolute;
+      width:120px;
+      height:120px;
+      border:1px solid rgba(212,175,106,0.4);
+    }
+
+    .hero-content::before{
+      top:20px;
+      left:20px;
+      border-right:none;
+      border-bottom:none;
+    }
+
+    .hero-content::after{
+      bottom:20px;
+      right:20px;
+      border-left:none;
+      border-top:none;
+    }
+
+    .top-text{
+      letter-spacing:6px;
+      color:#d4af6a;
+      font-size:13px;
+      text-transform:uppercase;
+      margin-bottom:25px;
+    }
+
+    .title{
+      font-family:'Cinzel',serif;
+      font-size:88px;
+      line-height:1.1;
+      margin-bottom:25px;
+    }
+
+    .title span{
+      color:#d4af6a;
+    }
+
+    .description{
+      max-width:700px;
+      margin:auto;
+      color:#d5d5d5;
+      line-height:1.9;
+      font-size:17px;
+    }
+
+    .divider{
+      width:120px;
+      height:1px;
+      background:#d4af6a;
+      margin:45px auto;
+      position:relative;
+    }
+
+    .divider::after{
+      content:'';
+      position:absolute;
+      width:12px;
+      height:12px;
+      border-radius:50%;
+      background:#d4af6a;
+      top:-5px;
+      left:50%;
+      transform:translateX(-50%);
+    }
+
+    .details{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+      margin-top:20px;
+    }
+
+    .detail-card{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      padding:30px;
+      border-radius:25px;
+      transition:0.4s ease;
+    }
+
+    .detail-card:hover{
+      transform:translateY(-8px);
+      border-color:#d4af6a;
+      box-shadow:0 10px 30px rgba(212,175,106,0.12);
+    }
+
+    .detail-card h3{
+      color:#d4af6a;
+      letter-spacing:3px;
+      font-size:13px;
+      text-transform:uppercase;
+      margin-bottom:15px;
+      font-weight:500;
+    }
+
+    .detail-card p{
+      font-size:18px;
+      line-height:1.7;
+    }
+
+    .buttons{
+      margin-top:50px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      text-decoration:none;
+      padding:16px 38px;
+      border-radius:999px;
+      transition:0.4s ease;
+      font-weight:500;
+    }
+
+    .gold-btn{
+      background:#d4af6a;
+      color:black;
+    }
+
+    .gold-btn:hover{
+      transform:translateY(-5px);
+      box-shadow:0 10px 30px rgba(212,175,106,0.3);
+    }
+
+    .outline-btn{
+      border:1px solid rgba(255,255,255,0.15);
+      color:white;
+      background:rgba(255,255,255,0.04);
+    }
+
+    .outline-btn:hover{
+      background:rgba(255,255,255,0.1);
+    }
+
+    section{
+      padding:120px 20px;
+    }
+
+    .container{
+      max-width:1200px;
+      margin:auto;
+    }
+
+    .section-title{
+      text-align:center;
+      font-family:'Cinzel',serif;
+      font-size:60px;
+      margin-bottom:18px;
+    }
+
+    .section-subtitle{
+      text-align:center;
+      color:#c5c5c5;
+      margin-bottom:70px;
+      line-height:1.9;
+    }
+
+    .timeline{
+      display:grid;
+      gap:30px;
+    }
+
+    .timeline-card{
+      display:flex;
+      gap:30px;
+      align-items:center;
+      background:#111111;
+      border:1px solid rgba(255,255,255,0.06);
+      border-radius:30px;
+      padding:35px;
+      transition:0.4s ease;
+    }
+
+    .timeline-card:hover{
+      transform:translateY(-5px);
+      border-color:#d4af6a55;
+    }
+
+    .timeline-number{
+      min-width:90px;
+      height:90px;
+      border-radius:50%;
+      background:#d4af6a;
+      color:black;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:28px;
+      font-weight:700;
+    }
+
+    .timeline-content h2{
+      margin-bottom:12px;
+      font-size:28px;
+    }
+
+    .timeline-content p{
+      color:#bcbcbc;
+      line-height:1.8;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+    }
+
+    .gallery img{
+      width:100%;
+      height:380px;
+      object-fit:cover;
+      border-radius:28px;
+      transition:0.5s ease;
+    }
+
+    .gallery img:hover{
+      transform:scale(1.04);
+    }
+
+    .countdown{
+      display:flex;
+      justify-content:center;
+      gap:25px;
+      flex-wrap:wrap;
+      margin-top:60px;
+    }
+
+    .count-box{
+      width:180px;
+      height:180px;
+      border-radius:28px;
+      background:#121212;
+      border:1px solid rgba(255,255,255,0.06);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+    }
+
+    .count-box h1{
+      font-size:58px;
+      color:#d4af6a;
+      margin-bottom:10px;
+    }
+
+    .count-box span{
+      letter-spacing:3px;
+      font-size:12px;
+      color:#c7c7c7;
+    }
+
+    .venue-card{
+      padding:60px;
+      border-radius:35px;
+      background:#111111;
+      border:1px solid rgba(255,255,255,0.06);
+      text-align:center;
+    }
+
+    .venue-card h2{
+      font-size:42px;
+      margin-bottom:20px;
+      font-family:'Cinzel',serif;
+    }
+
+    .venue-card p{
+      color:#c8c8c8;
+      line-height:1.9;
+      max-width:700px;
+      margin:auto;
+    }
+
+    .footer{
+      padding:60px 20px;
+      text-align:center;
+      border-top:1px solid rgba(255,255,255,0.05);
+      background:black;
+    }
+
+    .footer h2{
+      font-family:'Cinzel',serif;
+      font-size:40px;
+      margin-bottom:15px;
+    }
+
+    .footer p{
+      color:#b8b8b8;
+      line-height:1.8;
+    }
+
+    @media(max-width:768px){
+
+      .hero-content{
+        padding:70px 25px;
+      }
+
+      .title{
+        font-size:52px;
+      }
+
+      .section-title{
+        font-size:42px;
+      }
+
+      .timeline-card{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .count-box{
+        width:140px;
+        height:140px;
+      }
+
+      .count-box h1{
+        font-size:42px;
+      }
+
+      .venue-card{
+        padding:40px 25px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="particles">
+    <span style="left:10%;animation-delay:0s;"></span>
+    <span style="left:20%;animation-delay:2s;"></span>
+    <span style="left:30%;animation-delay:4s;"></span>
+    <span style="left:40%;animation-delay:1s;"></span>
+    <span style="left:50%;animation-delay:6s;"></span>
+    <span style="left:60%;animation-delay:3s;"></span>
+    <span style="left:70%;animation-delay:5s;"></span>
+    <span style="left:80%;animation-delay:2s;"></span>
+    <span style="left:90%;animation-delay:7s;"></span>
+  </div>
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <p class="top-text">
+        Together With Their Families
+      </p>
+
+      <h1 class="title">
+        Amelia <span>&</span> Ethan
+      </h1>
+
+      <p class="description">
+        Invite you to celebrate a beautiful beginning filled
+        with elegance, love, joy, and unforgettable memories.
+        Join us for a magical evening as we begin our forever.
+      </p>
+
+      <div class="divider"></div>
+
+      <div class="details">
+
+        <div class="detail-card">
+          <h3>Date</h3>
+          <p>24 December 2026</p>
+        </div>
+
+        <div class="detail-card">
+          <h3>Time</h3>
+          <p>6:30 PM Onwards</p>
+        </div>
+
+        <div class="detail-card">
+          <h3>Venue</h3>
+          <p>Royal Grand Palace</p>
+        </div>
+
+      </div>
+
+      <div class="buttons">
+        <a href="#gallery" class="btn gold-btn">View Gallery</a>
+        <a href="#rsvp" class="btn outline-btn">RSVP Now</a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <section>
+
+    <div class="container">
+
+      <h1 class="section-title">
+        Wedding Timeline
+      </h1>
+
+      <p class="section-subtitle">
+        Celebrate every beautiful moment with us
+      </p>
+
+      <div class="timeline">
+
+        <div class="timeline-card">
+
+          <div class="timeline-number">
+            01
+          </div>
+
+          <div class="timeline-content">
+            <h2>Engagement Ceremony</h2>
+
+            <p>
+              A beautiful evening marking the beginning
+              of our forever journey together.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="timeline-card">
+
+          <div class="timeline-number">
+            02
+          </div>
+
+          <div class="timeline-content">
+            <h2>Wedding Ceremony</h2>
+
+            <p>
+              Join us as we exchange vows surrounded
+              by family, love, and happiness.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="timeline-card">
+
+          <div class="timeline-number">
+            03
+          </div>
+
+          <div class="timeline-content">
+            <h2>Reception Party</h2>
+
+            <p>
+              Celebrate the night with music, joy,
+              dinner, and unforgettable memories.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="gallery">
+
+    <div class="container">
+
+      <h1 class="section-title">
+        Our Moments
+      </h1>
+
+      <p class="section-subtitle">
+        A glimpse into our beautiful journey together
+      </p>
+
+      <div class="gallery">
+
+        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1974&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop">
+
+        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop">
+
+      </div>
+
+      <div class="countdown">
+
+        <div class="count-box">
+          <h1>120</h1>
+          <span>DAYS</span>
+        </div>
+
+        <div class="count-box">
+          <h1>14</h1>
+          <span>HOURS</span>
+        </div>
+
+        <div class="count-box">
+          <h1>32</h1>
+          <span>MINUTES</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <section id="rsvp">
+
+    <div class="container">
+
+      <div class="venue-card">
+
+        <h2>Royal Grand Palace</h2>
+
+        <p>
+          245 Elegant Avenue, New York City
+          <br><br>
+          We would be honored by your presence as we
+          celebrate the beginning of our new journey together.
+        </p>
+
+        <div class="buttons">
+          <a href="#" class="btn gold-btn">
+            Confirm Attendance
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <footer class="footer">
+
+    <h2>
+      We Can't Wait To Celebrate With You
+    </h2>
+
+    <p>
+      Designed By PRIME WEB <br>
+      Premium Luxury Invitation Website
+    </p>
+
+  </footer>
+
+</body>
+</html>
