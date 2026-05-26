@@ -673,11 +673,17 @@
 </head>
 <body>
 
-  <audio id="bgMusic" autoplay loop>
+  <audio id="bgMusic" loop preload="auto">
 
-  <source src="assets/SpotiDown.App - KALYANI - ARJN.mp3" type="audio/mpeg">
+   <source src="assets/kalyani.mp3" type="audio/mpeg">
 
   </audio>
+
+  <div class="music-btn" id="musicBtn">
+
+  ♫
+
+</div>
 
   <!-- FLOWERS -->
 
@@ -970,6 +976,8 @@
 
     },1000);
 
+    /* MUSIC SYSTEM */
+
 const music =
 document.getElementById("bgMusic");
 
@@ -978,9 +986,69 @@ document.getElementById("musicBtn");
 
 let playing = false;
 
-btn.addEventListener("click",()=>{
+/* start music on first touch anywhere */
 
-  if(!playing){
+function startMusic(){
+
+  music.volume = 0.4;
+
+  music.play()
+  .then(()=>{
+
+    playing = true;
+
+    btn.innerHTML = "♫";
+
+    btn.style.opacity = "1";
+
+  })
+  .catch((e)=>{
+
+    console.log("Autoplay blocked");
+
+  });
+
+  document.removeEventListener(
+    "click",
+    startMusic
+  );
+
+  document.removeEventListener(
+    "touchstart",
+    startMusic
+  );
+
+}
+
+/* mobile support */
+
+document.addEventListener(
+  "click",
+  startMusic
+);
+
+document.addEventListener(
+  "touchstart",
+  startMusic
+);
+
+/* music toggle button */
+
+btn.addEventListener("click",(e)=>{
+
+  e.stopPropagation();
+
+  if(playing){
+
+    music.pause();
+
+    playing = false;
+
+    btn.style.opacity = "0.6";
+
+    btn.innerHTML = "🔇";
+
+  }else{
 
     music.play();
 
@@ -988,13 +1056,7 @@ btn.addEventListener("click",()=>{
 
     btn.style.opacity = "1";
 
-  }else{
-
-    music.pause();
-
-    playing = false;
-
-    btn.style.opacity = "0.7";
+    btn.innerHTML = "♫";
 
   }
 
