@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Modern Luxury Invitation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Elegant Floral Invitation</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
 
@@ -24,129 +25,267 @@
 
     body{
       font-family:'Inter',sans-serif;
-      background:#f7f3ed;
-      color:#1a1a1a;
+      background:#f8f3ef;
       overflow-x:hidden;
+      color:#3b2b2f;
     }
 
     body::before{
       content:'';
       position:fixed;
       inset:0;
+
       background:
-      radial-gradient(circle at top right,#efe5d8,transparent 40%),
-      radial-gradient(circle at bottom left,#f2e8db,transparent 40%);
+      radial-gradient(circle at top left,#f7c7d44d,transparent 35%),
+      radial-gradient(circle at bottom right,#e6c6ff33,transparent 35%);
+
+      z-index:-2;
+    }
+
+    /* FLOATING FLOWERS */
+
+    .flowers{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
       z-index:-1;
     }
 
+    .flowers span{
+      position:absolute;
+      font-size:22px;
+      animation:flowerFloat 14s linear infinite;
+      opacity:0.3;
+    }
+
+    @keyframes flowerFloat{
+
+      0%{
+        transform:translateY(110vh) rotate(0deg);
+        opacity:0;
+      }
+
+      20%{
+        opacity:0.3;
+      }
+
+      100%{
+        transform:translateY(-120vh) rotate(360deg);
+        opacity:0;
+      }
+
+    }
+
+    /* HERO */
+
     .hero{
       min-height:100vh;
+
       display:flex;
       justify-content:center;
       align-items:center;
+
       padding:40px 20px;
-      position:relative;
     }
 
     .hero-card{
+
       width:100%;
-      max-width:1150px;
-      background:rgba(255,255,255,0.7);
-      backdrop-filter:blur(12px);
-      border:1px solid rgba(0,0,0,0.06);
+      max-width:1200px;
+
+      background:rgba(255,255,255,0.65);
+
+      backdrop-filter:blur(16px);
+
       border-radius:40px;
+
       overflow:hidden;
-      box-shadow:
-      0 10px 40px rgba(0,0,0,0.08),
-      inset 0 0 0 1px rgba(255,255,255,0.5);
 
       display:grid;
       grid-template-columns:1fr 1fr;
+
+      border:1px solid rgba(255,255,255,0.6);
+
+      box-shadow:
+      0 20px 60px rgba(0,0,0,0.08);
+
+      animation:fadeUp 1.2s ease;
+    }
+
+    @keyframes fadeUp{
+
+      from{
+        transform:translateY(80px);
+        opacity:0;
+      }
+
+      to{
+        transform:translateY(0);
+        opacity:1;
+      }
+
     }
 
     .hero-image{
-      min-height:700px;
+
+      min-height:800px;
+
       background:
-      linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.25)),
+      linear-gradient(rgba(0,0,0,0.08),rgba(0,0,0,0.18)),
       url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')
       center/cover;
-      position:relative;
-    }
-
-    .hero-image::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to top,rgba(0,0,0,0.4),transparent);
     }
 
     .hero-content{
+
       padding:90px 70px;
+
       display:flex;
       flex-direction:column;
       justify-content:center;
     }
 
     .small-text{
-      letter-spacing:4px;
+
+      letter-spacing:5px;
+
       text-transform:uppercase;
+
       font-size:12px;
-      color:#9b7d55;
+
+      color:#b77d8d;
+
       margin-bottom:25px;
+
       font-weight:600;
     }
 
     .main-title{
-      font-family:'Playfair Display',serif;
-      font-size:76px;
-      line-height:1.05;
-      margin-bottom:25px;
-      color:#111111;
+
+      font-family:'Cormorant Garamond',serif;
+
+      font-size:88px;
+
+      line-height:0.95;
+
+      color:#4c3038;
+
+      margin-bottom:18px;
     }
 
-    .main-title span{
-      color:#b08a5b;
+    .amp{
+      color:#d59aaa;
+      font-family:'Great Vibes',cursive;
+      font-size:90px;
+    }
+
+    .subtitle{
+
+      font-family:'Great Vibes',cursive;
+
+      font-size:42px;
+
+      color:#c58fa0;
+
+      margin-bottom:28px;
     }
 
     .description{
-      font-size:17px;
-      line-height:1.9;
-      color:#555555;
+
+      line-height:2;
+
+      color:#6d565d;
+
       margin-bottom:40px;
+
+      font-size:17px;
+    }
+
+    .divider{
+
+      width:140px;
+      height:1px;
+
+      background:#d9a8b6;
+
+      margin-bottom:40px;
+
+      position:relative;
+    }
+
+    .divider::after{
+
+      content:'❀';
+
+      position:absolute;
+
+      top:-15px;
+      left:50%;
+
+      transform:translateX(-50%);
+
+      background:#fff;
+
+      padding:0 10px;
+
+      color:#d9a8b6;
+
+      font-size:22px;
     }
 
     .info-grid{
+
       display:grid;
+
       grid-template-columns:1fr 1fr;
+
       gap:18px;
+
       margin-bottom:40px;
     }
 
     .info-card{
+
+      background:rgba(255,255,255,0.55);
+
       padding:24px;
-      background:rgba(255,255,255,0.75);
+
       border-radius:24px;
-      border:1px solid rgba(0,0,0,0.05);
+
+      border:1px solid rgba(255,255,255,0.6);
+
       transition:0.4s ease;
     }
 
     .info-card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+
+      transform:translateY(-6px);
+
+      box-shadow:
+      0 12px 30px rgba(213,154,170,0.18);
     }
 
     .info-card h3{
+
       font-size:12px;
-      text-transform:uppercase;
+
       letter-spacing:3px;
-      color:#a28357;
+
+      text-transform:uppercase;
+
+      color:#b77d8d;
+
       margin-bottom:10px;
     }
 
     .info-card p{
+
       font-size:16px;
-      color:#222222;
-      line-height:1.7;
+
+      color:#4e3c42;
+
+      line-height:1.8;
     }
 
     .buttons{
@@ -156,31 +295,45 @@
     }
 
     .btn{
+
       text-decoration:none;
+
       padding:16px 34px;
+
       border-radius:999px;
+
       transition:0.4s ease;
+
       font-weight:500;
     }
 
     .primary-btn{
-      background:#111111;
-      color:white;
+
+      background:
+      linear-gradient(135deg,#d59aaa,#f0c4cf);
+
+      color:#4b2c35;
     }
 
     .primary-btn:hover{
-      transform:translateY(-4px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+      transform:translateY(-5px);
+
+      box-shadow:
+      0 12px 30px rgba(213,154,170,0.28);
     }
 
     .secondary-btn{
-      border:1px solid rgba(0,0,0,0.1);
-      color:#111111;
+
+      border:1px solid rgba(183,125,141,0.25);
+
+      color:#6d4c57;
+
       background:white;
     }
 
     .secondary-btn:hover{
-      background:#f4f4f4;
+      background:#fff5f7;
     }
 
     section{
@@ -193,42 +346,72 @@
     }
 
     .section-title{
+
       text-align:center;
-      font-family:'Playfair Display',serif;
-      font-size:58px;
-      margin-bottom:18px;
+
+      font-family:'Cormorant Garamond',serif;
+
+      font-size:72px;
+
+      margin-bottom:16px;
+
+      color:#4a3138;
     }
 
     .section-subtitle{
+
       text-align:center;
-      color:#666666;
+
+      color:#7a646b;
+
+      line-height:1.9;
+
       margin-bottom:70px;
-      line-height:1.8;
     }
 
+    /* STORY */
+
     .story-grid{
+
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(320px,1fr));
+
       gap:30px;
     }
 
     .story-card{
+
       background:white;
-      border-radius:30px;
+
+      border-radius:35px;
+
       overflow:hidden;
-      border:1px solid rgba(0,0,0,0.05);
-      transition:0.4s ease;
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.06);
+
+      transition:0.5s ease;
     }
 
     .story-card:hover{
-      transform:translateY(-8px);
-      box-shadow:0 15px 30px rgba(0,0,0,0.08);
+
+      transform:translateY(-10px);
     }
 
     .story-card img{
+
       width:100%;
-      height:280px;
+      height:320px;
+
       object-fit:cover;
+
+      transition:0.5s ease;
+    }
+
+    .story-card:hover img{
+      transform:scale(1.08);
     }
 
     .story-content{
@@ -236,88 +419,164 @@
     }
 
     .story-content h2{
+
+      font-family:'Cormorant Garamond',serif;
+
+      font-size:36px;
+
       margin-bottom:15px;
-      font-size:28px;
-      font-family:'Playfair Display',serif;
+
+      color:#4e343b;
     }
 
     .story-content p{
-      color:#666666;
-      line-height:1.8;
+
+      line-height:1.9;
+
+      color:#705960;
     }
 
+    /* COUNTDOWN */
+
     .countdown{
-      margin-top:70px;
+
+      margin-top:90px;
+
       display:flex;
+
       justify-content:center;
-      gap:25px;
+
+      gap:24px;
+
       flex-wrap:wrap;
     }
 
     .count-box{
+
       width:170px;
       height:170px;
+
+      border-radius:50%;
+
       background:white;
-      border-radius:30px;
-      border:1px solid rgba(0,0,0,0.05);
+
       display:flex;
       flex-direction:column;
       justify-content:center;
       align-items:center;
-      box-shadow:0 8px 20px rgba(0,0,0,0.05);
+
+      box-shadow:
+      0 12px 30px rgba(0,0,0,0.08);
     }
 
     .count-box h1{
-      font-size:58px;
+
+      font-size:54px;
+
+      color:#c58fa0;
+
       margin-bottom:10px;
-      color:#b08a5b;
+
+      font-family:'Cormorant Garamond',serif;
     }
 
     .count-box span{
-      font-size:12px;
+
       letter-spacing:3px;
-      color:#777777;
+
+      font-size:12px;
+
+      color:#8a7077;
     }
 
+    /* VENUE */
+
     .venue-card{
+
       background:white;
-      border-radius:35px;
-      padding:70px;
+
+      padding:80px;
+
+      border-radius:40px;
+
       text-align:center;
-      border:1px solid rgba(0,0,0,0.05);
-      box-shadow:0 10px 30px rgba(0,0,0,0.05);
+
+      box-shadow:
+      0 20px 50px rgba(0,0,0,0.06);
     }
 
     .venue-card h2{
-      font-size:50px;
-      font-family:'Playfair Display',serif;
+
+      font-family:'Cormorant Garamond',serif;
+
+      font-size:58px;
+
       margin-bottom:20px;
+
+      color:#4a3038;
     }
 
     .venue-card p{
+
       max-width:700px;
+
       margin:auto;
-      line-height:1.9;
-      color:#666666;
+
+      line-height:2;
+
+      color:#705960;
     }
 
+    /* MAP */
+
+    .map-card{
+
+      margin-top:70px;
+
+      overflow:hidden;
+
+      border-radius:35px;
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.08);
+    }
+
+    .map-card iframe{
+
+      width:100%;
+      height:450px;
+
+      border:none;
+    }
+
+    /* FOOTER */
+
     .footer{
-      padding:70px 20px;
+
+      padding:80px 20px;
+
       text-align:center;
-      background:white;
-      border-top:1px solid rgba(0,0,0,0.06);
     }
 
     .footer h2{
-      font-family:'Playfair Display',serif;
-      font-size:42px;
+
+      font-family:'Great Vibes',cursive;
+
+      font-size:54px;
+
+      color:#c58fa0;
+
       margin-bottom:15px;
     }
 
     .footer p{
-      color:#777777;
-      line-height:1.8;
+
+      color:#7b656c;
+
+      line-height:1.9;
     }
+
+    /* RESPONSIVE */
 
     @media(max-width:980px){
 
@@ -334,7 +593,7 @@
       }
 
       .main-title{
-        font-size:52px;
+        font-size:62px;
       }
 
     }
@@ -342,16 +601,20 @@
     @media(max-width:768px){
 
       .section-title{
-        font-size:42px;
+        font-size:48px;
+      }
+
+      .info-grid{
+        grid-template-columns:1fr;
       }
 
       .venue-card{
-        padding:45px 25px;
+        padding:50px 25px;
       }
 
       .count-box{
-        width:135px;
-        height:135px;
+        width:140px;
+        height:140px;
       }
 
       .count-box h1{
@@ -361,8 +624,25 @@
     }
 
   </style>
+
 </head>
 <body>
+
+  <!-- FLOWERS -->
+
+  <div class="flowers">
+
+    <span style="left:10%;animation-delay:0s;">❀</span>
+    <span style="left:20%;animation-delay:2s;">✿</span>
+    <span style="left:30%;animation-delay:5s;">❀</span>
+    <span style="left:45%;animation-delay:1s;">✿</span>
+    <span style="left:60%;animation-delay:4s;">❀</span>
+    <span style="left:75%;animation-delay:6s;">✿</span>
+    <span style="left:90%;animation-delay:3s;">❀</span>
+
+  </div>
+
+  <!-- HERO -->
 
   <section class="hero">
 
@@ -373,49 +653,54 @@
       <div class="hero-content">
 
         <p class="small-text">
-          You Are Invited
+          Together With Their Families
         </p>
 
         <h1 class="main-title">
-          Olivia <span>&</span><br>
-          James
+          Sophia <span class="amp">&</span><br>
+          Alexander
         </h1>
 
-        <p class="description">
-          Together with our families, we invite you to
-          celebrate a beautiful chapter of love, joy,
-          and forever memories in an elegant evening
-          crafted with timeless beauty.
+        <p class="subtitle">
+          request the pleasure of your company
         </p>
+
+        <p class="description">
+          Join us for a magical evening filled with romance,
+          elegance, soft florals, candlelight, and unforgettable
+          memories as we celebrate the beginning of our forever.
+        </p>
+
+        <div class="divider"></div>
 
         <div class="info-grid">
 
           <div class="info-card">
             <h3>Date</h3>
-            <p>18 February 2027</p>
+            <p>12 March 2027</p>
           </div>
 
           <div class="info-card">
             <h3>Time</h3>
-            <p>7:00 PM onwards</p>
+            <p>6:30 PM onwards</p>
           </div>
 
           <div class="info-card">
             <h3>Venue</h3>
-            <p>White Palace Hall</p>
+            <p>Rosewood Garden Palace</p>
           </div>
 
           <div class="info-card">
             <h3>Dress Code</h3>
-            <p>Elegant Formal</p>
+            <p>Elegant Pastel Attire</p>
           </div>
 
         </div>
 
         <div class="buttons">
 
-          <a href="#gallery" class="btn primary-btn">
-            Explore Moments
+          <a href="#story" class="btn primary-btn">
+            Explore Story
           </a>
 
           <a href="#rsvp" class="btn secondary-btn">
@@ -430,16 +715,18 @@
 
   </section>
 
-  <section id="gallery">
+  <!-- STORY -->
+
+  <section id="story">
 
     <div class="container">
 
       <h1 class="section-title">
-        Our Story
+        Our Journey
       </h1>
 
       <p class="section-subtitle">
-        Every love story is beautiful, but ours is our favorite.
+        A beautiful story written with love and destiny.
       </p>
 
       <div class="story-grid">
@@ -450,11 +737,11 @@
 
           <div class="story-content">
 
-            <h2>First Meet</h2>
+            <h2>First Encounter</h2>
 
             <p>
-              A magical moment that marked the beginning
-              of an unforgettable journey together.
+              A simple moment that unexpectedly turned
+              into the most beautiful beginning of our lives.
             </p>
 
           </div>
@@ -467,11 +754,11 @@
 
           <div class="story-content">
 
-            <h2>Falling In Love</h2>
+            <h2>Growing Together</h2>
 
             <p>
-              Through laughter, adventures, and dreams,
-              our bond grew stronger every day.
+              Through every smile, adventure, and memory,
+              our hearts became inseparable.
             </p>
 
           </div>
@@ -484,11 +771,11 @@
 
           <div class="story-content">
 
-            <h2>Forever Begins</h2>
+            <h2>Forever Starts</h2>
 
             <p>
-              Now we begin our forever surrounded
-              by the people we love most.
+              Now we begin the most magical chapter
+              of our story together.
             </p>
 
           </div>
@@ -497,21 +784,28 @@
 
       </div>
 
+      <!-- COUNTDOWN -->
+
       <div class="countdown">
 
         <div class="count-box">
-          <h1>102</h1>
+          <h1 id="days">00</h1>
           <span>DAYS</span>
         </div>
 
         <div class="count-box">
-          <h1>18</h1>
+          <h1 id="hours">00</h1>
           <span>HOURS</span>
         </div>
 
         <div class="count-box">
-          <h1>42</h1>
+          <h1 id="minutes">00</h1>
           <span>MINUTES</span>
+        </div>
+
+        <div class="count-box">
+          <h1 id="seconds">00</h1>
+          <span>SECONDS</span>
         </div>
 
       </div>
@@ -520,6 +814,8 @@
 
   </section>
 
+  <!-- RSVP -->
+
   <section id="rsvp">
 
     <div class="container">
@@ -527,18 +823,19 @@
       <div class="venue-card">
 
         <h2>
-          White Palace Hall
+          Rosewood Garden Palace
         </h2>
 
         <p>
-          245 Luxury Avenue, California
+          48 Royal Blossom Avenue, California
           <br><br>
-          We would be honored by your presence as we
-          celebrate this unforgettable evening of love,
-          happiness, and beautiful memories.
+          We would be honored to celebrate this unforgettable
+          evening of romance, elegance, florals, and joy
+          together with you.
         </p>
 
-        <div class="buttons" style="justify-content:center; margin-top:40px;">
+        <div class="buttons"
+        style="justify-content:center; margin-top:40px;">
 
           <a href="#" class="btn primary-btn">
             Confirm Attendance
@@ -548,9 +845,22 @@
 
       </div>
 
+      <!-- MAP -->
+
+      <div class="map-card">
+
+        <iframe
+          src="https://maps.google.com/maps?q=california&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          loading="lazy">
+        </iframe>
+
+      </div>
+
     </div>
 
   </section>
+
+  <!-- FOOTER -->
 
   <footer class="footer">
 
@@ -560,10 +870,56 @@
 
     <p>
       Designed By PRIME WEB <br>
-      Modern Luxury Invitation Experience
+      Elegant Floral Invitation Experience
     </p>
 
   </footer>
+
+  <!-- COUNTDOWN SCRIPT -->
+
+  <script>
+
+    const weddingDate =
+    new Date("Mar 12, 2027 18:30:00").getTime();
+
+    const countdown = setInterval(() => {
+
+      const now = new Date().getTime();
+
+      const distance = weddingDate - now;
+
+      const days = Math.floor(
+      distance / (1000 * 60 * 60 * 24));
+
+      const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24))
+      / (1000 * 60 * 60));
+
+      const minutes = Math.floor(
+      (distance % (1000 * 60 * 60))
+      / (1000 * 60));
+
+      const seconds = Math.floor(
+      (distance % (1000 * 60))
+      / 1000);
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+      if(distance < 0){
+
+        clearInterval(countdown);
+
+        document.querySelector(".countdown").innerHTML =
+        "<h2>The Celebration Has Started 💖</h2>";
+
+      }
+
+    },1000);
+
+  </script>
 
 </body>
 </html>

@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Royal Palace Invitation</title>
+
+  <title>Romantic Luxury Invitation</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
 
@@ -23,224 +24,363 @@
     }
 
     body{
-      font-family:'Poppins',sans-serif;
-      background:#080808;
+      font-family:'Inter',sans-serif;
+      background:#0f0b0d;
       color:white;
       overflow-x:hidden;
+      position:relative;
     }
 
     body::before{
       content:'';
       position:fixed;
-      width:100%;
-      height:100%;
+      inset:0;
+
       background:
-      radial-gradient(circle at top,#6e55231c,transparent 45%),
-      radial-gradient(circle at bottom,#a17b2a18,transparent 45%);
-      z-index:-2;
+      radial-gradient(circle at top left,#ff7ba51f,transparent 35%),
+      radial-gradient(circle at bottom right,#ffb7c91a,transparent 40%),
+      radial-gradient(circle at center,#d4af6a10,transparent 45%);
+
+      z-index:-3;
     }
+
+    /* FLOATING PARTICLES */
 
     .particles{
       position:fixed;
-      width:100%;
-      height:100%;
+      inset:0;
       overflow:hidden;
-      z-index:-1;
+      pointer-events:none;
+      z-index:-2;
     }
 
     .particles span{
       position:absolute;
-      display:block;
-      width:4px;
-      height:4px;
-      background:#d4af6a;
+      width:12px;
+      height:12px;
+      background:rgba(255,192,203,0.25);
       border-radius:50%;
-      animation:float 10s linear infinite;
-      opacity:0.5;
+      animation:floatUp 15s linear infinite;
+      filter:blur(1px);
     }
 
-    @keyframes float{
+    @keyframes floatUp{
+
       0%{
-        transform:translateY(100vh) scale(0);
+        transform:translateY(100vh) scale(0.5);
+        opacity:0;
+      }
+
+      20%{
+        opacity:1;
       }
 
       100%{
-        transform:translateY(-10vh) scale(1);
+        transform:translateY(-120vh) scale(1.4);
+        opacity:0;
       }
+
     }
+
+    /* HERO */
 
     .hero{
       min-height:100vh;
+
       display:flex;
       justify-content:center;
       align-items:center;
-      text-align:center;
+
       padding:40px 20px;
+
       position:relative;
 
       background:
-      linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.85)),
+      linear-gradient(rgba(0,0,0,0.72),rgba(0,0,0,0.88)),
       url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')
-      center/cover;
+      center/cover fixed;
     }
 
-    .hero-content{
-      max-width:950px;
+    .hero-card{
+
       width:100%;
-      padding:80px 50px;
-      border-radius:35px;
+      max-width:1150px;
 
       background:rgba(255,255,255,0.05);
 
-      backdrop-filter:blur(12px);
+      backdrop-filter:blur(14px);
 
-      border:1px solid rgba(212,175,106,0.18);
+      border-radius:45px;
+
+      overflow:hidden;
+
+      border:1px solid rgba(255,182,193,0.12);
 
       box-shadow:
-      0 10px 50px rgba(0,0,0,0.5),
-      inset 0 0 0 1px rgba(255,255,255,0.03);
+      0 20px 60px rgba(0,0,0,0.45),
+      0 0 80px rgba(255,105,140,0.08);
+
+      display:grid;
+      grid-template-columns:1fr 1fr;
+
+      animation:fadeUp 1.4s ease;
+    }
+
+    @keyframes fadeUp{
+
+      from{
+        transform:translateY(80px);
+        opacity:0;
+      }
+
+      to{
+        transform:translateY(0);
+        opacity:1;
+      }
+
+    }
+
+    .hero-image{
+
+      min-height:780px;
+
+      background:
+      linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.45)),
+      url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop')
+      center/cover;
 
       position:relative;
     }
 
-    .hero-content::before,
-    .hero-content::after{
+    .hero-image::after{
       content:'';
       position:absolute;
-      width:120px;
-      height:120px;
-      border:1px solid rgba(212,175,106,0.4);
+      inset:0;
+
+      background:
+      linear-gradient(to top,rgba(0,0,0,0.55),transparent);
     }
 
-    .hero-content::before{
-      top:20px;
-      left:20px;
-      border-right:none;
-      border-bottom:none;
+    .hero-content{
+
+      padding:90px 70px;
+
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+
+      position:relative;
     }
 
-    .hero-content::after{
-      bottom:20px;
-      right:20px;
-      border-left:none;
-      border-top:none;
-    }
+    .small-text{
 
-    .top-text{
-      letter-spacing:6px;
-      color:#d4af6a;
-      font-size:13px;
+      letter-spacing:5px;
+
       text-transform:uppercase;
+
+      font-size:12px;
+
+      color:#ffb3c7;
+
       margin-bottom:25px;
+
+      font-weight:600;
+
+      animation:fadeText 1.2s ease;
     }
 
-    .title{
-      font-family:'Cinzel',serif;
-      font-size:88px;
-      line-height:1.1;
-      margin-bottom:25px;
+    .main-title{
+
+      font-family:'Playfair Display',serif;
+
+      font-size:78px;
+
+      line-height:1.05;
+
+      margin-bottom:15px;
+
+      color:#fff6f8;
+
+      animation:fadeText 1.5s ease;
     }
 
-    .title span{
-      color:#d4af6a;
+    .main-title span{
+      color:#ff9fba;
+    }
+
+    .couple-text{
+
+      font-family:'Great Vibes',cursive;
+
+      font-size:44px;
+
+      color:#ffc6d5;
+
+      margin-bottom:28px;
+
+      animation:fadeText 1.8s ease;
     }
 
     .description{
-      max-width:700px;
-      margin:auto;
-      color:#d5d5d5;
-      line-height:1.9;
+
       font-size:17px;
+
+      line-height:2;
+
+      color:#dfd2d7;
+
+      margin-bottom:40px;
+
+      animation:fadeText 2s ease;
+    }
+
+    @keyframes fadeText{
+
+      from{
+        transform:translateY(30px);
+        opacity:0;
+      }
+
+      to{
+        transform:translateY(0);
+        opacity:1;
+      }
+
     }
 
     .divider{
-      width:120px;
+
+      width:130px;
       height:1px;
-      background:#d4af6a;
-      margin:45px auto;
+
+      background:#ff9fba;
+
+      margin-bottom:40px;
+
       position:relative;
     }
 
     .divider::after{
-      content:'';
+
+      content:'❤';
+
       position:absolute;
-      width:12px;
-      height:12px;
-      border-radius:50%;
-      background:#d4af6a;
-      top:-5px;
+
+      top:-13px;
       left:50%;
+
       transform:translateX(-50%);
+
+      color:#ffb3c7;
+
+      background:#120d10;
+
+      padding:0 12px;
+
+      font-size:18px;
     }
 
-    .details{
+    .info-grid{
+
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:25px;
-      margin-top:20px;
+
+      grid-template-columns:1fr 1fr;
+
+      gap:18px;
+
+      margin-bottom:40px;
     }
 
-    .detail-card{
-      background:rgba(255,255,255,0.04);
-      border:1px solid rgba(255,255,255,0.08);
-      padding:30px;
-      border-radius:25px;
+    .info-card{
+
+      padding:24px;
+
+      background:rgba(255,255,255,0.06);
+
+      border-radius:26px;
+
+      border:1px solid rgba(255,255,255,0.06);
+
       transition:0.4s ease;
     }
 
-    .detail-card:hover{
+    .info-card:hover{
+
       transform:translateY(-8px);
-      border-color:#d4af6a;
-      box-shadow:0 10px 30px rgba(212,175,106,0.12);
+
+      box-shadow:
+      0 15px 35px rgba(255,105,140,0.12);
+
+      border-color:#ffb3c744;
     }
 
-    .detail-card h3{
-      color:#d4af6a;
-      letter-spacing:3px;
-      font-size:13px;
+    .info-card h3{
+
+      font-size:12px;
+
       text-transform:uppercase;
-      margin-bottom:15px;
-      font-weight:500;
+
+      letter-spacing:3px;
+
+      color:#ffb3c7;
+
+      margin-bottom:10px;
     }
 
-    .detail-card p{
-      font-size:18px;
-      line-height:1.7;
+    .info-card p{
+
+      font-size:16px;
+
+      line-height:1.8;
+
+      color:#f5edf0;
     }
 
     .buttons{
-      margin-top:50px;
       display:flex;
-      justify-content:center;
-      gap:20px;
+      gap:18px;
       flex-wrap:wrap;
     }
 
     .btn{
+
       text-decoration:none;
-      padding:16px 38px;
+
+      padding:17px 36px;
+
       border-radius:999px;
+
       transition:0.4s ease;
+
       font-weight:500;
     }
 
-    .gold-btn{
-      background:#d4af6a;
-      color:black;
+    .primary-btn{
+
+      background:
+      linear-gradient(135deg,#ff8cab,#ffb3c7);
+
+      color:#1d0d13;
     }
 
-    .gold-btn:hover{
+    .primary-btn:hover{
+
       transform:translateY(-5px);
-      box-shadow:0 10px 30px rgba(212,175,106,0.3);
+
+      box-shadow:
+      0 12px 30px rgba(255,140,171,0.35);
     }
 
-    .outline-btn{
-      border:1px solid rgba(255,255,255,0.15);
+    .secondary-btn{
+
+      border:1px solid rgba(255,255,255,0.1);
+
+      background:rgba(255,255,255,0.05);
+
       color:white;
-      background:rgba(255,255,255,0.04);
     }
 
-    .outline-btn:hover{
+    .secondary-btn:hover{
       background:rgba(255,255,255,0.1);
     }
 
@@ -254,169 +394,285 @@
     }
 
     .section-title{
+
       text-align:center;
-      font-family:'Cinzel',serif;
-      font-size:60px;
+
+      font-family:'Playfair Display',serif;
+
+      font-size:62px;
+
       margin-bottom:18px;
+
+      color:#fff5f7;
     }
 
     .section-subtitle{
+
       text-align:center;
-      color:#c5c5c5;
-      margin-bottom:70px;
+
+      color:#d4c7cc;
+
       line-height:1.9;
+
+      margin-bottom:70px;
     }
 
-    .timeline{
+    /* STORY */
+
+    .story-grid{
+
       display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(300px,1fr));
+
       gap:30px;
     }
 
-    .timeline-card{
-      display:flex;
-      gap:30px;
-      align-items:center;
-      background:#111111;
-      border:1px solid rgba(255,255,255,0.06);
-      border-radius:30px;
-      padding:35px;
-      transition:0.4s ease;
-    }
+    .story-card{
 
-    .timeline-card:hover{
-      transform:translateY(-5px);
-      border-color:#d4af6a55;
-    }
+      background:
+      linear-gradient(145deg,#1a1115,#140d10);
 
-    .timeline-number{
-      min-width:90px;
-      height:90px;
-      border-radius:50%;
-      background:#d4af6a;
-      color:black;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      font-size:28px;
-      font-weight:700;
-    }
+      border-radius:35px;
 
-    .timeline-content h2{
-      margin-bottom:12px;
-      font-size:28px;
-    }
+      overflow:hidden;
 
-    .timeline-content p{
-      color:#bcbcbc;
-      line-height:1.8;
-    }
+      border:1px solid rgba(255,255,255,0.05);
 
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:25px;
-    }
-
-    .gallery img{
-      width:100%;
-      height:380px;
-      object-fit:cover;
-      border-radius:28px;
       transition:0.5s ease;
     }
 
-    .gallery img:hover{
-      transform:scale(1.04);
+    .story-card:hover{
+
+      transform:translateY(-10px);
+
+      box-shadow:
+      0 20px 40px rgba(255,105,140,0.12);
     }
 
+    .story-card img{
+
+      width:100%;
+      height:320px;
+
+      object-fit:cover;
+
+      transition:0.5s ease;
+    }
+
+    .story-card:hover img{
+      transform:scale(1.08);
+    }
+
+    .story-content{
+      padding:30px;
+    }
+
+    .story-content h2{
+
+      font-size:32px;
+
+      margin-bottom:15px;
+
+      font-family:'Playfair Display',serif;
+
+      color:#ffd6df;
+    }
+
+    .story-content p{
+
+      color:#d5c7cc;
+
+      line-height:1.9;
+    }
+
+    /* COUNTDOWN */
+
     .countdown{
+
+      margin-top:90px;
+
       display:flex;
+
       justify-content:center;
+
       gap:25px;
+
       flex-wrap:wrap;
-      margin-top:60px;
     }
 
     .count-box{
+
       width:180px;
       height:180px;
-      border-radius:28px;
-      background:#121212;
-      border:1px solid rgba(255,255,255,0.06);
+
+      border-radius:50%;
+
+      background:
+      linear-gradient(145deg,#181014,#100b0d);
+
+      border:1px solid rgba(255,182,193,0.08);
+
       display:flex;
       flex-direction:column;
       justify-content:center;
       align-items:center;
+
+      box-shadow:
+      0 12px 30px rgba(0,0,0,0.35);
     }
 
     .count-box h1{
-      font-size:58px;
-      color:#d4af6a;
+
+      font-size:60px;
+
+      color:#ffb3c7;
+
       margin-bottom:10px;
     }
 
     .count-box span{
+
       letter-spacing:3px;
+
       font-size:12px;
-      color:#c7c7c7;
+
+      color:#ddd0d5;
     }
 
-    .venue-card{
-      padding:60px;
+    /* MAP SECTION */
+
+    .map-card{
+
+      margin-top:80px;
+
+      overflow:hidden;
+
       border-radius:35px;
-      background:#111111;
+
       border:1px solid rgba(255,255,255,0.06);
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.35);
+    }
+
+    .map-card iframe{
+
+      width:100%;
+      height:450px;
+
+      border:none;
+
+      filter:grayscale(0.2) contrast(1.05);
+    }
+
+    /* VENUE */
+
+    .venue-card{
+
+      background:
+      linear-gradient(145deg,#181014,#110b0d);
+
+      border-radius:40px;
+
+      padding:80px;
+
       text-align:center;
+
+      border:1px solid rgba(255,255,255,0.05);
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.35);
     }
 
     .venue-card h2{
-      font-size:42px;
+
+      font-size:54px;
+
       margin-bottom:20px;
-      font-family:'Cinzel',serif;
+
+      font-family:'Playfair Display',serif;
+
+      color:#fff3f5;
     }
 
     .venue-card p{
-      color:#c8c8c8;
-      line-height:1.9;
+
       max-width:700px;
+
       margin:auto;
+
+      line-height:2;
+
+      color:#d4c7cc;
     }
 
+    /* FOOTER */
+
     .footer{
-      padding:60px 20px;
+
+      padding:80px 20px;
+
       text-align:center;
+
+      background:#0a0708;
+
       border-top:1px solid rgba(255,255,255,0.05);
-      background:black;
     }
 
     .footer h2{
-      font-family:'Cinzel',serif;
-      font-size:40px;
+
+      font-size:48px;
+
       margin-bottom:15px;
+
+      font-family:'Great Vibes',cursive;
+
+      color:#ffd2dd;
     }
 
     .footer p{
-      color:#b8b8b8;
-      line-height:1.8;
+
+      color:#c7b8be;
+
+      line-height:1.9;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:980px){
+
+      .hero-card{
+        grid-template-columns:1fr;
+      }
+
+      .hero-image{
+        min-height:450px;
+      }
+
+      .hero-content{
+        padding:60px 30px;
+      }
+
+      .main-title{
+        font-size:58px;
+      }
+
     }
 
     @media(max-width:768px){
 
-      .hero-content{
-        padding:70px 25px;
-      }
-
-      .title{
-        font-size:52px;
-      }
-
       .section-title{
-        font-size:42px;
+        font-size:44px;
       }
 
-      .timeline-card{
-        flex-direction:column;
-        text-align:center;
+      .info-grid{
+        grid-template-columns:1fr;
+      }
+
+      .venue-card{
+        padding:50px 25px;
       }
 
       .count-box{
@@ -428,138 +684,93 @@
         font-size:42px;
       }
 
-      .venue-card{
-        padding:40px 25px;
-      }
-
     }
 
   </style>
+
 </head>
 <body>
 
+  <!-- PARTICLES -->
+
   <div class="particles">
+
     <span style="left:10%;animation-delay:0s;"></span>
     <span style="left:20%;animation-delay:2s;"></span>
-    <span style="left:30%;animation-delay:4s;"></span>
+    <span style="left:30%;animation-delay:5s;"></span>
     <span style="left:40%;animation-delay:1s;"></span>
-    <span style="left:50%;animation-delay:6s;"></span>
-    <span style="left:60%;animation-delay:3s;"></span>
-    <span style="left:70%;animation-delay:5s;"></span>
-    <span style="left:80%;animation-delay:2s;"></span>
-    <span style="left:90%;animation-delay:7s;"></span>
+    <span style="left:50%;animation-delay:4s;"></span>
+    <span style="left:60%;animation-delay:7s;"></span>
+    <span style="left:70%;animation-delay:3s;"></span>
+    <span style="left:80%;animation-delay:6s;"></span>
+    <span style="left:90%;animation-delay:2s;"></span>
+
   </div>
+
+  <!-- HERO -->
 
   <section class="hero">
 
-    <div class="hero-content">
+    <div class="hero-card">
 
-      <p class="top-text">
-        Together With Their Families
-      </p>
+      <div class="hero-image"></div>
 
-      <h1 class="title">
-        Amelia <span>&</span> Ethan
-      </h1>
+      <div class="hero-content">
 
-      <p class="description">
-        Invite you to celebrate a beautiful beginning filled
-        with elegance, love, joy, and unforgettable memories.
-        Join us for a magical evening as we begin our forever.
-      </p>
+        <p class="small-text">
+          Together With Their Families
+        </p>
 
-      <div class="divider"></div>
+        <h1 class="main-title">
+          Olivia <span>&</span><br>
+          James
+        </h1>
 
-      <div class="details">
+        <p class="couple-text">
+          invite you to celebrate their forever
+        </p>
 
-        <div class="detail-card">
-          <h3>Date</h3>
-          <p>24 December 2026</p>
-        </div>
+        <p class="description">
+          Join us for a romantic evening filled with love,
+          elegance, music, laughter, and unforgettable memories
+          as we begin our beautiful journey together.
+        </p>
 
-        <div class="detail-card">
-          <h3>Time</h3>
-          <p>6:30 PM Onwards</p>
-        </div>
+        <div class="divider"></div>
 
-        <div class="detail-card">
-          <h3>Venue</h3>
-          <p>Royal Grand Palace</p>
-        </div>
+        <div class="info-grid">
 
-      </div>
-
-      <div class="buttons">
-        <a href="#gallery" class="btn gold-btn">View Gallery</a>
-        <a href="#rsvp" class="btn outline-btn">RSVP Now</a>
-      </div>
-
-    </div>
-
-  </section>
-
-  <section>
-
-    <div class="container">
-
-      <h1 class="section-title">
-        Wedding Timeline
-      </h1>
-
-      <p class="section-subtitle">
-        Celebrate every beautiful moment with us
-      </p>
-
-      <div class="timeline">
-
-        <div class="timeline-card">
-
-          <div class="timeline-number">
-            01
+          <div class="info-card">
+            <h3>Date</h3>
+            <p>18 February 2027</p>
           </div>
 
-          <div class="timeline-content">
-            <h2>Engagement Ceremony</h2>
+          <div class="info-card">
+            <h3>Time</h3>
+            <p>7:00 PM onwards</p>
+          </div>
 
-            <p>
-              A beautiful evening marking the beginning
-              of our forever journey together.
-            </p>
+          <div class="info-card">
+            <h3>Venue</h3>
+            <p>Imperial Rose Palace</p>
+          </div>
+
+          <div class="info-card">
+            <h3>Theme</h3>
+            <p>Romantic Luxury Evening</p>
           </div>
 
         </div>
 
-        <div class="timeline-card">
+        <div class="buttons">
 
-          <div class="timeline-number">
-            02
-          </div>
+          <a href="#story" class="btn primary-btn">
+            Explore Story
+          </a>
 
-          <div class="timeline-content">
-            <h2>Wedding Ceremony</h2>
-
-            <p>
-              Join us as we exchange vows surrounded
-              by family, love, and happiness.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="timeline-card">
-
-          <div class="timeline-number">
-            03
-          </div>
-
-          <div class="timeline-content">
-            <h2>Reception Party</h2>
-
-            <p>
-              Celebrate the night with music, joy,
-              dinner, and unforgettable memories.
-            </p>
-          </div>
+          <a href="#rsvp" class="btn secondary-btn">
+            RSVP Now
+          </a>
 
         </div>
 
@@ -569,43 +780,97 @@
 
   </section>
 
-  <section id="gallery">
+  <!-- STORY -->
+
+  <section id="story">
 
     <div class="container">
 
       <h1 class="section-title">
-        Our Moments
+        Our Love Story
       </h1>
 
       <p class="section-subtitle">
-        A glimpse into our beautiful journey together
+        Every moment together became part of our forever.
       </p>
 
-      <div class="gallery">
+      <div class="story-grid">
 
-        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1974&auto=format&fit=crop">
+        <div class="story-card">
 
-        <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop">
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop">
 
-        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop">
+          <div class="story-content">
+
+            <h2>First Meeting</h2>
+
+            <p>
+              A magical encounter that unexpectedly changed
+              both our lives forever.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="story-card">
+
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1974&auto=format&fit=crop">
+
+          <div class="story-content">
+
+            <h2>Falling In Love</h2>
+
+            <p>
+              Through laughter, adventures, and countless
+              memories, our love grew stronger every day.
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="story-card">
+
+          <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop">
+
+          <div class="story-content">
+
+            <h2>Forever Begins</h2>
+
+            <p>
+              Now we begin the most beautiful chapter
+              of our lives together.
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
+
+      <!-- LIVE COUNTDOWN -->
 
       <div class="countdown">
 
         <div class="count-box">
-          <h1>120</h1>
+          <h1 id="days">00</h1>
           <span>DAYS</span>
         </div>
 
         <div class="count-box">
-          <h1>14</h1>
+          <h1 id="hours">00</h1>
           <span>HOURS</span>
         </div>
 
         <div class="count-box">
-          <h1>32</h1>
+          <h1 id="minutes">00</h1>
           <span>MINUTES</span>
+        </div>
+
+        <div class="count-box">
+          <h1 id="seconds">00</h1>
+          <span>SECONDS</span>
         </div>
 
       </div>
@@ -613,6 +878,8 @@
     </div>
 
   </section>
+
+  <!-- RSVP -->
 
   <section id="rsvp">
 
@@ -620,26 +887,45 @@
 
       <div class="venue-card">
 
-        <h2>Royal Grand Palace</h2>
+        <h2>
+          Imperial Rose Palace
+        </h2>
 
         <p>
-          245 Elegant Avenue, New York City
+          245 Royal Avenue, California
           <br><br>
-          We would be honored by your presence as we
-          celebrate the beginning of our new journey together.
+          We would be honored by your presence as we celebrate
+          this unforgettable evening of romance, elegance,
+          joy, and timeless memories together.
         </p>
 
-        <div class="buttons">
-          <a href="#" class="btn gold-btn">
+        <div class="buttons"
+        style="justify-content:center; margin-top:40px;">
+
+          <a href="#" class="btn primary-btn">
             Confirm Attendance
           </a>
+
         </div>
+
+      </div>
+
+      <!-- MAP -->
+
+      <div class="map-card">
+
+        <iframe
+          src="https://maps.google.com/maps?q=california&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          loading="lazy">
+        </iframe>
 
       </div>
 
     </div>
 
   </section>
+
+  <!-- FOOTER -->
 
   <footer class="footer">
 
@@ -649,10 +935,56 @@
 
     <p>
       Designed By PRIME WEB <br>
-      Premium Luxury Invitation Website
+      Romantic Luxury Invitation Experience
     </p>
 
   </footer>
+
+  <!-- COUNTDOWN SCRIPT -->
+
+  <script>
+
+    const weddingDate =
+    new Date("Feb 18, 2027 19:00:00").getTime();
+
+    const countdown = setInterval(() => {
+
+      const now = new Date().getTime();
+
+      const distance = weddingDate - now;
+
+      const days = Math.floor(
+      distance / (1000 * 60 * 60 * 24));
+
+      const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24))
+      / (1000 * 60 * 60));
+
+      const minutes = Math.floor(
+      (distance % (1000 * 60 * 60))
+      / (1000 * 60));
+
+      const seconds = Math.floor(
+      (distance % (1000 * 60))
+      / 1000);
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+      if(distance < 0){
+
+        clearInterval(countdown);
+
+        document.querySelector(".countdown").innerHTML =
+        "<h2>The Celebration Has Started ❤️</h2>";
+
+      }
+
+    },1000);
+
+  </script>
 
 </body>
 </html>

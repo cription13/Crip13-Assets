@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Floral Romantic Invitation</title>
+
+  <title>Luxury Night Invitation</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
   <style>
 
@@ -23,10 +24,10 @@
     }
 
     body{
-      font-family:'Poppins',sans-serif;
-      background:#fff7f6;
-      color:#2d2d2d;
+      font-family:'Outfit',sans-serif;
+      background:#070814;
       overflow-x:hidden;
+      color:white;
       position:relative;
     }
 
@@ -34,172 +35,258 @@
       content:'';
       position:fixed;
       inset:0;
+
       background:
-      radial-gradient(circle at top left,#ffd9df,transparent 40%),
-      radial-gradient(circle at bottom right,#ffe8d6,transparent 40%);
-      z-index:-2;
+      radial-gradient(circle at top left,#8b5cf622,transparent 35%),
+      radial-gradient(circle at bottom right,#ff4fa322,transparent 35%),
+      radial-gradient(circle at center,#ffffff08,transparent 40%);
+
+      z-index:-3;
     }
 
-    .flowers{
+    /* STARS */
+
+    .stars{
       position:fixed;
       inset:0;
       overflow:hidden;
       pointer-events:none;
-      z-index:-1;
+      z-index:-2;
     }
 
-    .flowers span{
+    .stars span{
       position:absolute;
-      width:18px;
-      height:18px;
-      background:#ffb6c1;
-      border-radius:50% 50% 0 50%;
-      opacity:0.35;
-      animation:fall 14s linear infinite;
+      width:3px;
+      height:3px;
+      background:white;
+      border-radius:50%;
+      animation:twinkle 4s infinite ease-in-out;
+      opacity:0.6;
     }
 
-    @keyframes fall{
+    @keyframes twinkle{
 
-      0%{
-        transform:translateY(-100px) rotate(0deg);
+      0%,100%{
+        opacity:0.2;
+        transform:scale(1);
       }
 
-      100%{
-        transform:translateY(110vh) rotate(360deg);
+      50%{
+        opacity:1;
+        transform:scale(1.8);
       }
 
     }
+
+    /* HERO */
 
     .hero{
       min-height:100vh;
+
       display:flex;
       justify-content:center;
       align-items:center;
+
       padding:40px 20px;
+
       position:relative;
+
+      background:
+      linear-gradient(rgba(0,0,0,0.55),rgba(0,0,0,0.82)),
+      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')
+      center/cover fixed;
     }
 
     .hero-card{
-      max-width:1100px;
+
       width:100%;
-      background:rgba(255,255,255,0.7);
-      backdrop-filter:blur(12px);
+      max-width:1180px;
+
+      background:rgba(255,255,255,0.06);
+
+      backdrop-filter:blur(18px);
+
+      border:1px solid rgba(255,255,255,0.08);
+
       border-radius:40px;
+
       overflow:hidden;
+
       display:grid;
       grid-template-columns:1fr 1fr;
-      border:1px solid rgba(255,255,255,0.5);
+
       box-shadow:
-      0 15px 40px rgba(0,0,0,0.08),
-      inset 0 0 0 1px rgba(255,255,255,0.4);
+      0 20px 60px rgba(0,0,0,0.45),
+      0 0 80px rgba(139,92,246,0.12);
+
+      animation:fadeUp 1.2s ease;
+    }
+
+    @keyframes fadeUp{
+
+      from{
+        transform:translateY(80px);
+        opacity:0;
+      }
+
+      to{
+        transform:translateY(0);
+        opacity:1;
+      }
+
     }
 
     .hero-image{
-      min-height:750px;
-      background:
-      linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.25)),
-      url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop')
-      center/cover;
-      position:relative;
-    }
 
-    .hero-image::after{
-      content:'';
-      position:absolute;
-      inset:0;
-      background:linear-gradient(to top,rgba(0,0,0,0.4),transparent);
+      min-height:820px;
+
+      background:
+      linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0.4)),
+      url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop')
+      center/cover;
     }
 
     .hero-content{
+
       padding:90px 70px;
+
       display:flex;
       flex-direction:column;
       justify-content:center;
-      position:relative;
     }
 
     .small-text{
-      letter-spacing:4px;
+
       text-transform:uppercase;
+
+      letter-spacing:6px;
+
       font-size:12px;
-      color:#d48b98;
-      margin-bottom:25px;
+
+      color:#cbb4ff;
+
+      margin-bottom:24px;
+
       font-weight:600;
     }
 
     .main-title{
-      font-family:'Great Vibes',cursive;
-      font-size:95px;
-      line-height:1;
-      color:#c86f7f;
-      margin-bottom:20px;
+
+      font-size:88px;
+
+      line-height:0.95;
+
+      margin-bottom:18px;
+
+      font-weight:700;
     }
 
-    .sub-title{
-      font-size:28px;
-      color:#6a6a6a;
+    .main-title span{
+      color:#ff84b7;
+    }
+
+    .subtitle{
+
+      font-family:'Great Vibes',cursive;
+
+      font-size:46px;
+
+      color:#e6d4ff;
+
       margin-bottom:30px;
-      font-weight:300;
     }
 
     .description{
-      font-size:17px;
-      line-height:1.9;
-      color:#666666;
+
+      line-height:2;
+
+      color:#d9d7e7;
+
       margin-bottom:40px;
+
+      font-size:17px;
     }
 
     .divider{
-      width:120px;
+
+      width:140px;
       height:1px;
-      background:#e4a5b0;
+
+      background:linear-gradient(to right,#8b5cf6,#ff4fa3);
+
       margin-bottom:40px;
+
       position:relative;
     }
 
     .divider::after{
-      content:'❀';
+
+      content:'✦';
+
       position:absolute;
+
       top:-14px;
       left:50%;
+
       transform:translateX(-50%);
-      color:#d48b98;
-      font-size:22px;
-      background:#fff7f6;
+
+      background:#12131f;
+
       padding:0 10px;
+
+      color:#ffb2d4;
     }
 
-    .details{
+    .info-grid{
+
       display:grid;
+
       grid-template-columns:1fr 1fr;
+
       gap:18px;
+
       margin-bottom:40px;
     }
 
-    .detail-card{
-      background:rgba(255,255,255,0.75);
-      padding:25px;
+    .info-card{
+
+      background:rgba(255,255,255,0.05);
+
+      border:1px solid rgba(255,255,255,0.06);
+
+      padding:24px;
+
       border-radius:24px;
-      border:1px solid rgba(0,0,0,0.05);
+
       transition:0.4s ease;
     }
 
-    .detail-card:hover{
-      transform:translateY(-5px);
-      box-shadow:0 10px 25px rgba(0,0,0,0.06);
+    .info-card:hover{
+
+      transform:translateY(-8px);
+
+      box-shadow:
+      0 15px 35px rgba(139,92,246,0.18);
     }
 
-    .detail-card h3{
+    .info-card h3{
+
       font-size:12px;
+
       letter-spacing:3px;
+
       text-transform:uppercase;
-      color:#d48b98;
+
+      color:#cbb4ff;
+
       margin-bottom:10px;
     }
 
-    .detail-card p{
-      color:#333333;
-      line-height:1.7;
+    .info-card p{
+
+      line-height:1.8;
+
+      color:#ffffff;
     }
 
     .buttons{
@@ -209,31 +296,45 @@
     }
 
     .btn{
+
       text-decoration:none;
-      padding:16px 36px;
+
+      padding:16px 34px;
+
       border-radius:999px;
+
       transition:0.4s ease;
+
       font-weight:500;
     }
 
     .primary-btn{
-      background:#d48b98;
+
+      background:
+      linear-gradient(135deg,#8b5cf6,#ff4fa3);
+
       color:white;
     }
 
     .primary-btn:hover{
+
       transform:translateY(-5px);
-      box-shadow:0 10px 25px rgba(212,139,152,0.3);
+
+      box-shadow:
+      0 15px 35px rgba(139,92,246,0.28);
     }
 
     .secondary-btn{
-      background:white;
-      border:1px solid rgba(0,0,0,0.08);
-      color:#444444;
+
+      border:1px solid rgba(255,255,255,0.12);
+
+      background:rgba(255,255,255,0.05);
+
+      color:white;
     }
 
     .secondary-btn:hover{
-      background:#f8f8f8;
+      background:rgba(255,255,255,0.1);
     }
 
     section{
@@ -246,133 +347,247 @@
     }
 
     .section-title{
+
       text-align:center;
-      font-family:'Great Vibes',cursive;
-      font-size:80px;
-      color:#c86f7f;
-      margin-bottom:20px;
+
+      font-size:68px;
+
+      margin-bottom:16px;
+
+      font-weight:700;
+    }
+
+    .section-title span{
+      color:#ff84b7;
     }
 
     .section-subtitle{
+
       text-align:center;
-      color:#777777;
-      margin-bottom:70px;
+
+      color:#c8c5d8;
+
       line-height:1.9;
+
+      margin-bottom:70px;
     }
 
-    .gallery{
+    /* STORY */
+
+    .story-grid{
+
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-      gap:25px;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(320px,1fr));
+
+      gap:30px;
     }
 
-    .gallery-card{
-      background:white;
-      border-radius:30px;
+    .story-card{
+
+      background:rgba(255,255,255,0.05);
+
+      backdrop-filter:blur(14px);
+
+      border:1px solid rgba(255,255,255,0.06);
+
+      border-radius:35px;
+
       overflow:hidden;
-      box-shadow:0 10px 25px rgba(0,0,0,0.05);
+
       transition:0.5s ease;
     }
 
-    .gallery-card:hover{
-      transform:translateY(-8px);
+    .story-card:hover{
+
+      transform:translateY(-10px);
+
+      box-shadow:
+      0 20px 40px rgba(139,92,246,0.18);
     }
 
-    .gallery-card img{
+    .story-card img{
+
       width:100%;
-      height:380px;
+      height:320px;
+
       object-fit:cover;
+
+      transition:0.5s ease;
     }
 
-    .gallery-content{
-      padding:28px;
+    .story-card:hover img{
+      transform:scale(1.08);
     }
 
-    .gallery-content h2{
-      margin-bottom:12px;
-      color:#c86f7f;
-      font-size:30px;
-      font-family:'Great Vibes',cursive;
+    .story-content{
+      padding:30px;
     }
 
-    .gallery-content p{
-      color:#666666;
-      line-height:1.8;
+    .story-content h2{
+
+      font-size:34px;
+
+      margin-bottom:15px;
+
+      color:white;
     }
+
+    .story-content p{
+
+      line-height:1.9;
+
+      color:#cbc8da;
+    }
+
+    /* COUNTDOWN */
 
     .countdown{
-      margin-top:80px;
+
+      margin-top:90px;
+
       display:flex;
+
       justify-content:center;
-      gap:25px;
+
+      gap:24px;
+
       flex-wrap:wrap;
     }
 
     .count-box{
+
       width:170px;
       height:170px;
-      background:white;
+
       border-radius:50%;
+
+      background:rgba(255,255,255,0.06);
+
+      border:1px solid rgba(255,255,255,0.08);
+
+      backdrop-filter:blur(14px);
+
       display:flex;
       flex-direction:column;
       justify-content:center;
       align-items:center;
-      box-shadow:0 10px 25px rgba(0,0,0,0.06);
-      border:1px solid rgba(0,0,0,0.04);
+
+      box-shadow:
+      0 12px 30px rgba(0,0,0,0.28);
     }
 
     .count-box h1{
-      font-size:54px;
-      color:#d48b98;
-      margin-bottom:8px;
+
+      font-size:56px;
+
+      color:#ff9cc7;
+
+      margin-bottom:10px;
     }
 
     .count-box span{
+
       letter-spacing:3px;
+
       font-size:12px;
-      color:#777777;
+
+      color:#d3d0e1;
     }
 
+    /* VENUE */
+
     .venue-card{
-      background:white;
+
+      background:rgba(255,255,255,0.05);
+
+      backdrop-filter:blur(14px);
+
+      border:1px solid rgba(255,255,255,0.06);
+
+      padding:80px;
+
       border-radius:40px;
-      padding:70px;
+
       text-align:center;
-      box-shadow:0 15px 30px rgba(0,0,0,0.05);
+
+      box-shadow:
+      0 20px 50px rgba(0,0,0,0.25);
     }
 
     .venue-card h2{
-      font-family:'Great Vibes',cursive;
-      font-size:72px;
-      color:#c86f7f;
+
+      font-size:58px;
+
       margin-bottom:20px;
     }
 
     .venue-card p{
+
       max-width:700px;
+
       margin:auto;
-      line-height:1.9;
-      color:#666666;
+
+      line-height:2;
+
+      color:#c9c6d9;
     }
 
+    /* MAP */
+
+    .map-card{
+
+      margin-top:70px;
+
+      overflow:hidden;
+
+      border-radius:35px;
+
+      border:1px solid rgba(255,255,255,0.06);
+
+      box-shadow:
+      0 15px 40px rgba(0,0,0,0.25);
+    }
+
+    .map-card iframe{
+
+      width:100%;
+      height:450px;
+
+      border:none;
+
+      filter:grayscale(0.15);
+    }
+
+    /* FOOTER */
+
     .footer{
-      padding:70px 20px;
+
+      padding:80px 20px;
+
       text-align:center;
-      background:white;
-      border-top:1px solid rgba(0,0,0,0.05);
+
+      border-top:1px solid rgba(255,255,255,0.05);
     }
 
     .footer h2{
-      font-family:'Great Vibes',cursive;
-      font-size:62px;
-      color:#c86f7f;
+
+      font-size:54px;
+
       margin-bottom:15px;
+
+      color:#f3d7ff;
     }
 
     .footer p{
-      color:#777777;
-      line-height:1.8;
+
+      line-height:1.9;
+
+      color:#bfbcd0;
     }
+
+    /* RESPONSIVE */
 
     @media(max-width:980px){
 
@@ -389,7 +604,7 @@
       }
 
       .main-title{
-        font-size:70px;
+        font-size:62px;
       }
 
     }
@@ -397,45 +612,49 @@
     @media(max-width:768px){
 
       .section-title{
-        font-size:60px;
+        font-size:46px;
       }
 
-      .details{
+      .info-grid{
         grid-template-columns:1fr;
       }
 
       .venue-card{
-        padding:45px 25px;
+        padding:50px 25px;
       }
 
       .count-box{
-        width:135px;
-        height:135px;
+        width:140px;
+        height:140px;
       }
 
       .count-box h1{
-        font-size:40px;
+        font-size:42px;
       }
 
     }
 
   </style>
+
 </head>
 <body>
 
-  <div class="flowers">
+  <!-- STARS -->
 
-    <span style="left:10%;animation-delay:0s;"></span>
-    <span style="left:20%;animation-delay:3s;"></span>
-    <span style="left:30%;animation-delay:6s;"></span>
-    <span style="left:40%;animation-delay:1s;"></span>
-    <span style="left:50%;animation-delay:5s;"></span>
-    <span style="left:60%;animation-delay:2s;"></span>
-    <span style="left:70%;animation-delay:4s;"></span>
-    <span style="left:80%;animation-delay:7s;"></span>
-    <span style="left:90%;animation-delay:3s;"></span>
+  <div class="stars">
+
+    <span style="top:10%;left:15%;animation-delay:0s;"></span>
+    <span style="top:20%;left:35%;animation-delay:1s;"></span>
+    <span style="top:40%;left:75%;animation-delay:2s;"></span>
+    <span style="top:70%;left:25%;animation-delay:3s;"></span>
+    <span style="top:60%;left:90%;animation-delay:4s;"></span>
+    <span style="top:85%;left:55%;animation-delay:1.5s;"></span>
+    <span style="top:30%;left:50%;animation-delay:2.5s;"></span>
+    <span style="top:15%;left:80%;animation-delay:5s;"></span>
 
   </div>
+
+  <!-- HERO -->
 
   <section class="hero">
 
@@ -446,53 +665,54 @@
       <div class="hero-content">
 
         <p class="small-text">
-          With Great Joy
+          Under The Stars Of Love
         </p>
 
         <h1 class="main-title">
-          Sophia & Liam
+          Amelia <span>&</span><br>
+          Ethan
         </h1>
 
-        <p class="sub-title">
-          Invite You To Celebrate Their Love
+        <p class="subtitle">
+          invite you to an unforgettable night
         </p>
 
         <p class="description">
-          Join us for a romantic evening filled with
-          love, happiness, laughter, and unforgettable
-          memories as we begin our forever together.
+          Join us for a dreamy celebration filled with
+          candlelight, romance, music, elegance, and magical
+          memories as we begin forever together beneath the stars.
         </p>
 
         <div class="divider"></div>
 
-        <div class="details">
+        <div class="info-grid">
 
-          <div class="detail-card">
+          <div class="info-card">
             <h3>Date</h3>
-            <p>15 March 2027</p>
+            <p>28 April 2027</p>
           </div>
 
-          <div class="detail-card">
+          <div class="info-card">
             <h3>Time</h3>
-            <p>6:00 PM onwards</p>
+            <p>7:30 PM onwards</p>
           </div>
 
-          <div class="detail-card">
+          <div class="info-card">
             <h3>Venue</h3>
-            <p>Rose Garden Palace</p>
+            <p>Moonlight Crystal Hall</p>
           </div>
 
-          <div class="detail-card">
+          <div class="info-card">
             <h3>Theme</h3>
-            <p>Romantic Floral Evening</p>
+            <p>Luxury Night Celebration</p>
           </div>
 
         </div>
 
         <div class="buttons">
 
-          <a href="#gallery" class="btn primary-btn">
-            View Moments
+          <a href="#story" class="btn primary-btn">
+            Explore Story
           </a>
 
           <a href="#rsvp" class="btn secondary-btn">
@@ -507,62 +727,67 @@
 
   </section>
 
-  <section id="gallery">
+  <!-- STORY -->
+
+  <section id="story">
 
     <div class="container">
 
       <h1 class="section-title">
-        Our Love Story
+        Our <span>Journey</span>
       </h1>
 
       <p class="section-subtitle">
-        Every moment together became a beautiful memory.
+        A love story illuminated by destiny and moonlight.
       </p>
 
-      <div class="gallery">
+      <div class="story-grid">
 
-        <div class="gallery-card">
+        <div class="story-card">
 
           <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1974&auto=format&fit=crop">
 
-          <div class="gallery-content">
+          <div class="story-content">
 
-            <h2>First Smile</h2>
+            <h2>First Glance</h2>
 
             <p>
-              The moment our hearts quietly found each other.
+              One magical encounter became the beginning
+              of a lifetime filled with love and dreams.
             </p>
 
           </div>
 
         </div>
 
-        <div class="gallery-card">
+        <div class="story-card">
 
           <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1974&auto=format&fit=crop">
 
-          <div class="gallery-content">
+          <div class="story-content">
 
-            <h2>Beautiful Journey</h2>
+            <h2>Endless Memories</h2>
 
             <p>
-              A journey filled with love, dreams, and happiness.
+              Through laughter and adventures, our hearts
+              found a home in each other forever.
             </p>
 
           </div>
 
         </div>
 
-        <div class="gallery-card">
+        <div class="story-card">
 
           <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop">
 
-          <div class="gallery-content">
+          <div class="story-content">
 
             <h2>Forever Begins</h2>
 
             <p>
-              Now we celebrate the beginning of forever together.
+              Now we step into the most beautiful chapter
+              of our lives together.
             </p>
 
           </div>
@@ -571,21 +796,28 @@
 
       </div>
 
+      <!-- COUNTDOWN -->
+
       <div class="countdown">
 
         <div class="count-box">
-          <h1>95</h1>
+          <h1 id="days">00</h1>
           <span>DAYS</span>
         </div>
 
         <div class="count-box">
-          <h1>16</h1>
+          <h1 id="hours">00</h1>
           <span>HOURS</span>
         </div>
 
         <div class="count-box">
-          <h1>24</h1>
+          <h1 id="minutes">00</h1>
           <span>MINUTES</span>
+        </div>
+
+        <div class="count-box">
+          <h1 id="seconds">00</h1>
+          <span>SECONDS</span>
         </div>
 
       </div>
@@ -594,6 +826,8 @@
 
   </section>
 
+  <!-- RSVP -->
+
   <section id="rsvp">
 
     <div class="container">
@@ -601,17 +835,19 @@
       <div class="venue-card">
 
         <h2>
-          Rose Garden Palace
+          Moonlight Crystal Hall
         </h2>
 
         <p>
-          245 Floral Avenue, California
+          108 Aurora Skyline Avenue, California
           <br><br>
-          We would be delighted to celebrate this
-          beautiful evening of love and happiness with you.
+          We would be honored by your presence as we celebrate
+          this unforgettable evening of elegance, romance,
+          moonlight, and timeless memories together.
         </p>
 
-        <div class="buttons" style="justify-content:center; margin-top:40px;">
+        <div class="buttons"
+        style="justify-content:center; margin-top:40px;">
 
           <a href="#" class="btn primary-btn">
             Confirm Attendance
@@ -621,22 +857,81 @@
 
       </div>
 
+      <!-- MAP -->
+
+      <div class="map-card">
+
+        <iframe
+          src="https://maps.google.com/maps?q=california&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          loading="lazy">
+        </iframe>
+
+      </div>
+
     </div>
 
   </section>
 
+  <!-- FOOTER -->
+
   <footer class="footer">
 
     <h2>
-      See You At The Celebration
+      A Night To Remember Forever
     </h2>
 
     <p>
       Designed By PRIME WEB <br>
-      Romantic Floral Invitation Experience
+      Luxury Glassmorphism Invitation Experience
     </p>
 
   </footer>
+
+  <!-- COUNTDOWN SCRIPT -->
+
+  <script>
+
+    const weddingDate =
+    new Date("Apr 28, 2027 19:30:00").getTime();
+
+    const countdown = setInterval(() => {
+
+      const now = new Date().getTime();
+
+      const distance = weddingDate - now;
+
+      const days = Math.floor(
+      distance / (1000 * 60 * 60 * 24));
+
+      const hours = Math.floor(
+      (distance % (1000 * 60 * 60 * 24))
+      / (1000 * 60 * 60));
+
+      const minutes = Math.floor(
+      (distance % (1000 * 60 * 60))
+      / (1000 * 60));
+
+      const seconds = Math.floor(
+      (distance % (1000 * 60))
+      / 1000);
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+      if(distance < 0){
+
+        clearInterval(countdown);
+
+        document.querySelector(".countdown").innerHTML =
+        "<h2>The Celebration Has Started ✨</h2>";
+
+      }
+
+    },1000);
+
+  </script>
 
 </body>
 </html>
